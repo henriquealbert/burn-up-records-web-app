@@ -1,5 +1,5 @@
-import Main from 'components/Main';
+import { Heading } from 'components/Heading';
 
 export default function Home() {
-  return <Main />;
+  return <Heading />;
 }

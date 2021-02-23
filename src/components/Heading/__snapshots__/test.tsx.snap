@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Heading /> should render the heading 1`] = `
+<div>
+  <h1>
+    Heading
+  </h1>
+</div>
+`;
