@@ -1,5 +1,5 @@
 {
-  "name": "React Avançado - Boilerplate",
+  "name": "ElCubo.dev",
   "short_name": "React Avançado",
   "icons": [
     {
@@ -14,7 +14,7 @@
     }
   ],
   "background_color": "#06092B",
-  "description": "Boilerplate utilizando Typescript, React, NextJS e Styled Components!",
+  "description": "Ajudamos sua empresa crescer desenvolvendo softwares ágeis e personalizados.",
   "display": "fullscreen",
   "start_url": "/",
   "theme_color": "#06092B"
