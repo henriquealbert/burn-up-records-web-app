@@ -1,9 +1,13 @@
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 
+import { ConfigProvider } from 'antd'
+import pt_BR from 'antd/lib/locale/pt_BR'
+import 'antd/dist/antd.css'
+
 function App({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <ConfigProvider locale={pt_BR}>
       <Head>
         <title>Burn Up Records</title>
         <link rel="manifest" href="/manifest.json" />
@@ -13,7 +17,7 @@ function App({ Component, pageProps }: AppProps) {
         />
       </Head>
       <Component {...pageProps} />
-    </>
+    </ConfigProvider>
   )
 }
 
