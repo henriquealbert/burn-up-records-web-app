@@ -1,20 +1,20 @@
 {
-  "name": "ElCubo.dev",
-  "short_name": "React Avançado",
+  "name": "Burn Up Records",
+  "short_name": "Burn Up Records",
   "icons": [
-    {
-      "src": "/img/icon-192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "/img/icon-512.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
+    // {
+    //   "src": "/img/icon-192.png",
+    //   "type": "image/png",
+    //   "sizes": "192x192"
+    // },
+    // {
+    //   "src": "/img/icon-512.png",
+    //   "type": "image/png",
+    //   "sizes": "512x512"
+    // }
   ],
   "background_color": "#06092B",
-  "description": "Ajudamos sua empresa crescer desenvolvendo softwares ágeis e personalizados.",
+  "description": "Ajudamos a lançar sua track em tempo recorde e sem burocracias.",
   "display": "fullscreen",
   "start_url": "/",
   "theme_color": "#06092B"

@@ -1,4 +1,4 @@
-# ElCubo.dev
+# Burn Up Records
 
 ## What is inside?
 

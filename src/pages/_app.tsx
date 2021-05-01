@@ -1,20 +1,20 @@
-import { AppProps } from 'next/app';
-import Head from 'next/head';
+import { AppProps } from 'next/app'
+import Head from 'next/head'
 
 function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>ElCubo.dev</title>
+        <title>Burn Up Records</title>
         <link rel="manifest" href="/manifest.json" />
         <meta
           name="description"
-          content="Ajudamos sua empresa crescer desenvolvendo softwares ágeis e personalizados."
+          content="Ajudamos a lançar sua track em tempo recorde e sem burocracias."
         />
       </Head>
       <Component {...pageProps} />
     </>
-  );
+  )
 }
 
-export default App;
+export default App
