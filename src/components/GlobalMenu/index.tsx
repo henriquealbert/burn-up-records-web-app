@@ -13,6 +13,7 @@ export const GlobalMenu = () => (
 const menu = (
   <Menu>
     <Menu.Item>Minha conta</Menu.Item>
+    <Menu.Item>Configurações</Menu.Item>
     <Menu.Item>Sair</Menu.Item>
   </Menu>
 )
