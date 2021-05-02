@@ -4,7 +4,6 @@ import Head from 'next/head'
 import { ConfigProvider } from 'antd'
 import pt_BR from 'antd/lib/locale/pt_BR'
 import GlobalStyle from 'styles/globalStyles'
-import 'antd/dist/antd.dark.css'
 
 function App({ Component, pageProps }: AppProps) {
   return (

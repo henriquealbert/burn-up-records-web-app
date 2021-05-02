@@ -1,9 +1,9 @@
 import { LayoutWrapper } from 'components/LayoutWrapper'
 
-export default function Home() {
+export default function Conta() {
   return (
     <LayoutWrapper>
-      <p>Releases</p>
+      <p>Conta</p>
     </LayoutWrapper>
   )
 }
