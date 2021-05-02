@@ -3,7 +3,8 @@ import Head from 'next/head'
 
 import { ConfigProvider } from 'antd'
 import pt_BR from 'antd/lib/locale/pt_BR'
-import 'antd/dist/antd.css'
+import GlobalStyle from 'styles/globalStyles'
+import 'antd/dist/antd.dark.css'
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -16,6 +17,7 @@ function App({ Component, pageProps }: AppProps) {
           content="Ajudamos a lançar sua track em tempo recorde e sem burocracias."
         />
       </Head>
+      <GlobalStyle />
       <Component {...pageProps} />
     </ConfigProvider>
   )
