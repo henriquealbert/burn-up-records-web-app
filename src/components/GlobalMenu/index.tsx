@@ -1,4 +1,4 @@
-import { Button, Menu } from 'antd'
+import { Avatar, Button, Menu } from 'antd'
 import Router from 'next/router'
 
 import * as S from './styles'
@@ -8,6 +8,16 @@ export const GlobalMenu = () => {
     <S.HeaderWrapper>
       <S.DropdownWrapper overlay={MenuDrop} placement="bottomRight">
         <Button type="text" size="large">
+          <Avatar
+            style={{
+              backgroundColor: '#f56a00',
+              verticalAlign: 'middle',
+              marginRight: '8px'
+            }}
+            size="small"
+          >
+            H
+          </Avatar>
           Henrique
         </Button>
       </S.DropdownWrapper>
