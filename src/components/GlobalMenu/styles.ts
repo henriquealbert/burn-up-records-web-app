@@ -17,3 +17,9 @@ export const DropdownWrapper = styled(Dropdown)`
   justify-self: flex-end;
   margin-left: auto;
 `
+
+export const AvatarWrapper = styled.div`
+  &:hover {
+    background-color: ${presetDarkPalettes[2]};
+  }
+`
