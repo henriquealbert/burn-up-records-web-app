@@ -14,7 +14,8 @@ export const BodyWrapper = styled(Layout)`
 
 export const ContentWrapper = styled(Content)`
   background: ${presetDarkPalettes.grey[2]};
-  margin: 1rem;
-  padding: 24px;
   min-height: 280px;
+  height: 100%;
+  width: 100%;
+  padding: 24px;
 `
