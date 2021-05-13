@@ -6,8 +6,7 @@ This project uses lot of stuff as:
 
 - [TypeScript](https://www.typescriptlang.org/)
 - [NextJS](https://nextjs.org/)
-- [Jest](https://jestjs.io/)
-- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
+- [ChrakraUI](https://chakra-ui.com/)
 - [Eslint](https://eslint.org/)
 - [Prettier](https://prettier.io/)
 - [Husky](https://github.com/typicode/husky)
@@ -32,8 +31,6 @@ You can start editing the page by modifying `pages/index.js`. The page auto-upda
 - `build`: creates the production build version
 - `start`: starts a simple server with the build production code
 - `lint`: runs the linter in all components and pages
-- `test`: runs jest to test all components and pages
-- `test:watch`: runs jest in watch mode
 
 ## Learn More
 
