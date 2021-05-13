@@ -1,16 +1,14 @@
-import { AppProps } from 'next/app'
 import Head from 'next/head'
-
-import { ConfigProvider } from 'antd'
-import pt_BR from 'antd/lib/locale/pt_BR'
-import GlobalStyle from 'styles/globalStyles'
+import { AppProps } from 'next/app'
+import { ChakraProvider, CSSReset } from '@chakra-ui/react'
 
 import { QueryProvider } from 'graphql/client'
+import customTheme from 'styles/theme'
 
 function App({ Component, pageProps }: AppProps) {
   return (
-    <QueryProvider>
-      <ConfigProvider locale={pt_BR}>
+    <ChakraProvider theme={customTheme}>
+      <QueryProvider>
         <Head>
           <title>Burn Up Records</title>
           <link rel="manifest" href="/manifest.json" />
@@ -19,10 +17,10 @@ function App({ Component, pageProps }: AppProps) {
             content="Ajudamos a lançar sua track em tempo recorde e sem burocracias."
           />
         </Head>
-        <GlobalStyle />
+        <CSSReset />
         <Component {...pageProps} />
-      </ConfigProvider>
-    </QueryProvider>
+      </QueryProvider>
+    </ChakraProvider>
   )
 }
 

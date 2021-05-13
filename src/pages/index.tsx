@@ -1,13 +1,9 @@
-import { Button } from 'antd'
-import Link from 'next/link'
+import { Button, Center } from '@chakra-ui/react'
 
 export default function Home() {
   return (
-    <div>
-      <p>Landing Page</p>
-      <Link href="/releases">
-        <Button type="primary">Log-in</Button>
-      </Link>
-    </div>
+    <Center bg="gray.300" h="100vh">
+      <Button>Login</Button>
+    </Center>
   )
 }
