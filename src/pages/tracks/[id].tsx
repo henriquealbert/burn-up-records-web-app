@@ -1,3 +1,5 @@
+import { Layout } from 'components/Layout'
+
 export default function TrackDetailsPage() {
-  return <h1>TrackDetails</h1>
+  return <Layout>TrackDetails</Layout>
 }

@@ -1,3 +1,5 @@
+import { Layout } from 'components/Layout'
+
 export default function ArtistDetailsPage() {
-  return <h1>ArtistDetails</h1>
+  return <Layout>ArtistDetails</Layout>
 }
