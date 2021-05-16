@@ -1,12 +1,8 @@
 import { Alert, AlertIcon } from '@chakra-ui/alert'
 
-type ErrorMessageProps = {
-  message?: string
-}
-
-export const ErrorMessage = ({ message }: ErrorMessageProps) => (
-  <Alert status="error">
+export const ErrorMessage = () => (
+  <Alert status="error" borderRadius="4px">
     <AlertIcon />
-    {message}
+    Oops! Ocorreu um erro inesperado. Por favor, tente novamente.
   </Alert>
 )

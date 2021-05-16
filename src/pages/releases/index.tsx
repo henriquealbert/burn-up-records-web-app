@@ -8,7 +8,7 @@ import { GridListSkeleton } from 'components/GridList/GridListSkeleton'
 import { useReleases } from 'graphql/releases'
 
 export default function ReleasesPage() {
-  const { data, error, isError, isLoading } = useReleases()
+  const { data, isError, isLoading } = useReleases()
   return (
     <Layout>
       <PageHeader
@@ -22,7 +22,7 @@ export default function ReleasesPage() {
       />
       <Whitebox>
         {isLoading && <GridListSkeleton />}
-        {isError && <ErrorMessage message={error?.message} />}
+        {isError && <ErrorMessage />}
         {data && <GridList data={data} />}
       </Whitebox>
     </Layout>
