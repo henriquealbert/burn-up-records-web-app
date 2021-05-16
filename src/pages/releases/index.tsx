@@ -1,8 +1,14 @@
 import { Layout } from 'components/Layout'
 import { PageHeader } from 'components/PageHeader'
-import React from 'react'
+import { Whitebox } from 'components/Whitebox'
+import { GridList } from 'components/GridList'
+import { ErrorMessage } from 'components/ErrorMessage'
+import { GridListSkeleton } from 'components/GridList/GridListSkeleton'
+
+import { useReleases } from 'graphql/releases'
 
 export default function ReleasesPage() {
+  const { data, error, isError, isLoading } = useReleases()
   return (
     <Layout>
       <PageHeader
@@ -14,6 +20,11 @@ export default function ReleasesPage() {
           { title: 'Lançamentos', href: '/releases', isCurrentPage: true }
         ]}
       />
+      <Whitebox>
+        {isLoading && <GridListSkeleton />}
+        {isError && <ErrorMessage message={error?.message} />}
+        {data && <GridList data={data} />}
+      </Whitebox>
     </Layout>
   )
 }

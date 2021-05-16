@@ -1,4 +1,4 @@
-import { Box, Grid } from '@chakra-ui/react'
+import { Box, Flex, Grid } from '@chakra-ui/react'
 import { Header } from 'components/Header'
 import { Sidebar } from 'components/Sidebar'
 import { ReactNode } from 'react'
@@ -14,9 +14,9 @@ export const Layout = ({ children }: LayoutProps) => (
     <Box h="100%">
       <Header />
 
-      <Box h="calc(100% - 108px)" m="24px">
+      <Flex direction="column" h="calc(100% - 108px)" m="24px">
         {children}
-      </Box>
+      </Flex>
     </Box>
   </Grid>
 )
