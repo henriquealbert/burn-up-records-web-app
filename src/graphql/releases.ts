@@ -7,13 +7,18 @@ export type ReleaseTypes = {
   name: string
   date: string
   type: string
-  status: string
+  status: 'analise' | 'aprovado' | 'corrigir' | 'negado' | 'lancado'
+  catalog: string
   created_at: string
   description: string
   licensing_usage: boolean
-  artwork: {
+  artwork?: {
     id: number
     url: string
+  } | null
+  artist: {
+    id: number
+    name: string
   }
 }
 
@@ -27,12 +32,17 @@ export const useReleases = () => {
           date
           type
           status
+          catalog
           created_at
           description
           licensing_usage
           artwork {
             id
             url
+          }
+          artist {
+            id
+            name
           }
         }
       }
