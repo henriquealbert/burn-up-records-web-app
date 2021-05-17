@@ -1,4 +1,5 @@
 import { Flex, Icon } from '@chakra-ui/react'
+import { signOut } from 'next-auth/client'
 import { IoMdNotificationsOutline } from 'react-icons/io'
 import { RiShutDownLine } from 'react-icons/ri'
 
@@ -27,6 +28,7 @@ export const Header = () => (
         title="Logout"
         _hover={{ color: 'red.500' }}
         cursor="pointer"
+        onClick={() => signOut({ redirect: false })}
       />
     </Flex>
   </Flex>
