@@ -1,7 +1,16 @@
+import { useRouter } from 'next/router'
 import { Button, Center } from '@chakra-ui/react'
-import { signIn } from 'next-auth/client'
+import { signIn, useSession } from 'next-auth/client'
+
+import { Loading } from 'components/Loading'
 
 export default function HomePage() {
+  const [session, loading] = useSession()
+  const { push } = useRouter()
+
+  if (session) push('/dashboard')
+  if (loading) return <Loading />
+
   return (
     <Center bg="gray.300" h="100vh" display="flex" flexDirection="column">
       <Button

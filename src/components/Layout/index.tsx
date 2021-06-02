@@ -1,5 +1,6 @@
-import { Box, Center, Flex, Grid, Spinner } from '@chakra-ui/react'
+import { Box, Flex, Grid } from '@chakra-ui/react'
 import { Header } from 'components/Header'
+import { Loading } from 'components/Loading'
 import { Sidebar } from 'components/Sidebar'
 import { useSession } from 'next-auth/client'
 import { useRouter } from 'next/router'
@@ -11,19 +12,10 @@ type LayoutProps = {
 
 export const Layout = ({ children }: LayoutProps) => {
   const [session, loading] = useSession()
-  const router = useRouter()
+  const { push } = useRouter()
 
-  if (loading) {
-    return (
-      <Center bg="gray.100" h="100vh" display="flex" flexDirection="column">
-        <Spinner size="xl" />
-      </Center>
-    )
-  }
-
-  if (!session) {
-    router.push('/')
-  }
+  if (loading) return <Loading />
+  if (!session) push('/')
 
   return (
     <>
