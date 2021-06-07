@@ -30,28 +30,28 @@
     "graphql-request": "^3.4.0",
     "js-cookie": "^2.2.1",
     "next": "10.2.3",
-    "next-auth": "^3.24.1",
+    "next-auth": "^3.25.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-icons": "^4.2.0",
-    "react-query": "^3.16.0"
+    "react-query": "^3.16.1"
   },
   "devDependencies": {
     "@types/js-cookie": "^2.2.6",
-    "@types/node": "^15.3.0",
-    "@types/react": "^17.0.5",
-    "@types/react-dom": "^17.0.3",
-    "@typescript-eslint/eslint-plugin": "^4.23.0",
-    "@typescript-eslint/parser": "^4.23.0",
-    "eslint": "^7.26.0",
+    "@types/node": "^15.12.1",
+    "@types/react": "^17.0.9",
+    "@types/react-dom": "^17.0.6",
+    "@typescript-eslint/eslint-plugin": "^4.26.1",
+    "@typescript-eslint/parser": "^4.26.1",
+    "eslint": "^7.28.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
-    "eslint-plugin-react": "^7.23.2",
+    "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "husky": "6.0.0",
     "lint-staged": "^11.0.0",
     "plop": "^2.7.4",
-    "prettier": "^2.3.0",
-    "typescript": "^4.2.4"
+    "prettier": "^2.3.1",
+    "typescript": "^4.3.2"
   }
 }
