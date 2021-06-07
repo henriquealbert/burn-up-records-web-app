@@ -9,7 +9,6 @@ type AvatarProps = {
 
 export const Profile = ({ info, m, p }: AvatarProps) => {
   const [session] = useSession()
-
   return (
     <Flex m={m} p={p} align="center">
       <Avatar w="46px" h="46px" src={session?.user?.image || ''} />
