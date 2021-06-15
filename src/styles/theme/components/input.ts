@@ -2,6 +2,7 @@ const Input = {
   variants: {
     outline: {
       field: {
+        h: 14,
         border: '2px',
         borderRadius: 'lg',
         borderColor: 'brand.input.border.normal',
@@ -18,6 +19,12 @@ const Input = {
           border: '2px',
           borderColor: 'brand.input.border.focus',
           color: 'brand.input.text.focus'
+        },
+        _invalid: {
+          boxShadow: 'none',
+          border: '2px',
+          borderColor: 'brand.error.1',
+          color: 'brand.error.2'
         }
       }
     }

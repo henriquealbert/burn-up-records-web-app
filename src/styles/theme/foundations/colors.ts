@@ -5,7 +5,10 @@ const colors = {
       1: '#FC8181',
       2: '#F56565'
     },
-    error: '#E53E3E',
+    error: {
+      1: '#E53E3E',
+      2: '#EF8B8B'
+    },
     gray: {
       1: '#EDF2F7',
       2: '#A0AEC0',
