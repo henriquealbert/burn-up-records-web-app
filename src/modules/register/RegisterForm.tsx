@@ -1,22 +1,37 @@
 import * as Yup from 'yup'
+import NextLink from 'next/link'
 import { signIn } from 'next-auth/client'
 import { RightArrowIcon } from 'styles/icons'
-import { Box, Button } from '@chakra-ui/react'
+import { Box, Button, Text } from '@chakra-ui/react'
 import { Formik, Form, FormikHelpers, FormikProps } from 'formik'
 
+import { CREATE_USER } from 'graphql/user'
+import { graphQLClient } from 'graphql/api'
 import { FormikInput } from 'components/Form/Input'
+import React from 'react'
 
-export const LoginForm = () => {
+export const RegisterForm = () => {
   const handleSubmit = async (
     values: Values,
     { setSubmitting }: FormikHelpers<Values>
   ) => {
     try {
-      await signIn('credentials', {
-        email: values.email,
-        password: values.password,
-        callbackUrl: '/dashboard'
+      const res = await graphQLClient.request(CREATE_USER, {
+        input: {
+          data: {
+            email: values.email,
+            username: values.email,
+            password: values.password
+          }
+        }
       })
+      if (res.createUser.user.email) {
+        await signIn('credentials', {
+          email: values.email,
+          password: values.password,
+          callbackUrl: '/dashboard'
+        })
+      }
     } catch (error) {
       alert(error)
       setSubmitting(false)
@@ -34,6 +49,25 @@ export const LoginForm = () => {
         <Box as={Form} w="full" h="full">
           <FormikInput name="email" type="email" placeholder="Email" mb={6} />
           <FormikInput name="password" type="password" placeholder="Senha" />
+
+          <Text fontSize="md" color="brand.gray.3" textAlign="center" mt={6}>
+            Ao continuar você concorda com os
+            <NextLink passHref href="/termos-politica-privacidade">
+              <Button
+                as="a"
+                variant="link"
+                h="100%"
+                p="0"
+                whiteSpace="normal"
+                color="brand.gray.3"
+                _hover={{ color: 'brand.gray.4' }}
+                fontWeight="normal"
+              >
+                termos de uso e política de privacidade
+              </Button>
+            </NextLink>
+            .
+          </Text>
           <Button
             type="submit"
             variant="primary"

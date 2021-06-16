@@ -1,3 +1,13 @@
+import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/client'
+
+import { RegisterModule } from 'modules/register'
+
 export default function RegisterPage() {
-  return <h1>Register</h1>
+  const [session] = useSession()
+  const { push } = useRouter()
+
+  if (session) push('/dashboard')
+
+  return <RegisterModule />
 }
