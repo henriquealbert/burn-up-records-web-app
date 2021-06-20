@@ -24,6 +24,21 @@
     "ecmaVersion": 11,
     "sourceType": "module"
   },
+  "overrides": [
+    {
+      "files": ["*.graphql"],
+      "parser": "@graphql-eslint/eslint-plugin",
+      "plugins": ["@graphql-eslint"],
+      "rules": {
+        "prettier/prettier": [
+          2,
+          {
+            "parser": "graphql"
+          }
+        ]
+      }
+    }
+  ],
   "plugins": ["react", "react-hooks", "@typescript-eslint"],
   "rules": {
     "react-hooks/rules-of-hooks": "error",

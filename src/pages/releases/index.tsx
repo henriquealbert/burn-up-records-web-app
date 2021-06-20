@@ -4,11 +4,11 @@ import { Whitebox } from 'components/Whitebox'
 import { GridList } from 'components/GridList'
 import { ErrorMessage } from 'components/ErrorMessage'
 import { GridListSkeleton } from 'components/GridList/GridListSkeleton'
-
-import { useReleases } from 'graphql/releases'
+import { useAllReleasesQuery } from 'graphql/generated'
 
 export default function ReleasesPage() {
-  const { data, isError, isLoading } = useReleases()
+  const { data, isError, isLoading } = useAllReleasesQuery()
+  console.log(data)
   return (
     <Layout>
       <PageHeader

@@ -58,6 +58,9 @@ const options = {
       }
 
       return Promise.resolve(token)
+    },
+    async redirect(url: string, baseUrl: string) {
+      return url.startsWith(baseUrl) ? url : baseUrl
     }
   }
 }

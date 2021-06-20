@@ -5,37 +5,34 @@ import { RightArrowIcon } from 'styles/icons'
 import { Box, Button, Text } from '@chakra-ui/react'
 import { Formik, Form, FormikHelpers, FormikProps } from 'formik'
 
-import { CREATE_USER } from 'graphql/user'
-import { graphQLClient } from 'graphql/api'
 import { FormikInput } from 'components/Form/Input'
-import React from 'react'
+import { useCreateUserMutation } from 'graphql/generated'
 
 export const RegisterForm = () => {
+  const { mutate, data, error } = useCreateUserMutation()
+  console.log(data)
   const handleSubmit = async (
     values: Values,
     { setSubmitting }: FormikHelpers<Values>
   ) => {
-    try {
-      const res = await graphQLClient.request(CREATE_USER, {
-        input: {
-          data: {
-            email: values.email,
-            username: values.email,
-            password: values.password
-          }
-        }
-      })
-      if (res.createUser.user.email) {
-        await signIn('credentials', {
+    mutate({
+      input: {
+        data: {
+          username: values.email,
           email: values.email,
-          password: values.password,
-          callbackUrl: '/dashboard'
-        })
+          password: values.password
+        }
       }
-    } catch (error) {
-      alert(error)
-      setSubmitting(false)
+    })
+    if (data?.createUser?.user?.email) {
+      await signIn('credentials', {
+        email: values.email,
+        password: values.password,
+        callbackUrl: '/dashboard'
+      })
     }
+    alert(error)
+    setSubmitting(false)
   }
 
   return (
