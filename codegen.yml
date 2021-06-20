@@ -1,16 +1,22 @@
 overwrite: true
-schema: 'http://localhost:1337/graphql'
-documents: "src/**/*.graphql"
+schema: http://localhost:1337/graphql
+documents: src/**/*.graphql
 generates:
   src/graphql/generated/index.ts:
     plugins:
-      - "typescript"
-      - "typescript-operations"
-      - "typescript-react-query"
+      - typescript
+      - typescript-operations
+      - typescript-react-query
     config:
-      defaultScalarType: unknown
+      scalars:
+        Date: Date
+        DateTime: Date
+        JSON: unknown
+        Long: unknown
+        Time: string
+        Upload: unknown
       fetcher:
-        endpoint: 'process.env.NEXT_PUBLIC_GRAPHQL_API_URL'
+        endpoint: process.env.NEXT_PUBLIC_GRAPHQL_API_URL
         fetchParams:
           headers:
-            Content-Type: 'application/json'
+            Content-Type: application/json
