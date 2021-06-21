@@ -1,0 +1,7 @@
+schema: ${NEXT_PUBLIC_GRAPHQL_API_URL}
+generates:
+  src/graphql/schema/schema.graphql:
+    plugins:
+      - schema-ast
+    config:
+      commentDescriptions: true

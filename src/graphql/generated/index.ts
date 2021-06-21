@@ -39,17 +39,11 @@ export type Scalars = {
   Boolean: boolean
   Int: number
   Float: number
-  /** A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar. */
   Date: Date
-  /** A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar. */
   DateTime: Date
-  /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSON: unknown
-  /** The `Long` scalar type represents 52-bit integers */
   Long: unknown
-  /** A time string with format: HH:mm:ss.SSS */
   Time: string
-  /** The `Upload` scalar type represents a file upload. */
   Upload: unknown
 }
 
@@ -262,19 +256,12 @@ export type Mutation = {
   createTrack?: Maybe<CreateTrackPayload>
   updateTrack?: Maybe<UpdateTrackPayload>
   deleteTrack?: Maybe<DeleteTrackPayload>
-  /** Delete one file */
   deleteFile?: Maybe<DeleteFilePayload>
-  /** Create a new role */
   createRole?: Maybe<CreateRolePayload>
-  /** Update an existing role */
   updateRole?: Maybe<UpdateRolePayload>
-  /** Delete an existing role */
   deleteRole?: Maybe<DeleteRolePayload>
-  /** Create a new user */
   createUser?: Maybe<CreateUserPayload>
-  /** Update an existing user */
   updateUser?: Maybe<UpdateUserPayload>
-  /** Delete an existing user */
   deleteUser?: Maybe<DeleteUserPayload>
   upload: UploadFile
   multipleUpload: Array<Maybe<UploadFile>>
@@ -398,7 +385,6 @@ export type Query = {
   files?: Maybe<Array<Maybe<UploadFile>>>
   filesConnection?: Maybe<UploadFileConnection>
   role?: Maybe<UsersPermissionsRole>
-  /** Retrieve all the existing roles. You can't apply filters on this query. */
   roles?: Maybe<Array<Maybe<UsersPermissionsRole>>>
   rolesConnection?: Maybe<UsersPermissionsRoleConnection>
   user?: Maybe<UsersPermissionsUser>

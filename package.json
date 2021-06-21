@@ -11,7 +11,8 @@
     "generate": "yarn plop --plopfile generators/plopfile.js",
     "postinstall": "husky install",
     "update": "yarn upgrade-interactive --latest",
-    "graphql:codegen": "graphql-codegen --config codegen.yml"
+    "schema:download": "graphql-codegen --require dotenv/config --config ./src/graphql/schema.yml dotenv_config_path=.env.local",
+    "graphql:codegen": "yarn schema:download && graphql-codegen --config ./src/graphql/codegen.yml"
   },
   "husky": {
     "hooks": {
@@ -42,6 +43,7 @@
   "devDependencies": {
     "@graphql-codegen/cli": "1.21.5",
     "@graphql-codegen/introspection": "1.18.2",
+    "@graphql-codegen/schema-ast": "^1.18.3",
     "@graphql-codegen/typescript": "1.22.2",
     "@graphql-codegen/typescript-operations": "1.18.1",
     "@graphql-codegen/typescript-react-query": "^1.3.2",
