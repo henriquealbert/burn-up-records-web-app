@@ -1,0 +1,21 @@
+query AllReleases {
+  releases {
+    id
+    name
+    date
+    type
+    status
+    catalog
+    created_at
+    description
+    licensing_usage
+    user {
+      id
+      email
+    }
+    artwork {
+      id
+      url
+    }
+  }
+}

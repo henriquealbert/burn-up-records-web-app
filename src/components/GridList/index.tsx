@@ -1,18 +1,19 @@
 import { Badge, Box, Flex, SimpleGrid, Img, Text } from '@chakra-ui/react'
 import Link from 'next/link'
-import { imgUrl } from 'helpers/imgUrl'
-import { getStatusColor, getStatusName } from 'helpers/getStatus'
+import { imgUrl } from 'modules/common/helpers/imgUrl'
+import { getStatusColor, getStatusName } from 'modules/common/helpers/getStatus'
+import { AllReleasesQuery } from 'graphql/generated'
 
-import { ReleaseTypes } from 'graphql/releases'
+type Releases = Pick<AllReleasesQuery, 'releases'>
 
 type GridListProps = {
-  data: ReleaseTypes[]
+  data?: Releases
 }
 
 export const GridList = ({ data }: GridListProps) => (
   <SimpleGrid minChildWidth="215px" spacing="24px">
-    {data?.map((item) => (
-      <Link key={item.id} href={`/releases/${item.id}`} passHref>
+    {data?.releases?.map((item) => (
+      <Link key={item?.id} href={`/releases/${item?.id}`} passHref>
         <Box
           cursor="pointer"
           borderRadius="4px"
@@ -32,21 +33,21 @@ export const GridList = ({ data }: GridListProps) => (
             borderBottom="1px solid"
             borderColor="gray.100"
             src={
-              item.artwork
-                ? imgUrl(item.artwork.url)
+              item?.artwork
+                ? imgUrl(item?.artwork.url)
                 : '/img/image-placeholder.png'
             }
           />
           <Flex p="12px" direction="column">
             <Text fontSize="10px" color="gray.400">
-              {item.catalog}
+              {item?.catalog}
             </Text>
 
             <Text fontWeight="bold" color="black">
-              {item.name}
+              {item?.name}
             </Text>
             <Text fontSize="13px" color="gray.500" as="i" lineHeight="1">
-              {item.artist.name}
+              Artist name
             </Text>
             <Text
               color="gray.400"
@@ -54,16 +55,16 @@ export const GridList = ({ data }: GridListProps) => (
               fontWeight="medium"
               mt="12px"
             >
-              {item.date}
+              {item?.date}
             </Text>
             <Badge
               variant="subtle"
-              colorScheme={getStatusColor(item.status)}
+              colorScheme={getStatusColor(String(item?.status))}
               borderRadius="4px"
               alignSelf="flex-end"
               mt="12px"
             >
-              {getStatusName(item.status)}
+              {getStatusName(String(item?.status))}
             </Badge>
           </Flex>
         </Box>
