@@ -12,7 +12,7 @@
     "postinstall": "husky install",
     "update": "yarn upgrade-interactive --latest",
     "schema:download": "graphql-codegen --require dotenv/config --config ./src/graphql/schema.yml dotenv_config_path=.env.local",
-    "graphql:codegen": "yarn schema:download && graphql-codegen --config ./src/graphql/codegen.yml"
+    "graphql:codegen": "yarn schema:download && graphql-codegen --config ./src/graphql/codegen.yml && yarn lint --fix"
   },
   "husky": {
     "hooks": {
