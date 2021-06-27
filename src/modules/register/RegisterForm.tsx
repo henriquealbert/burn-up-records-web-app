@@ -7,6 +7,7 @@ import { Formik, Form, FormikHelpers, FormikProps } from 'formik'
 
 import { FormikInput } from 'components/Form/Input'
 import { useCreateUserMutation } from 'graphql/generated'
+import { parseCallbackUrl } from 'helpers'
 
 export const RegisterForm = () => {
   const { mutate, data, error } = useCreateUserMutation()
@@ -28,7 +29,7 @@ export const RegisterForm = () => {
       await signIn('credentials', {
         email: values.email,
         password: values.password,
-        callbackUrl: '/lancamentos'
+        callbackUrl: parseCallbackUrl('/lancamentos')
       })
     }
     alert(error)

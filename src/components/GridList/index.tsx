@@ -1,7 +1,6 @@
 import { Badge, Box, Flex, SimpleGrid, Img, Text } from '@chakra-ui/react'
 import Link from 'next/link'
-import { imgUrl } from 'modules/common/helpers/imgUrl'
-import { getStatusColor, getStatusName } from 'modules/common/helpers/getStatus'
+import { imgUrl, getStatusColor, getStatusName } from 'helpers'
 import { AllReleasesQuery } from 'graphql/generated'
 
 type Releases = Pick<AllReleasesQuery, 'releases'>

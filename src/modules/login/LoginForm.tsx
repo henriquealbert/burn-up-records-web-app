@@ -5,6 +5,7 @@ import { Box, Button } from '@chakra-ui/react'
 import { Formik, Form, FormikHelpers, FormikProps } from 'formik'
 
 import { FormikInput } from 'components/Form/Input'
+import { parseCallbackUrl } from 'helpers'
 
 export const LoginForm = () => {
   const handleSubmit = async (
@@ -15,7 +16,7 @@ export const LoginForm = () => {
       await signIn('credentials', {
         email: values.email,
         password: values.password,
-        callbackUrl: '/lancamentos'
+        callbackUrl: parseCallbackUrl('/lancamentos')
       })
     } catch (error) {
       alert(error)

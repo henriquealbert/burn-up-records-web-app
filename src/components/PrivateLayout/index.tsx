@@ -9,7 +9,7 @@ type LayoutProps = {
   children: ReactNode
 }
 
-export const Layout = ({ children }: LayoutProps) => {
+export const PrivateLayout = ({ children }: LayoutProps) => {
   const [session, loading] = useSession()
   const { push } = useRouter()
 

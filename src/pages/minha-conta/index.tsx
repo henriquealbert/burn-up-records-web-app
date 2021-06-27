@@ -1,16 +1,5 @@
-import { Layout } from 'components/Layout'
-import { PageHeader } from 'components/PageHeader'
+import { PrivateLayout } from 'components'
 
 export default function ProfilePage() {
-  return (
-    <Layout>
-      <PageHeader
-        title="Minha conta"
-        breadcrumbs={[
-          { title: 'Início', href: '/lancamentos' },
-          { title: 'Conta', href: '/minha-conta', isCurrentPage: true }
-        ]}
-      />
-    </Layout>
-  )
+  return <PrivateLayout>Minha conta</PrivateLayout>
 }

@@ -2,6 +2,7 @@ import { ReactNode } from 'react'
 import { signIn } from 'next-auth/client'
 import { GoogleIcon } from 'styles/icons'
 import { Flex, Heading, Button, Text } from '@chakra-ui/react'
+import { parseCallbackUrl } from 'helpers'
 
 type Props = {
   renderForm: ReactNode
@@ -42,7 +43,9 @@ export const AuthLayout = ({
           variant="google"
           leftIcon={<GoogleIcon mr={10} w={6} h={6} />}
           mb={10}
-          onClick={() => signIn('google', { callbackUrl: '/lancamentos' })}
+          onClick={() =>
+            signIn('google', { callbackUrl: parseCallbackUrl('/lancamentos') })
+          }
         >
           {googleBtnText}
         </Button>
