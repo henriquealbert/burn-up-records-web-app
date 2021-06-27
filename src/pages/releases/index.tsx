@@ -11,12 +11,12 @@ export default function ReleasesPage() {
   console.log(data)
   return (
     <Layout>
-      <PageHeader
+      {/* <PageHeader
         title="Lançamentos"
         onClick={() => alert('testing')}
         buttonText="Novo lançamento"
         breadcrumbs={[
-          { title: 'Início', href: '/dashboard' },
+          { title: 'Início', href: '/releases' },
           { title: 'Lançamentos', href: '/releases', isCurrentPage: true }
         ]}
       />
@@ -24,7 +24,7 @@ export default function ReleasesPage() {
         {isLoading && <GridListSkeleton />}
         {isError && <ErrorMessage />}
         {data && <GridList data={data} />}
-      </Whitebox>
+      </Whitebox> */}
     </Layout>
   )
 }

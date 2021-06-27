@@ -1,48 +1,48 @@
-import { Box, Button, Flex, Heading, Stack } from '@chakra-ui/react'
+import NextLink from 'next/link'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
-import Link from 'next/link'
+import { Button, Flex, Stack } from '@chakra-ui/react'
 
-import { Profile } from 'components/Profile'
+import { Profile } from 'components'
 import { sidebarLinks } from './sidebarLinks'
+import { LogOut } from './LogOut'
+import logo from '../../../public/logo.svg'
 
 export const Sidebar = () => {
   const router = useRouter()
   return (
-    <Box
+    <Flex
+      direction="column"
       w="100%"
       h="100vh"
       bgColor="white"
-      boxShadow="6px 0px 18px rgba(0, 0, 0, 0.06)"
       zIndex="sticky"
+      borderRadius="lg"
     >
-      <Flex
-        borderBottom="2px solid"
-        borderColor="gray.100"
-        h="60px"
-        align="center"
-      >
-        <Heading as="h1" size="md" pl="24px" color="red.600">
-          Burn Up Records
-        </Heading>
+      <Profile mt={20} />
+      <Flex justify="center" mt={6} mb={10}>
+        <Button variant="primary">Lançar Track</Button>
       </Flex>
-
-      <Profile info p="24px 24px 40px" />
-
-      <Stack>
+      <Stack spacing={5} ml={16}>
         {sidebarLinks.map((link) => (
-          <Link key={link.name} href={link.path} passHref>
+          <NextLink key={link.name} href={link.path} passHref>
             <Button
-              variant="ghost"
-              justifyContent="flex-start"
+              variant="menu"
               leftIcon={link.icon}
-              color={router.pathname === link.path ? 'red.500' : 'gray.500'}
-              pl="24px"
+              color={
+                router.pathname === link.path ? 'brand.primary' : 'brand.gray.4'
+              }
             >
               {link.name}
             </Button>
-          </Link>
+          </NextLink>
         ))}
       </Stack>
-    </Box>
+      <LogOut ml={16} mt={12} w="full" />
+
+      <Flex justify="center" mb={4} mt="auto">
+        <Image src={logo} alt="Burn Up Records logo" title="Burn Up Records" />
+      </Flex>
+    </Flex>
   )
 }

@@ -15,7 +15,7 @@ export const LoginForm = () => {
       await signIn('credentials', {
         email: values.email,
         password: values.password,
-        callbackUrl: '/dashboard'
+        callbackUrl: '/releases'
       })
     } catch (error) {
       alert(error)

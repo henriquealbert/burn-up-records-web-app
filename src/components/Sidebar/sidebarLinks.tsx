@@ -1,36 +1,25 @@
 import { Icon } from '@chakra-ui/react'
-import {
-  RiDashboardLine,
-  RiUserStarLine,
-  RiMusic2Line,
-  RiContactsLine
-} from 'react-icons/ri'
-import { BiAlbum } from 'react-icons/bi'
+import { BiRocket, BiAlbum, BiHeart, BiHeadphone } from 'react-icons/bi'
 
 export const sidebarLinks = [
   {
-    path: '/dashboard',
-    name: 'Início',
-    icon: <Icon as={RiDashboardLine} />
-  },
-  {
     path: '/releases',
     name: 'Lançamentos',
-    icon: <Icon as={BiAlbum} />
+    icon: <Icon as={BiRocket} w={6} h={6} />
+  },
+  {
+    path: '/statements',
+    name: 'Extrato',
+    icon: <Icon as={BiAlbum} w={6} h={6} />
   },
   {
     path: '/artists',
     name: 'Artistas',
-    icon: <Icon as={RiUserStarLine} />
-  },
-  {
-    path: '/tracks',
-    name: 'Músicas',
-    icon: <Icon as={RiMusic2Line} />
+    icon: <Icon as={BiHeart} w={6} h={6} />
   },
   {
     path: '/profile',
-    name: 'Conta',
-    icon: <Icon as={RiContactsLine} />
+    name: 'Minha Conta',
+    icon: <Icon as={BiHeadphone} w={6} h={6} />
   }
 ]

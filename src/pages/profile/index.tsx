@@ -7,7 +7,7 @@ export default function ProfilePage() {
       <PageHeader
         title="Minha conta"
         breadcrumbs={[
-          { title: 'Início', href: '/dashboard' },
+          { title: 'Início', href: '/releases' },
           { title: 'Conta', href: '/profile', isCurrentPage: true }
         ]}
       />
