@@ -1,7 +1,7 @@
-import NextAuth, { User } from 'next-auth'
 import { Session } from 'next-auth'
 import { JWT } from 'next-auth/jwt'
 import Providers from 'next-auth/providers'
+import NextAuth, { Account, User } from 'next-auth'
 import { NextApiRequest, NextApiResponse } from 'next-auth/internals/utils'
 
 type AuthorizeProps = {
@@ -49,11 +49,17 @@ const options = {
 
       return Promise.resolve(session)
     },
-    jwt: async (token: JWT, user: User) => {
-      if (user) {
-        token.id = user.id
-        token.email = user.email
-        token.jwt = user.jwt
+    jwt: async (token: JWT, user: User, account: Account) => {
+      if (account?.provider) {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/auth/${account?.provider}/callback?access_token=${account?.accessToken}`
+        )
+        const data = await response.json()
+        token.id = data?.user?.id
+        token.jwt = data?.jwt
+      } else if (user) {
+        token.id = user?.id
+        token.jwt = user?.jwt
       }
 
       return Promise.resolve(token)

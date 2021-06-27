@@ -16,7 +16,5 @@ generates:
         Time: string
         Upload: unknown
       fetcher:
-        endpoint: process.env.NEXT_PUBLIC_GRAPHQL_API_URL
-        fetchParams:
-          headers:
-            Content-Type: application/json
+        func: './fetcher#myFetcher'
+

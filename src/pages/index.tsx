@@ -6,7 +6,7 @@ export default function HomePage() {
     <Center bg="gray.300" h="100vh" display="flex" flexDirection="column">
       <h1>Burn Up Records</h1>
       <NextLink passHref href="/login">
-        <Button as="a"> Login</Button>
+        <Button as="a">Login</Button>
       </NextLink>
     </Center>
   )

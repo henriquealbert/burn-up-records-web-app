@@ -1,18 +1,5 @@
-import { Layout } from 'components/Layout'
-import { PageHeader } from 'components/PageHeader'
+import { PrivateLayout } from 'components'
 
 export default function ArtistsPage() {
-  return (
-    <Layout>
-      <PageHeader
-        title="Artistas"
-        buttonText="Novo artista"
-        onClick={() => alert('novo artista')}
-        breadcrumbs={[
-          { title: 'Início', href: '/lancamentos' },
-          { title: 'Artistas', href: '/artistas', isCurrentPage: true }
-        ]}
-      />
-    </Layout>
-  )
+  return <PrivateLayout>Artistas</PrivateLayout>
 }

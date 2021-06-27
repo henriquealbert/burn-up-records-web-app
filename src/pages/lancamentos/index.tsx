@@ -1,30 +1,23 @@
-import { Layout } from 'components/Layout'
-import { PageHeader } from 'components/PageHeader'
-import { Whitebox } from 'components/Whitebox'
-import { GridList } from 'components/GridList'
-import { ErrorMessage } from 'components/ErrorMessage'
-import { GridListSkeleton } from 'components/GridList/GridListSkeleton'
+import {
+  PrivateLayout,
+  GridList,
+  ErrorMessage,
+  GridListSkeleton,
+  Onboarding
+} from 'components'
 import { useAllReleasesQuery } from 'graphql/generated'
 
 export default function ReleasesPage() {
-  const { data, isError, isLoading } = useAllReleasesQuery()
-  console.log(data)
+  // const { data, isError, isLoading } = useAllReleasesQuery()
   return (
-    <Layout>
-      {/* <PageHeader
-        title="Lançamentos"
-        onClick={() => alert('testing')}
-        buttonText="Novo lançamento"
-        breadcrumbs={[
-          { title: 'Início', href: '/lancamentos' },
-          { title: 'Lançamentos', href: '/lancamentos', isCurrentPage: true }
-        ]}
-      />
-      <Whitebox>
+    <PrivateLayout>
+      {/*
+      <>
         {isLoading && <GridListSkeleton />}
         {isError && <ErrorMessage />}
         {data && <GridList data={data} />}
-      </Whitebox> */}
-    </Layout>
+      </> */}
+      <Onboarding />
+    </PrivateLayout>
   )
 }
