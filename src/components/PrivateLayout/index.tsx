@@ -1,17 +1,17 @@
 import { ReactNode } from 'react'
 import { useRouter } from 'next/router'
-import { useSession } from 'next-auth/client'
 import { Box, Flex, Grid } from '@chakra-ui/react'
 
 import { Loading, Sidebar } from 'components'
+import { useAuth } from 'auth'
 
 type LayoutProps = {
   children: ReactNode
 }
 
 export const PrivateLayout = ({ children }: LayoutProps) => {
-  const [session, loading] = useSession()
   const { push } = useRouter()
+  const { session, loading } = useAuth()
 
   if (loading) return <Loading />
   if (!session) push('/')

@@ -7,7 +7,6 @@ export const myFetcher = <TData, TVariables>(
   return async (): Promise<TData> => {
     const session = await getSession()
     const token = session?.jwt
-    console.log('token', token)
 
     const res = await fetch(process.env.NEXT_PUBLIC_GRAPHQL_API_URL as string, {
       method: 'POST',
