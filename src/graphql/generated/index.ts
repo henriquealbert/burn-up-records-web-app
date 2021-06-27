@@ -4,6 +4,7 @@ import {
   useQuery,
   UseQueryOptions
 } from 'react-query'
+import { myFetcher } from './fetcher'
 export type Maybe<T> = T | null
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K]
@@ -12,26 +13,6 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
   { [SubKey in K]?: Maybe<T[SubKey]> }
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
   { [SubKey in K]: Maybe<T[SubKey]> }
-
-function fetcher<TData, TVariables>(query: string, variables?: TVariables) {
-  return async (): Promise<TData> => {
-    const res = await fetch(process.env.NEXT_PUBLIC_GRAPHQL_API_URL as string, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query, variables })
-    })
-
-    const json = await res.json()
-
-    if (json.errors) {
-      const { message } = json.errors[0]
-
-      throw new Error(message)
-    }
-
-    return json.data
-  }
-}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string
@@ -1521,6 +1502,26 @@ export type CreateUserMutation = { __typename?: 'Mutation' } & {
   >
 }
 
+export type GetMeQueryVariables = Exact<{
+  id: Scalars['ID']
+}>
+
+export type GetMeQuery = { __typename?: 'Query' } & {
+  user?: Maybe<
+    { __typename?: 'UsersPermissionsUser' } & Pick<
+      UsersPermissionsUser,
+      'id' | 'email' | 'artist_name'
+    > & {
+        avatar?: Maybe<
+          { __typename?: 'UploadFile' } & Pick<UploadFile, 'id' | 'url'>
+        >
+        releases?: Maybe<
+          Array<Maybe<{ __typename?: 'Release' } & Pick<Release, 'id'>>>
+        >
+      }
+  >
+}
+
 export type AllReleasesQueryVariables = Exact<{ [key: string]: never }>
 
 export type AllReleasesQuery = { __typename?: 'Query' } & {
@@ -1580,10 +1581,35 @@ export const useCreateUserMutation = <TError = unknown, TContext = unknown>(
     TContext
   >(
     (variables?: CreateUserMutationVariables) =>
-      fetcher<CreateUserMutation, CreateUserMutationVariables>(
+      myFetcher<CreateUserMutation, CreateUserMutationVariables>(
         CreateUserDocument,
         variables
       )(),
+    options
+  )
+export const GetMeDocument = `
+    query getMe($id: ID!) {
+  user(id: $id) {
+    id
+    email
+    artist_name
+    avatar {
+      id
+      url
+    }
+    releases {
+      id
+    }
+  }
+}
+    `
+export const useGetMeQuery = <TData = GetMeQuery, TError = unknown>(
+  variables: GetMeQueryVariables,
+  options?: UseQueryOptions<GetMeQuery, TError, TData>
+) =>
+  useQuery<GetMeQuery, TError, TData>(
+    ['getMe', variables],
+    myFetcher<GetMeQuery, GetMeQueryVariables>(GetMeDocument, variables),
     options
   )
 export const AllReleasesDocument = `
@@ -1615,7 +1641,7 @@ export const useAllReleasesQuery = <TData = AllReleasesQuery, TError = unknown>(
 ) =>
   useQuery<AllReleasesQuery, TError, TData>(
     ['AllReleases', variables],
-    fetcher<AllReleasesQuery, AllReleasesQueryVariables>(
+    myFetcher<AllReleasesQuery, AllReleasesQueryVariables>(
       AllReleasesDocument,
       variables
     ),

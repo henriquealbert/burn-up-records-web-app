@@ -11,7 +11,7 @@ import { parseCallbackUrl } from 'helpers'
 
 export const RegisterForm = () => {
   const { mutate, data, error } = useCreateUserMutation()
-  console.log(data)
+
   const handleSubmit = async (
     values: Values,
     { setSubmitting }: FormikHelpers<Values>
@@ -32,7 +32,8 @@ export const RegisterForm = () => {
         callbackUrl: parseCallbackUrl('/lancamentos')
       })
     }
-    alert(error)
+    if (error) alert(error)
+
     setSubmitting(false)
   }
 
