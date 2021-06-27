@@ -5,7 +5,6 @@ import { Button, Flex, Stack } from '@chakra-ui/react'
 
 import { LogOut } from './LogOut'
 import { sidebarLinks } from './sidebarLinks'
-
 import { Profile } from 'components'
 
 import logo from '../../../public/logo.svg'

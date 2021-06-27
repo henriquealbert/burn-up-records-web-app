@@ -2,8 +2,8 @@ import { ReactNode } from 'react'
 import { useRouter } from 'next/router'
 import { Box, Flex, Grid } from '@chakra-ui/react'
 
-import { Loading, Sidebar } from 'components'
 import { useAuth } from 'auth'
+import { Loading, Sidebar } from 'components'
 
 type LayoutProps = {
   children: ReactNode

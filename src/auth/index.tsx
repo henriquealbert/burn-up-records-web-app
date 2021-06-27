@@ -5,12 +5,14 @@ import { Session } from 'next-auth'
 
 interface ContextTypes {
   me?: GetMeQuery | undefined
+  isMeLoading?: boolean
   session?: Session | null
   loading?: boolean
 }
 
 const AuthContext = createContext<ContextTypes>({
   me: {},
+  isMeLoading: true,
   session: {},
   loading: true
 })
@@ -21,7 +23,7 @@ interface Props {
 
 const AuthProvider = ({ children }: Props) => {
   const [session, loading] = useSession()
-  const { data: me } = useGetMeQuery(
+  const { data: me, isLoading: isMeLoading } = useGetMeQuery(
     { id: session?.id as string },
     { enabled: !!session?.id }
   )
@@ -29,6 +31,7 @@ const AuthProvider = ({ children }: Props) => {
     <AuthContext.Provider
       value={{
         me,
+        isMeLoading,
         session,
         loading
       }}

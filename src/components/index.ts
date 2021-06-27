@@ -7,6 +7,7 @@ import { ErrorMessage } from './ErrorMessage'
 import { FormikInput } from './Form/Input'
 import { GridList } from './GridList'
 import { GridListSkeleton } from './GridList/GridListSkeleton'
+import { Onboarding } from './Onboarding'
 
 export {
   Loading,
@@ -17,5 +18,6 @@ export {
   ErrorMessage,
   FormikInput,
   GridList,
-  GridListSkeleton
+  GridListSkeleton,
+  Onboarding
 }
