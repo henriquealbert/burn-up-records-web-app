@@ -39,6 +39,16 @@ const Button = {
       _hover: {
         color: 'brand.secondary.1'
       }
+    },
+    menu: {
+      color: 'brand.gray.4',
+      fontWeight: 'medium',
+      fontSize: 'lg',
+      p: 0,
+      justifyContent: 'flex-start',
+      _hover: {
+        color: 'brand.secondary.1'
+      }
     }
   }
 }

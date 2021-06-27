@@ -1,9 +1,8 @@
 import { useSession } from 'next-auth/client'
 import { Flex, Avatar, Text, Box, FlexProps } from '@chakra-ui/react'
 
-type AvatarProps = {
+interface AvatarProps extends FlexProps {
   releasesQuantity?: number
-  rest?: FlexProps
 }
 
 export const Profile = ({ releasesQuantity = 0, ...rest }: AvatarProps) => {

@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/client'
 import { Box, Flex, Grid } from '@chakra-ui/react'
 
-import { Header, Loading, Sidebar } from 'components'
+import { Loading, Sidebar } from 'components'
 
 type LayoutProps = {
   children: ReactNode
@@ -23,11 +23,7 @@ export const Layout = ({ children }: LayoutProps) => {
           <Sidebar />
 
           <Box h="100%">
-            <Header />
-
-            <Flex direction="column" h="calc(100% - 108px)" m="24px">
-              {children}
-            </Flex>
+            <Flex direction="column">{children}</Flex>
           </Box>
         </Grid>
       )}
