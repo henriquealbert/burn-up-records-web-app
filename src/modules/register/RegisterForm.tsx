@@ -28,7 +28,7 @@ export const RegisterForm = () => {
       await signIn('credentials', {
         email: values.email,
         password: values.password,
-        callbackUrl: '/dashboard'
+        callbackUrl: '/releases'
       })
     }
     alert(error)

@@ -16,7 +16,7 @@ export default function ReleasesPage() {
         onClick={() => alert('testing')}
         buttonText="Novo lançamento"
         breadcrumbs={[
-          { title: 'Início', href: '/dashboard' },
+          { title: 'Início', href: '/releases' },
           { title: 'Lançamentos', href: '/releases', isCurrentPage: true }
         ]}
       />

@@ -9,7 +9,7 @@ export default function TracksPage() {
         onClick={() => alert('testing')}
         buttonText="Nova música"
         breadcrumbs={[
-          { title: 'Início', href: '/dashboard' },
+          { title: 'Início', href: '/releases' },
           { title: 'Músicas', href: '/tracks', isCurrentPage: true }
         ]}
       />
