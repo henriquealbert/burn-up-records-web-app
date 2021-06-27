@@ -11,7 +11,7 @@ type AuthorizeProps = {
 
 const options = {
   pages: {
-    signIn: '/auth/register'
+    signIn: '/register'
   },
   providers: [
     Providers.Credentials({
@@ -53,7 +53,6 @@ const options = {
       if (user) {
         token.id = user.id
         token.email = user.email
-        token.name = user.name as string
         token.jwt = user.jwt
       }
 

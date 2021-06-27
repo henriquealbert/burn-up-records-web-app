@@ -13,7 +13,7 @@ export const RegisterModule = () => {
       renderFooter={
         <Flex justify="center">
           <Text mr={0.5}>Já tem uma conta? Faça</Text>
-          <NextLink passHref href="/auth/login">
+          <NextLink passHref href="/login">
             <Button variant="link">login</Button>
           </NextLink>
         </Flex>

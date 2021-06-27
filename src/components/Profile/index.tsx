@@ -1,38 +1,25 @@
-import { Flex, Avatar, Text, Box } from '@chakra-ui/react'
 import { useSession } from 'next-auth/client'
+import { Flex, Avatar, Text, Box, FlexProps } from '@chakra-ui/react'
 
 type AvatarProps = {
-  info?: boolean
-  m?: string
-  p?: string
+  releasesQuantity?: number
+  rest?: FlexProps
 }
 
-export const Profile = ({ info, m, p }: AvatarProps) => {
+export const Profile = ({ releasesQuantity = 0, ...rest }: AvatarProps) => {
   const [session] = useSession()
+
   return (
-    <Flex m={m} p={p} align="center">
-      <Avatar w="46px" h="46px" src={session?.user?.image || ''} />
-      {info && (
-        <Box pl="16px" maxW="150px">
-          <Text
-            fontSize="14px"
-            lineHeight="21px"
-            color="black"
-            fontWeight="500"
-          >
-            {session?.user?.name}
-          </Text>
-          <Text
-            fontSize="12px"
-            fontWeight="500"
-            lineHeight="16px"
-            color="gray.500"
-            isTruncated
-          >
-            {session?.user?.email}
-          </Text>
-        </Box>
-      )}
+    <Flex align="center" direction="column" {...rest}>
+      <Avatar w="148px" h="148px" src={session?.user?.image || ''} />
+      <Box mt={6} textAlign="center" lineHeight="1">
+        <Text fontSize="4xl" color="black" fontWeight="medium">
+          {session?.user?.name}
+        </Text>
+        <Text mt={2} color="brand.gray.4">
+          Lançamentos: {releasesQuantity}
+        </Text>
+      </Box>
     </Flex>
   )
 }
