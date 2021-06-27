@@ -13,7 +13,7 @@ type GridListProps = {
 export const GridList = ({ data }: GridListProps) => (
   <SimpleGrid minChildWidth="215px" spacing="24px">
     {data?.releases?.map((item) => (
-      <Link key={item?.id} href={`/releases/${item?.id}`} passHref>
+      <Link key={item?.id} href={`/lancamentos/${item?.id}`} passHref>
         <Box
           cursor="pointer"
           borderRadius="4px"

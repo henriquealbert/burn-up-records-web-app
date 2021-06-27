@@ -7,7 +7,7 @@ export default function RegisterPage() {
   const [session] = useSession()
   const { push } = useRouter()
 
-  if (session) push('/releases')
+  if (session) push('/lancamentos')
 
   return <RegisterModule />
 }
