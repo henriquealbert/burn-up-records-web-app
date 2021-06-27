@@ -11,7 +11,7 @@ type AuthorizeProps = {
 
 const options = {
   pages: {
-    signIn: '/register'
+    signIn: '/cadastrar'
   },
   providers: [
     Providers.Credentials({

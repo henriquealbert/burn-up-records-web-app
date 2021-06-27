@@ -9,8 +9,8 @@ export default function ArtistsPage() {
         buttonText="Novo artista"
         onClick={() => alert('novo artista')}
         breadcrumbs={[
-          { title: 'Início', href: '/releases' },
-          { title: 'Artistas', href: '/artists', isCurrentPage: true }
+          { title: 'Início', href: '/lancamentos' },
+          { title: 'Artistas', href: '/artistas', isCurrentPage: true }
         ]}
       />
     </Layout>

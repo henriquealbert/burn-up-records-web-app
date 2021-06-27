@@ -12,7 +12,7 @@ export const LoginModule = () => (
     renderFooter={
       <Flex justify="center">
         <Text mr={1.5}>Não tem uma conta?</Text>
-        <NextLink passHref href="/register">
+        <NextLink passHref href="/cadastrar">
           <Button variant="link" as="a">
             Crie sua conta
           </Button>

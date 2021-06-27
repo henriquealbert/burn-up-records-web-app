@@ -7,7 +7,7 @@ export default function LoginPage() {
   const [session] = useSession()
   const { push } = useRouter()
 
-  if (session) push('/releases')
+  if (session) push('/lancamentos')
 
   return <LoginModule />
 }

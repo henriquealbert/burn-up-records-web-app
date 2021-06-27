@@ -42,7 +42,7 @@ export const AuthLayout = ({
           variant="google"
           leftIcon={<GoogleIcon mr={10} w={6} h={6} />}
           mb={10}
-          onClick={() => signIn('google', { callbackUrl: '/releases' })}
+          onClick={() => signIn('google', { callbackUrl: '/lancamentos' })}
         >
           {googleBtnText}
         </Button>

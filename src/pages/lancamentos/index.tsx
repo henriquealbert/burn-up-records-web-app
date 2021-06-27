@@ -16,8 +16,8 @@ export default function ReleasesPage() {
         onClick={() => alert('testing')}
         buttonText="Novo lançamento"
         breadcrumbs={[
-          { title: 'Início', href: '/releases' },
-          { title: 'Lançamentos', href: '/releases', isCurrentPage: true }
+          { title: 'Início', href: '/lancamentos' },
+          { title: 'Lançamentos', href: '/lancamentos', isCurrentPage: true }
         ]}
       />
       <Whitebox>
