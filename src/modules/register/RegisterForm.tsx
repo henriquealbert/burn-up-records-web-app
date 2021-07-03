@@ -1,5 +1,6 @@
 import * as Yup from 'yup'
 import NextLink from 'next/link'
+import { useState } from 'react'
 import { signIn } from 'next-auth/client'
 import { RightArrowIcon } from 'styles/icons'
 import { Box, Button, Text } from '@chakra-ui/react'
@@ -10,13 +11,24 @@ import { useCreateUserMutation } from 'graphql/generated'
 import { parseCallbackUrl } from 'helpers'
 
 export const RegisterForm = () => {
-  const { mutate, data, error } = useCreateUserMutation()
+  const [formValues, setFormValues] = useState<Values>()
+
+  const { mutateAsync } = useCreateUserMutation({
+    onSuccess: async () =>
+      await signIn('credentials', {
+        email: formValues?.email,
+        password: formValues?.password,
+        callbackUrl: parseCallbackUrl('/lancamentos')
+      }),
+    onError: () => alert('Erro ao tentar criar sua conta')
+  })
 
   const handleSubmit = async (
     values: Values,
     { setSubmitting }: FormikHelpers<Values>
   ) => {
-    mutate({
+    setFormValues(values)
+    await mutateAsync({
       input: {
         data: {
           username: values.email,
@@ -25,15 +37,6 @@ export const RegisterForm = () => {
         }
       }
     })
-    if (data?.createUser?.user?.email) {
-      await signIn('credentials', {
-        email: values.email,
-        password: values.password,
-        callbackUrl: parseCallbackUrl('/lancamentos')
-      })
-    }
-    if (error) alert(error)
-
     setSubmitting(false)
   }
 
@@ -55,7 +58,7 @@ export const RegisterForm = () => {
               <Button
                 as="a"
                 variant="link"
-                h="100%"
+                h="full"
                 p="0"
                 whiteSpace="normal"
                 color="brand.gray.3"

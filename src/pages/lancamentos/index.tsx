@@ -2,8 +2,7 @@ import {
   PrivateLayout,
   GridList,
   ErrorMessage,
-  GridListSkeleton,
-  Onboarding
+  GridListSkeleton
 } from 'components'
 import { useAllReleasesQuery } from 'graphql/generated'
 
@@ -17,7 +16,6 @@ export default function ReleasesPage() {
         {isError && <ErrorMessage />}
         {data && <GridList data={data} />}
       </> */}
-      <Onboarding />
     </PrivateLayout>
   )
 }

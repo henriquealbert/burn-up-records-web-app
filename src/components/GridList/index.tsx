@@ -25,7 +25,7 @@ export const GridList = ({ data }: GridListProps) => (
         >
           <Img
             borderRadius="4px 4px 0 0"
-            w="100%"
+            w="full"
             h="100px"
             objectFit="cover"
             objectPosition="center"

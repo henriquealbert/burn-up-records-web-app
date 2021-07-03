@@ -224,6 +224,7 @@ export type Morph =
   | UsersPermissionsUserConnectionAvatar
   | UsersPermissionsUserConnectionBiography
   | UsersPermissionsUserConnectionSocial_Links
+  | UsersPermissionsUserConnectionOnboarding
   | CreateUserPayload
   | UpdateUserPayload
   | DeleteUserPayload
@@ -1007,6 +1008,7 @@ export type UserInput = {
   biography?: Maybe<Scalars['String']>
   social_links?: Maybe<ComponentSocialSocialLinkInput>
   releases?: Maybe<Array<Maybe<Scalars['ID']>>>
+  onboarding?: Maybe<Scalars['Boolean']>
   created_by?: Maybe<Scalars['ID']>
   updated_by?: Maybe<Scalars['ID']>
 }
@@ -1147,6 +1149,7 @@ export type UsersPermissionsUser = {
   avatar?: Maybe<UploadFile>
   biography?: Maybe<Scalars['String']>
   social_links?: Maybe<ComponentSocialSocialLinks>
+  onboarding?: Maybe<Scalars['Boolean']>
   releases?: Maybe<Array<Maybe<Release>>>
 }
 
@@ -1218,6 +1221,12 @@ export type UsersPermissionsUserConnectionId = {
   connection?: Maybe<UsersPermissionsUserConnection>
 }
 
+export type UsersPermissionsUserConnectionOnboarding = {
+  __typename?: 'UsersPermissionsUserConnectionOnboarding'
+  key?: Maybe<Scalars['Boolean']>
+  connection?: Maybe<UsersPermissionsUserConnection>
+}
+
 export type UsersPermissionsUserConnectionProvider = {
   __typename?: 'UsersPermissionsUserConnectionProvider'
   key?: Maybe<Scalars['String']>
@@ -1263,6 +1272,7 @@ export type UsersPermissionsUserGroupBy = {
   avatar?: Maybe<Array<Maybe<UsersPermissionsUserConnectionAvatar>>>
   biography?: Maybe<Array<Maybe<UsersPermissionsUserConnectionBiography>>>
   social_links?: Maybe<Array<Maybe<UsersPermissionsUserConnectionSocial_Links>>>
+  onboarding?: Maybe<Array<Maybe<UsersPermissionsUserConnectionOnboarding>>>
 }
 
 export type CreateReleaseInput = {
@@ -1441,6 +1451,7 @@ export type EditUserInput = {
   biography?: Maybe<Scalars['String']>
   social_links?: Maybe<EditComponentSocialSocialLinkInput>
   releases?: Maybe<Array<Maybe<Scalars['ID']>>>
+  onboarding?: Maybe<Scalars['Boolean']>
   created_by?: Maybe<Scalars['ID']>
   updated_by?: Maybe<Scalars['ID']>
 }
@@ -1495,8 +1506,29 @@ export type CreateUserMutation = { __typename?: 'Mutation' } & {
       user?: Maybe<
         { __typename?: 'UsersPermissionsUser' } & Pick<
           UsersPermissionsUser,
-          'id' | 'username' | 'email'
+          'id' | 'username' | 'email' | 'onboarding'
         >
+      >
+    }
+  >
+}
+
+export type UpdateUserMutationVariables = Exact<{
+  input: UpdateUserInput
+}>
+
+export type UpdateUserMutation = { __typename?: 'Mutation' } & {
+  updateUser?: Maybe<
+    { __typename?: 'updateUserPayload' } & {
+      user?: Maybe<
+        { __typename?: 'UsersPermissionsUser' } & Pick<
+          UsersPermissionsUser,
+          'id' | 'artist_name' | 'email' | 'username' | 'onboarding'
+        > & {
+            avatar?: Maybe<
+              { __typename?: 'UploadFile' } & Pick<UploadFile, 'id' | 'url'>
+            >
+          }
       >
     }
   >
@@ -1510,7 +1542,7 @@ export type GetMeQuery = { __typename?: 'Query' } & {
   user?: Maybe<
     { __typename?: 'UsersPermissionsUser' } & Pick<
       UsersPermissionsUser,
-      'id' | 'email' | 'artist_name'
+      'id' | 'email' | 'artist_name' | 'onboarding'
     > & {
         avatar?: Maybe<
           { __typename?: 'UploadFile' } & Pick<UploadFile, 'id' | 'url'>
@@ -1562,6 +1594,7 @@ export const CreateUserDocument = `
       id
       username
       email
+      onboarding
     }
   }
 }
@@ -1587,12 +1620,51 @@ export const useCreateUserMutation = <TError = unknown, TContext = unknown>(
       )(),
     options
   )
+export const UpdateUserDocument = `
+    mutation updateUser($input: updateUserInput!) {
+  updateUser(input: $input) {
+    user {
+      id
+      artist_name
+      email
+      username
+      onboarding
+      avatar {
+        id
+        url
+      }
+    }
+  }
+}
+    `
+export const useUpdateUserMutation = <TError = unknown, TContext = unknown>(
+  options?: UseMutationOptions<
+    UpdateUserMutation,
+    TError,
+    UpdateUserMutationVariables,
+    TContext
+  >
+) =>
+  useMutation<
+    UpdateUserMutation,
+    TError,
+    UpdateUserMutationVariables,
+    TContext
+  >(
+    (variables?: UpdateUserMutationVariables) =>
+      myFetcher<UpdateUserMutation, UpdateUserMutationVariables>(
+        UpdateUserDocument,
+        variables
+      )(),
+    options
+  )
 export const GetMeDocument = `
     query getMe($id: ID!) {
   user(id: $id) {
     id
     email
     artist_name
+    onboarding
     avatar {
       id
       url

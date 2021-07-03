@@ -4,6 +4,7 @@ mutation createUser($input: createUserInput!) {
       id
       username
       email
+      onboarding
     }
   }
 }

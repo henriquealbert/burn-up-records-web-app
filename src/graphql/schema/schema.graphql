@@ -203,6 +203,7 @@ union Morph =
   | UsersPermissionsUserConnectionAvatar
   | UsersPermissionsUserConnectionBiography
   | UsersPermissionsUserConnectionSocial_links
+  | UsersPermissionsUserConnectionOnboarding
   | createUserPayload
   | updateUserPayload
   | deleteUserPayload
@@ -811,6 +812,7 @@ input UserInput {
   biography: String
   social_links: ComponentSocialSocialLinkInput
   releases: [ID]
+  onboarding: Boolean
   created_by: ID
   updated_by: ID
 }
@@ -933,6 +935,7 @@ type UsersPermissionsUser {
   avatar: UploadFile
   biography: String
   social_links: ComponentSocialSocialLinks
+  onboarding: Boolean
   releases(sort: String, limit: Int, start: Int, where: JSON): [Release]
 }
 
@@ -987,6 +990,11 @@ type UsersPermissionsUserConnectionId {
   connection: UsersPermissionsUserConnection
 }
 
+type UsersPermissionsUserConnectionOnboarding {
+  key: Boolean
+  connection: UsersPermissionsUserConnection
+}
+
 type UsersPermissionsUserConnectionProvider {
   key: String
   connection: UsersPermissionsUserConnection
@@ -1026,6 +1034,7 @@ type UsersPermissionsUserGroupBy {
   avatar: [UsersPermissionsUserConnectionAvatar]
   biography: [UsersPermissionsUserConnectionBiography]
   social_links: [UsersPermissionsUserConnectionSocial_links]
+  onboarding: [UsersPermissionsUserConnectionOnboarding]
 }
 
 input createReleaseInput {
@@ -1195,6 +1204,7 @@ input editUserInput {
   biography: String
   social_links: editComponentSocialSocialLinkInput
   releases: [ID]
+  onboarding: Boolean
   created_by: ID
   updated_by: ID
 }

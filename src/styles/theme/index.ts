@@ -7,12 +7,13 @@ import global from './foundations/global'
 import Button from './components/button'
 import Heading from './components/heading'
 import Input from './components/input'
+import Modal from './components/modal'
 
 const customTheme = extendTheme({
   ...global,
   colors,
   ...typography,
-  components: { Button, Heading, Input }
+  components: { Button, Heading, Input, Modal }
 })
 
 export default customTheme
