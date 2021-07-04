@@ -1,44 +1,37 @@
 import { ReactNode } from 'react'
 import { useRouter } from 'next/router'
-import { Box, Flex, Grid } from '@chakra-ui/react'
+import { Grid } from '@chakra-ui/react'
 
 import { useAuth } from 'auth'
-import { Loading, Sidebar, Onboarding, Footer } from 'components'
+import { Loading, Sidebar, Onboarding, Footer, Whitebox } from 'components'
 
-type LayoutProps = {
-  children: ReactNode
-}
-
-export const PrivateLayout = ({ children }: LayoutProps) => {
+export const PrivateLayout = ({ children, pageTitle }: LayoutProps) => {
   const { push } = useRouter()
   const { session, loading } = useAuth()
 
-  if (loading) return <Loading />
-  if (!session) push('/')
+  if (loading && !session) return <Loading />
+  if (!session && !loading) push('/')
 
   return (
     <>
-      {session && (
-        <>
-          <Grid
-            h="fit-available"
-            maxH="full"
-            w="full"
-            bgColor="gray.50"
-            templateColumns="340px 1fr"
-          >
-            <Sidebar />
+      <Grid
+        h="fit-available"
+        maxH="full"
+        w="full"
+        bgColor="brand.bg"
+        templateColumns="340px 1fr"
+      >
+        <Sidebar />
 
-            <Box h="full" w="full">
-              <Flex direction="column" h="full" w="full">
-                {children}
-              </Flex>
-            </Box>
-          </Grid>
-          <Footer />
-          <Onboarding />
-        </>
-      )}
+        <Whitebox pageTitle={pageTitle}>{children}</Whitebox>
+      </Grid>
+      <Footer />
+      <Onboarding />
     </>
   )
+}
+
+type LayoutProps = {
+  children: ReactNode
+  pageTitle: string
 }

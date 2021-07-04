@@ -11,6 +11,7 @@ import { Onboarding } from './Onboarding'
 import { AvatarUpload } from './AvatarUpload'
 import { ChakraNextImage } from './ChakraNextImage'
 import { Footer } from './Footer'
+import { Whitebox } from './Whitebox'
 
 export {
   Loading,
@@ -25,5 +26,6 @@ export {
   Onboarding,
   AvatarUpload,
   ChakraNextImage,
-  Footer
+  Footer,
+  Whitebox
 }

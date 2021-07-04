@@ -7,15 +7,14 @@ import {
 import { useAllReleasesQuery } from 'graphql/generated'
 
 export default function ReleasesPage() {
-  // const { data, isError, isLoading } = useAllReleasesQuery()
+  const { data, isError, isLoading } = useAllReleasesQuery()
   return (
-    <PrivateLayout>
-      {/*
+    <PrivateLayout pageTitle="Lançamentos">
       <>
         {isLoading && <GridListSkeleton />}
         {isError && <ErrorMessage />}
         {data && <GridList data={data} />}
-      </> */}
+      </>
     </PrivateLayout>
   )
 }
