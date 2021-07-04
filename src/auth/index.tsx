@@ -4,28 +4,27 @@ import { GetMeQuery, useGetMeQuery } from 'graphql/generated'
 import { Session } from 'next-auth'
 
 interface ContextTypes {
-  me?: GetMeQuery | undefined
+  me?: GetMeQuery
   isMeLoading?: boolean
   session?: Session | null
   loading?: boolean
 }
 
-const AuthContext = createContext<ContextTypes>({
-  me: {},
-  isMeLoading: true,
-  session: {},
-  loading: true
-})
+const AuthContext = createContext({} as ContextTypes)
 
-interface Props {
+interface AuthProviderProps {
   children?: ReactNode
 }
 
-const AuthProvider = ({ children }: Props) => {
+const AuthProvider = ({ children }: AuthProviderProps) => {
   const [session, loading] = useSession()
   const { data: me, isLoading: isMeLoading } = useGetMeQuery(
     { id: session?.id as string },
-    { enabled: !!session?.id }
+    {
+      enabled: !!session?.id,
+      staleTime: 60 * 60 * 1000, // 1 hour
+      keepPreviousData: true
+    }
   )
   return (
     <AuthContext.Provider

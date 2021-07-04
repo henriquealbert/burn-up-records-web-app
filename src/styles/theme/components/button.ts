@@ -38,6 +38,14 @@ const Button = {
       h: 'auto',
       _hover: {
         color: 'brand.secondary.1'
+      },
+      _active: {
+        color: 'brand.secondary.1'
+      },
+      _disabled: {
+        _hover: {
+          textDecoration: 'underline'
+        }
       }
     },
     menu: {

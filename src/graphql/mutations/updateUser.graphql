@@ -1,0 +1,15 @@
+mutation updateUser($input: updateUserInput!) {
+  updateUser(input: $input) {
+    user {
+      id
+      artist_name
+      email
+      username
+      onboarding
+      avatar {
+        id
+        url
+      }
+    }
+  }
+}

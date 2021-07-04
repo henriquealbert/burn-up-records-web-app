@@ -3,9 +3,11 @@ query getMe($id: ID!) {
     id
     email
     artist_name
+    onboarding
     avatar {
       id
       url
+      formats
     }
     releases {
       id

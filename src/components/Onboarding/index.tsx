@@ -1,26 +1,26 @@
+import { useState, useEffect } from 'react'
 import {
   Modal,
   ModalOverlay,
   ModalContent,
   ModalBody,
   useDisclosure,
-  useBoolean
+  useTheme
 } from '@chakra-ui/react'
-import { useEffect } from 'react'
+import { transparentize } from 'polished'
 
 import { useAuth } from 'auth'
 import { StepName } from './StepName'
 import { StepPhoto } from './StepPhoto'
 
 export const Onboarding = () => {
+  const { colors } = useTheme()
   const { me, isMeLoading } = useAuth()
-
-  const [next, setNext] = useBoolean()
+  const [next, setNext] = useState(false)
   const { isOpen, onOpen, onClose } = useDisclosure()
-
   // Verify if there is an artist name, if not, start the onboarding process
   useEffect(() => {
-    if (!me?.user?.artist_name && !isMeLoading) {
+    if (!me?.user?.onboarding && !isMeLoading) {
       onOpen()
     } else {
       onClose()
@@ -35,10 +35,11 @@ export const Onboarding = () => {
         closeOnEsc={false}
         closeOnOverlayClick={false}
         isCentered
+        size="xl"
       >
-        <ModalOverlay />
-        <ModalContent>
-          <ModalBody>
+        <ModalOverlay bgColor={transparentize(0.2, colors.brand.gray[4])} />
+        <ModalContent borderRadius="24px">
+          <ModalBody p={12} h="full" d="flex" flexDirection="column">
             {!next && <StepName setNext={setNext} />}
             {next && <StepPhoto onClose={onClose} />}
           </ModalBody>

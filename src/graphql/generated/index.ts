@@ -22,10 +22,10 @@ export type Scalars = {
   Float: number
   Date: Date
   DateTime: Date
-  JSON: unknown
-  Long: unknown
+  JSON: any
+  Long: any
   Time: string
-  Upload: unknown
+  Upload: any
 }
 
 export type AdminUser = {
@@ -221,9 +221,10 @@ export type Morph =
   | UsersPermissionsUserConnectionBlocked
   | UsersPermissionsUserConnectionRole
   | UsersPermissionsUserConnectionArtist_Name
-  | UsersPermissionsUserConnectionAvatar
   | UsersPermissionsUserConnectionBiography
   | UsersPermissionsUserConnectionSocial_Links
+  | UsersPermissionsUserConnectionOnboarding
+  | UsersPermissionsUserConnectionAvatar
   | CreateUserPayload
   | UpdateUserPayload
   | DeleteUserPayload
@@ -1003,10 +1004,11 @@ export type UserInput = {
   blocked?: Maybe<Scalars['Boolean']>
   role?: Maybe<Scalars['ID']>
   artist_name?: Maybe<Scalars['String']>
-  avatar?: Maybe<Scalars['ID']>
   biography?: Maybe<Scalars['String']>
   social_links?: Maybe<ComponentSocialSocialLinkInput>
   releases?: Maybe<Array<Maybe<Scalars['ID']>>>
+  onboarding?: Maybe<Scalars['Boolean']>
+  avatar?: Maybe<Scalars['ID']>
   created_by?: Maybe<Scalars['ID']>
   updated_by?: Maybe<Scalars['ID']>
 }
@@ -1144,9 +1146,10 @@ export type UsersPermissionsUser = {
   blocked?: Maybe<Scalars['Boolean']>
   role?: Maybe<UsersPermissionsRole>
   artist_name?: Maybe<Scalars['String']>
-  avatar?: Maybe<UploadFile>
   biography?: Maybe<Scalars['String']>
   social_links?: Maybe<ComponentSocialSocialLinks>
+  onboarding?: Maybe<Scalars['Boolean']>
+  avatar?: Maybe<UploadFile>
   releases?: Maybe<Array<Maybe<Release>>>
 }
 
@@ -1218,6 +1221,12 @@ export type UsersPermissionsUserConnectionId = {
   connection?: Maybe<UsersPermissionsUserConnection>
 }
 
+export type UsersPermissionsUserConnectionOnboarding = {
+  __typename?: 'UsersPermissionsUserConnectionOnboarding'
+  key?: Maybe<Scalars['Boolean']>
+  connection?: Maybe<UsersPermissionsUserConnection>
+}
+
 export type UsersPermissionsUserConnectionProvider = {
   __typename?: 'UsersPermissionsUserConnectionProvider'
   key?: Maybe<Scalars['String']>
@@ -1260,9 +1269,10 @@ export type UsersPermissionsUserGroupBy = {
   blocked?: Maybe<Array<Maybe<UsersPermissionsUserConnectionBlocked>>>
   role?: Maybe<Array<Maybe<UsersPermissionsUserConnectionRole>>>
   artist_name?: Maybe<Array<Maybe<UsersPermissionsUserConnectionArtist_Name>>>
-  avatar?: Maybe<Array<Maybe<UsersPermissionsUserConnectionAvatar>>>
   biography?: Maybe<Array<Maybe<UsersPermissionsUserConnectionBiography>>>
   social_links?: Maybe<Array<Maybe<UsersPermissionsUserConnectionSocial_Links>>>
+  onboarding?: Maybe<Array<Maybe<UsersPermissionsUserConnectionOnboarding>>>
+  avatar?: Maybe<Array<Maybe<UsersPermissionsUserConnectionAvatar>>>
 }
 
 export type CreateReleaseInput = {
@@ -1437,10 +1447,11 @@ export type EditUserInput = {
   blocked?: Maybe<Scalars['Boolean']>
   role?: Maybe<Scalars['ID']>
   artist_name?: Maybe<Scalars['String']>
-  avatar?: Maybe<Scalars['ID']>
   biography?: Maybe<Scalars['String']>
   social_links?: Maybe<EditComponentSocialSocialLinkInput>
   releases?: Maybe<Array<Maybe<Scalars['ID']>>>
+  onboarding?: Maybe<Scalars['Boolean']>
+  avatar?: Maybe<Scalars['ID']>
   created_by?: Maybe<Scalars['ID']>
   updated_by?: Maybe<Scalars['ID']>
 }
@@ -1495,8 +1506,29 @@ export type CreateUserMutation = { __typename?: 'Mutation' } & {
       user?: Maybe<
         { __typename?: 'UsersPermissionsUser' } & Pick<
           UsersPermissionsUser,
-          'id' | 'username' | 'email'
+          'id' | 'username' | 'email' | 'onboarding'
         >
+      >
+    }
+  >
+}
+
+export type UpdateUserMutationVariables = Exact<{
+  input: UpdateUserInput
+}>
+
+export type UpdateUserMutation = { __typename?: 'Mutation' } & {
+  updateUser?: Maybe<
+    { __typename?: 'updateUserPayload' } & {
+      user?: Maybe<
+        { __typename?: 'UsersPermissionsUser' } & Pick<
+          UsersPermissionsUser,
+          'id' | 'artist_name' | 'email' | 'username' | 'onboarding'
+        > & {
+            avatar?: Maybe<
+              { __typename?: 'UploadFile' } & Pick<UploadFile, 'id' | 'url'>
+            >
+          }
       >
     }
   >
@@ -1510,10 +1542,13 @@ export type GetMeQuery = { __typename?: 'Query' } & {
   user?: Maybe<
     { __typename?: 'UsersPermissionsUser' } & Pick<
       UsersPermissionsUser,
-      'id' | 'email' | 'artist_name'
+      'id' | 'email' | 'artist_name' | 'onboarding'
     > & {
         avatar?: Maybe<
-          { __typename?: 'UploadFile' } & Pick<UploadFile, 'id' | 'url'>
+          { __typename?: 'UploadFile' } & Pick<
+            UploadFile,
+            'id' | 'url' | 'formats'
+          >
         >
         releases?: Maybe<
           Array<Maybe<{ __typename?: 'Release' } & Pick<Release, 'id'>>>
@@ -1562,6 +1597,7 @@ export const CreateUserDocument = `
       id
       username
       email
+      onboarding
     }
   }
 }
@@ -1587,15 +1623,55 @@ export const useCreateUserMutation = <TError = unknown, TContext = unknown>(
       )(),
     options
   )
+export const UpdateUserDocument = `
+    mutation updateUser($input: updateUserInput!) {
+  updateUser(input: $input) {
+    user {
+      id
+      artist_name
+      email
+      username
+      onboarding
+      avatar {
+        id
+        url
+      }
+    }
+  }
+}
+    `
+export const useUpdateUserMutation = <TError = unknown, TContext = unknown>(
+  options?: UseMutationOptions<
+    UpdateUserMutation,
+    TError,
+    UpdateUserMutationVariables,
+    TContext
+  >
+) =>
+  useMutation<
+    UpdateUserMutation,
+    TError,
+    UpdateUserMutationVariables,
+    TContext
+  >(
+    (variables?: UpdateUserMutationVariables) =>
+      myFetcher<UpdateUserMutation, UpdateUserMutationVariables>(
+        UpdateUserDocument,
+        variables
+      )(),
+    options
+  )
 export const GetMeDocument = `
     query getMe($id: ID!) {
   user(id: $id) {
     id
     email
     artist_name
+    onboarding
     avatar {
       id
       url
+      formats
     }
     releases {
       id

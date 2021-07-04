@@ -14,7 +14,7 @@ export const Sidebar = () => {
   return (
     <Flex
       direction="column"
-      w="100%"
+      w="full"
       h="100vh"
       bgColor="white"
       zIndex="sticky"

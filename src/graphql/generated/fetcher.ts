@@ -1,30 +1,35 @@
+import axios from 'axios'
 import { getSession } from 'next-auth/client'
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const api = async (url: string, data: string | any) => {
+  const session = await getSession()
+  const token = session?.jwt
+
+  return axios({
+    url,
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: token ? 'Bearer ' + token : ''
+    },
+    data
+  })
+}
 
 export const myFetcher = <TData, TVariables>(
   query: string,
   variables?: TVariables
 ) => {
   return async (): Promise<TData> => {
-    const session = await getSession()
-    const token = session?.jwt
-
-    const res = await fetch(process.env.NEXT_PUBLIC_GRAPHQL_API_URL as string, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: token ? 'Bearer ' + token : ''
-      },
-      body: JSON.stringify({ query, variables })
-    })
-
-    const json = await res.json()
-
-    if (json.errors) {
-      const { message } = json.errors[0]
-
-      throw new Error(message)
+    try {
+      const res = await api(
+        process.env.NEXT_PUBLIC_GRAPHQL_API_URL as string,
+        JSON.stringify({ query, variables })
+      )
+      return res.data?.data
+    } catch (error) {
+      throw new Error(error.message)
     }
-
-    return json.data
   }
 }
