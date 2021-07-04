@@ -16,7 +16,7 @@ export const Sidebar = () => {
       bgColor="white"
       zIndex="sticky"
     >
-      <Profile mt={10} />
+      <Profile mt={14} />
       <Flex justify="center" mt={6} mb={10}>
         <Button variant="primary">Lançar Track</Button>
       </Flex>

@@ -12,6 +12,7 @@ import { AvatarUpload } from './AvatarUpload'
 import { ChakraNextImage } from './ChakraNextImage'
 import { Footer } from './Footer'
 import { Whitebox } from './Whitebox'
+import { Notifications } from './Notifications'
 
 export {
   Loading,
@@ -27,5 +28,6 @@ export {
   AvatarUpload,
   ChakraNextImage,
   Footer,
-  Whitebox
+  Whitebox,
+  Notifications
 }
