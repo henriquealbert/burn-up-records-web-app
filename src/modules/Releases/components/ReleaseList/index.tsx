@@ -1,18 +1,12 @@
 import { Badge, Box, Flex, SimpleGrid, Img, Text } from '@chakra-ui/react'
-import Link from 'next/link'
+import NextLink from 'next/link'
 import { getStatusColor, getStatusName } from 'helpers'
 import { AllReleasesQuery } from 'graphql/generated'
 
-type Releases = Pick<AllReleasesQuery, 'releases'>
-
-type GridListProps = {
-  data?: Releases
-}
-
-export const GridList = ({ data }: GridListProps) => (
+export const ReleaseList = ({ data }: GridListProps) => (
   <SimpleGrid minChildWidth="215px" spacing="24px">
     {data?.releases?.map((item) => (
-      <Link key={item?.id} href={`/lancamentos/${item?.id}`} passHref>
+      <NextLink key={item?.id} href={`/lancamentos/${item?.id}`} passHref>
         <Box
           cursor="pointer"
           borderRadius="4px"
@@ -63,7 +57,13 @@ export const GridList = ({ data }: GridListProps) => (
             </Badge>
           </Flex>
         </Box>
-      </Link>
+      </NextLink>
     ))}
   </SimpleGrid>
 )
+
+type Releases = Pick<AllReleasesQuery, 'releases'>
+
+type GridListProps = {
+  data?: Releases
+}

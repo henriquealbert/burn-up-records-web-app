@@ -3,14 +3,8 @@ import { useRouter } from 'next/router'
 import { Grid, Flex, Heading } from '@chakra-ui/react'
 
 import { useAuth } from 'auth'
-import {
-  Loading,
-  Sidebar,
-  Onboarding,
-  Footer,
-  Whitebox,
-  Notifications
-} from 'components'
+import { Onboarding } from 'modules/Onboarding'
+import { Loading, Sidebar, Footer, Whitebox, Notifications } from 'components'
 
 export const PrivateLayout = ({ children, pageTitle }: LayoutProps) => {
   const { push } = useRouter()

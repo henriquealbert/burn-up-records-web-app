@@ -5,9 +5,6 @@ import { PrivateLayout } from './PrivateLayout'
 import { AuthLayout } from './AuthLayout'
 import { ErrorMessage } from './ErrorMessage'
 import { FormikInput } from './Form/Input'
-import { GridList } from './GridList'
-import { GridListSkeleton } from './GridList/GridListSkeleton'
-import { Onboarding } from './Onboarding'
 import { AvatarUpload } from './AvatarUpload'
 import { ChakraNextImage } from './ChakraNextImage'
 import { Footer } from './Footer'
@@ -22,9 +19,6 @@ export {
   AuthLayout,
   ErrorMessage,
   FormikInput,
-  GridList,
-  GridListSkeleton,
-  Onboarding,
   AvatarUpload,
   ChakraNextImage,
   Footer,

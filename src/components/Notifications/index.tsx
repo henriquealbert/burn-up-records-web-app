@@ -29,5 +29,5 @@ export const Notifications = ({ notifications = true }: Props) => (
 )
 
 type Props = {
-  notifications: boolean
+  notifications?: boolean
 }
