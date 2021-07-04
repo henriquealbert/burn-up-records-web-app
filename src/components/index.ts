@@ -10,6 +10,7 @@ import { GridListSkeleton } from './GridList/GridListSkeleton'
 import { Onboarding } from './Onboarding'
 import { AvatarUpload } from './AvatarUpload'
 import { ChakraNextImage } from './ChakraNextImage'
+import { Footer } from './Footer'
 
 export {
   Loading,
@@ -23,5 +24,6 @@ export {
   GridListSkeleton,
   Onboarding,
   AvatarUpload,
-  ChakraNextImage
+  ChakraNextImage,
+  Footer
 }

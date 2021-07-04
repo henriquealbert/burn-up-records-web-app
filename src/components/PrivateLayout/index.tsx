@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { Box, Flex, Grid } from '@chakra-ui/react'
 
 import { useAuth } from 'auth'
-import { Loading, Sidebar, Onboarding } from 'components'
+import { Loading, Sidebar, Onboarding, Footer } from 'components'
 
 type LayoutProps = {
   children: ReactNode
@@ -35,6 +35,7 @@ export const PrivateLayout = ({ children }: LayoutProps) => {
               </Flex>
             </Box>
           </Grid>
+          <Footer />
           <Onboarding />
         </>
       )}
