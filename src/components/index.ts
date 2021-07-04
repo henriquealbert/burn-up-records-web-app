@@ -8,6 +8,8 @@ import { FormikInput } from './Form/Input'
 import { GridList } from './GridList'
 import { GridListSkeleton } from './GridList/GridListSkeleton'
 import { Onboarding } from './Onboarding'
+import { AvatarUpload } from './AvatarUpload'
+import { ChakraNextImage } from './ChakraNextImage'
 
 export {
   Loading,
@@ -19,5 +21,7 @@ export {
   FormikInput,
   GridList,
   GridListSkeleton,
-  Onboarding
+  Onboarding,
+  AvatarUpload,
+  ChakraNextImage
 }

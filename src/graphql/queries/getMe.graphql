@@ -7,6 +7,7 @@ query getMe($id: ID!) {
     avatar {
       id
       url
+      formats
     }
     releases {
       id

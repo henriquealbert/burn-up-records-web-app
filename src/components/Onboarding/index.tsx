@@ -39,7 +39,7 @@ export const Onboarding = () => {
       >
         <ModalOverlay bgColor={transparentize(0.2, colors.brand.gray[4])} />
         <ModalContent borderRadius="24px">
-          <ModalBody p={12}>
+          <ModalBody p={12} h="full" d="flex" flexDirection="column">
             {!next && <StepName setNext={setNext} />}
             {next && <StepPhoto onClose={onClose} />}
           </ModalBody>

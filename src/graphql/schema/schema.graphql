@@ -200,10 +200,10 @@ union Morph =
   | UsersPermissionsUserConnectionBlocked
   | UsersPermissionsUserConnectionRole
   | UsersPermissionsUserConnectionArtist_name
-  | UsersPermissionsUserConnectionAvatar
   | UsersPermissionsUserConnectionBiography
   | UsersPermissionsUserConnectionSocial_links
   | UsersPermissionsUserConnectionOnboarding
+  | UsersPermissionsUserConnectionAvatar
   | createUserPayload
   | updateUserPayload
   | deleteUserPayload
@@ -808,11 +808,11 @@ input UserInput {
   blocked: Boolean
   role: ID
   artist_name: String
-  avatar: ID
   biography: String
   social_links: ComponentSocialSocialLinkInput
   releases: [ID]
   onboarding: Boolean
+  avatar: ID
   created_by: ID
   updated_by: ID
 }
@@ -932,10 +932,10 @@ type UsersPermissionsUser {
   blocked: Boolean
   role: UsersPermissionsRole
   artist_name: String
-  avatar: UploadFile
   biography: String
   social_links: ComponentSocialSocialLinks
   onboarding: Boolean
+  avatar: UploadFile
   releases(sort: String, limit: Int, start: Int, where: JSON): [Release]
 }
 
@@ -1031,10 +1031,10 @@ type UsersPermissionsUserGroupBy {
   blocked: [UsersPermissionsUserConnectionBlocked]
   role: [UsersPermissionsUserConnectionRole]
   artist_name: [UsersPermissionsUserConnectionArtist_name]
-  avatar: [UsersPermissionsUserConnectionAvatar]
   biography: [UsersPermissionsUserConnectionBiography]
   social_links: [UsersPermissionsUserConnectionSocial_links]
   onboarding: [UsersPermissionsUserConnectionOnboarding]
+  avatar: [UsersPermissionsUserConnectionAvatar]
 }
 
 input createReleaseInput {
@@ -1200,11 +1200,11 @@ input editUserInput {
   blocked: Boolean
   role: ID
   artist_name: String
-  avatar: ID
   biography: String
   social_links: editComponentSocialSocialLinkInput
   releases: [ID]
   onboarding: Boolean
+  avatar: ID
   created_by: ID
   updated_by: ID
 }

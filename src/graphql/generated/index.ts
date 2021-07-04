@@ -22,10 +22,10 @@ export type Scalars = {
   Float: number
   Date: Date
   DateTime: Date
-  JSON: unknown
-  Long: unknown
+  JSON: any
+  Long: any
   Time: string
-  Upload: unknown
+  Upload: any
 }
 
 export type AdminUser = {
@@ -221,10 +221,10 @@ export type Morph =
   | UsersPermissionsUserConnectionBlocked
   | UsersPermissionsUserConnectionRole
   | UsersPermissionsUserConnectionArtist_Name
-  | UsersPermissionsUserConnectionAvatar
   | UsersPermissionsUserConnectionBiography
   | UsersPermissionsUserConnectionSocial_Links
   | UsersPermissionsUserConnectionOnboarding
+  | UsersPermissionsUserConnectionAvatar
   | CreateUserPayload
   | UpdateUserPayload
   | DeleteUserPayload
@@ -1004,11 +1004,11 @@ export type UserInput = {
   blocked?: Maybe<Scalars['Boolean']>
   role?: Maybe<Scalars['ID']>
   artist_name?: Maybe<Scalars['String']>
-  avatar?: Maybe<Scalars['ID']>
   biography?: Maybe<Scalars['String']>
   social_links?: Maybe<ComponentSocialSocialLinkInput>
   releases?: Maybe<Array<Maybe<Scalars['ID']>>>
   onboarding?: Maybe<Scalars['Boolean']>
+  avatar?: Maybe<Scalars['ID']>
   created_by?: Maybe<Scalars['ID']>
   updated_by?: Maybe<Scalars['ID']>
 }
@@ -1146,10 +1146,10 @@ export type UsersPermissionsUser = {
   blocked?: Maybe<Scalars['Boolean']>
   role?: Maybe<UsersPermissionsRole>
   artist_name?: Maybe<Scalars['String']>
-  avatar?: Maybe<UploadFile>
   biography?: Maybe<Scalars['String']>
   social_links?: Maybe<ComponentSocialSocialLinks>
   onboarding?: Maybe<Scalars['Boolean']>
+  avatar?: Maybe<UploadFile>
   releases?: Maybe<Array<Maybe<Release>>>
 }
 
@@ -1269,10 +1269,10 @@ export type UsersPermissionsUserGroupBy = {
   blocked?: Maybe<Array<Maybe<UsersPermissionsUserConnectionBlocked>>>
   role?: Maybe<Array<Maybe<UsersPermissionsUserConnectionRole>>>
   artist_name?: Maybe<Array<Maybe<UsersPermissionsUserConnectionArtist_Name>>>
-  avatar?: Maybe<Array<Maybe<UsersPermissionsUserConnectionAvatar>>>
   biography?: Maybe<Array<Maybe<UsersPermissionsUserConnectionBiography>>>
   social_links?: Maybe<Array<Maybe<UsersPermissionsUserConnectionSocial_Links>>>
   onboarding?: Maybe<Array<Maybe<UsersPermissionsUserConnectionOnboarding>>>
+  avatar?: Maybe<Array<Maybe<UsersPermissionsUserConnectionAvatar>>>
 }
 
 export type CreateReleaseInput = {
@@ -1447,11 +1447,11 @@ export type EditUserInput = {
   blocked?: Maybe<Scalars['Boolean']>
   role?: Maybe<Scalars['ID']>
   artist_name?: Maybe<Scalars['String']>
-  avatar?: Maybe<Scalars['ID']>
   biography?: Maybe<Scalars['String']>
   social_links?: Maybe<EditComponentSocialSocialLinkInput>
   releases?: Maybe<Array<Maybe<Scalars['ID']>>>
   onboarding?: Maybe<Scalars['Boolean']>
+  avatar?: Maybe<Scalars['ID']>
   created_by?: Maybe<Scalars['ID']>
   updated_by?: Maybe<Scalars['ID']>
 }
@@ -1545,7 +1545,10 @@ export type GetMeQuery = { __typename?: 'Query' } & {
       'id' | 'email' | 'artist_name' | 'onboarding'
     > & {
         avatar?: Maybe<
-          { __typename?: 'UploadFile' } & Pick<UploadFile, 'id' | 'url'>
+          { __typename?: 'UploadFile' } & Pick<
+            UploadFile,
+            'id' | 'url' | 'formats'
+          >
         >
         releases?: Maybe<
           Array<Maybe<{ __typename?: 'Release' } & Pick<Release, 'id'>>>
@@ -1668,6 +1671,7 @@ export const GetMeDocument = `
     avatar {
       id
       url
+      formats
     }
     releases {
       id

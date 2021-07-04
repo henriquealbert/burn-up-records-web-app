@@ -9,8 +9,8 @@ import customTheme from 'styles/theme'
 function App({ Component, pageProps }: AppProps) {
   return (
     <NextAuthProvider session={pageProps.session}>
-      <ChakraProvider theme={customTheme}>
-        <QueryProvider>
+      <QueryProvider>
+        <ChakraProvider theme={customTheme}>
           <AuthProvider>
             <Head>
               <title>Burn Up Records</title>
@@ -23,8 +23,8 @@ function App({ Component, pageProps }: AppProps) {
             <CSSReset />
             <Component {...pageProps} />
           </AuthProvider>
-        </QueryProvider>
-      </ChakraProvider>
+        </ChakraProvider>
+      </QueryProvider>
     </NextAuthProvider>
   )
 }

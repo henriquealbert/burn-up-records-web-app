@@ -11,10 +11,7 @@ generates:
       scalars:
         Date: Date
         DateTime: Date
-        JSON: unknown
-        Long: unknown
         Time: string
-        Upload: unknown
       fetcher:
         func: './fetcher#myFetcher'
 

@@ -1,6 +1,6 @@
 import { Badge, Box, Flex, SimpleGrid, Img, Text } from '@chakra-ui/react'
 import Link from 'next/link'
-import { imgUrl, getStatusColor, getStatusName } from 'helpers'
+import { getStatusColor, getStatusName } from 'helpers'
 import { AllReleasesQuery } from 'graphql/generated'
 
 type Releases = Pick<AllReleasesQuery, 'releases'>
@@ -31,11 +31,7 @@ export const GridList = ({ data }: GridListProps) => (
             objectPosition="center"
             borderBottom="1px solid"
             borderColor="gray.100"
-            src={
-              item?.artwork
-                ? imgUrl(item?.artwork.url)
-                : '/img/image-placeholder.png'
-            }
+            src={item?.artwork?.url || '/img/image-placeholder.png'}
           />
           <Flex p="12px" direction="column">
             <Text fontSize="10px" color="gray.400">

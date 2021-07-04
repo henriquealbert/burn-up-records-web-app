@@ -9,25 +9,28 @@ import { useAuth } from 'auth'
 
 export const StepName = ({ setNext }: Props) => {
   const { me } = useAuth()
-  const { mutateAsync } = useUpdateUserMutation({
-    onSuccess: () => setNext(true),
-    onError: () => alert('Erro ao conectar com o servidor')
-  })
+  const { mutateAsync } = useUpdateUserMutation()
 
   const handleSubmit = async (
     values: Values,
     { setSubmitting }: FormikHelpers<Values>
   ) => {
-    await mutateAsync({
-      input: {
-        where: {
-          id: me?.user?.id as string
-        },
-        data: {
-          artist_name: values.artist_name
+    await mutateAsync(
+      {
+        input: {
+          where: {
+            id: me?.user?.id as string
+          },
+          data: {
+            artist_name: values.artist_name
+          }
         }
+      },
+      {
+        onSuccess: () => setNext(true),
+        onError: () => alert('Erro ao conectar com o servidor')
       }
-    })
+    )
     setSubmitting(false)
   }
   return (
