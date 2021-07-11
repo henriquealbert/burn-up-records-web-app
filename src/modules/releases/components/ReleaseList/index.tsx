@@ -1,65 +1,102 @@
-import { Badge, Box, Flex, SimpleGrid, Img, Text } from '@chakra-ui/react'
+import { Badge, Flex, Text, Heading, Box } from '@chakra-ui/react'
 import NextLink from 'next/link'
-import { getStatusColor, getStatusName } from 'helpers'
+
+import { TooltipBox } from './TooltipBox'
+import { BlankSlate } from './BlankSlate'
+import { ChakraNextImage } from 'components'
+import {
+  getStatusBgColor,
+  getStatusName,
+  getStatusColor
+} from 'helpers/getStatus'
+
 import { AllReleasesQuery } from 'graphql/generated'
 
 export const ReleaseList = ({ data }: GridListProps) => (
-  <SimpleGrid minChildWidth="215px" spacing="24px">
-    {data?.releases?.map((item) => (
-      <NextLink key={item?.id} href={`/lancamentos/${item?.id}`} passHref>
-        <Box
-          cursor="pointer"
-          borderRadius="4px"
-          backgroundColor="white"
-          w="215px"
-          border="1px solid"
-          borderColor="gray.100"
-          _hover={{ boxShadow: '0px 6px 18px rgba(0, 0, 0, 0.06)' }}
-          transition="all 200ms ease-in-out"
-        >
-          <Img
-            borderRadius="4px 4px 0 0"
-            w="full"
-            h="100px"
-            objectFit="cover"
-            objectPosition="center"
-            borderBottom="1px solid"
-            borderColor="gray.100"
-            src={item?.artwork?.url || '/img/image-placeholder.png'}
-          />
-          <Flex p="12px" direction="column">
-            <Text fontSize="10px" color="gray.400">
-              {item?.catalog}
-            </Text>
+  <>
+    {data?.releases?.length === 0 ? (
+      <BlankSlate />
+    ) : (
+      <Flex flexWrap="wrap">
+        {data?.releases?.map((item) => (
+          <Box
+            key={item?.id}
+            h="370px"
+            w="196px"
+            bgColor="brand.bg"
+            borderRadius="16px"
+            p={4}
+            mr={8}
+            mb={8}
+          >
+            <NextLink href={`/lancamentos/${item?.id}`} passHref>
+              {item?.artwork?.url ? (
+                <Box maxH="164px">
+                  <ChakraNextImage
+                    width="164px"
+                    height="164px"
+                    objectFit="cover"
+                    borderRadius="16px"
+                    src={item?.artwork?.url}
+                    cursor="pointer"
+                  />
+                </Box>
+              ) : (
+                <Box
+                  cursor="pointer"
+                  width="164px"
+                  height="164px"
+                  borderRadius="16px"
+                  bgColor="brand.gray.1"
+                />
+              )}
+            </NextLink>
 
-            <Text fontWeight="bold" color="black">
-              {item?.name}
-            </Text>
-            <Text fontSize="13px" color="gray.500" as="i" lineHeight="1">
-              Artist name
-            </Text>
-            <Text
-              color="gray.400"
-              fontSize="13px"
-              fontWeight="medium"
-              mt="12px"
-            >
-              {item?.date}
-            </Text>
-            <Badge
-              variant="subtle"
-              colorScheme={getStatusColor(String(item?.status))}
-              borderRadius="4px"
-              alignSelf="flex-end"
-              mt="12px"
-            >
-              {getStatusName(String(item?.status))}
-            </Badge>
-          </Flex>
-        </Box>
-      </NextLink>
-    ))}
-  </SimpleGrid>
+            <Flex direction="column" mt={2}>
+              <Text
+                mb={4}
+                color="brand.gray.3"
+                fontSize="xs"
+                letterSpacing="wide"
+              >
+                {item?.catalog}
+              </Text>
+              <Heading
+                as="h3"
+                mb={1}
+                fontWeight="bold"
+                color="black"
+                fontSize="md"
+              >
+                {item?.name}
+              </Heading>
+              <Text fontWeight="medium" fontSize="sm" color="brand.gray.4">
+                Artist name
+              </Text>
+
+              <TooltipBox data={item} />
+
+              <Badge
+                mt="auto"
+                h="32px"
+                borderRadius="8px"
+                color={getStatusColor(item?.status)}
+                bgColor={getStatusBgColor(item?.status)}
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                fontWeight="normal"
+                fontSize="sm"
+                textTransform="none"
+              >
+                {getStatusName(item?.status)}
+              </Badge>
+            </Flex>
+          </Box>
+        ))}
+      </Flex>
+    )}
+  </>
 )
 
 type Releases = Pick<AllReleasesQuery, 'releases'>

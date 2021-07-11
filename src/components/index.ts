@@ -10,6 +10,7 @@ import { ChakraNextImage } from './ChakraNextImage'
 import { Footer } from './Footer'
 import { Whitebox } from './Whitebox'
 import { Notifications } from './Notifications'
+import { Tooltip } from './Tooltip'
 
 export {
   Loading,
@@ -23,5 +24,6 @@ export {
   ChakraNextImage,
   Footer,
   Whitebox,
-  Notifications
+  Notifications,
+  Tooltip
 }

@@ -1,37 +1,54 @@
-export const getStatusColor = (status: string) => {
+import { Enum_Release_Status, Maybe } from 'graphql/generated'
+
+export const getStatusColor = (status?: Maybe<Enum_Release_Status>) => {
+  if (!status) return
   switch (status) {
-    case 'analise':
-      return 'yellow'
-
-    case 'aprovado':
-      return 'green'
-
-    case 'corrigir':
-      return 'orange'
-
     case 'negado':
-      return 'red'
+      return 'brand.gray.2'
 
-    case 'lancado':
-      return 'teal'
+    default:
+      return 'brand.bg'
   }
 }
 
-export const getStatusName = (status: string) => {
+export const getStatusBgColor = (status?: Maybe<Enum_Release_Status>) => {
+  if (!status) return
   switch (status) {
+    case 'negado':
+      return 'brand.gray.1'
+
     case 'analise':
-      return 'análise'
+      return 'brand.gray.2'
 
     case 'aprovado':
-      return status
+      return 'brand.gray.3'
 
     case 'corrigir':
-      return status
-
-    case 'negado':
-      return status
+      return 'brand.error.1'
 
     case 'lancado':
-      return 'lançado'
+      return 'black'
+  }
+}
+
+export const getStatusName = (status?: Maybe<Enum_Release_Status>) => {
+  switch (status) {
+    case 'negado':
+      return 'Reprovado'
+
+    case 'analise':
+      return 'Em análise'
+
+    case 'aprovado':
+      return 'Aprovado'
+
+    case 'corrigir':
+      return 'Corrigir'
+
+    case 'lancado':
+      return 'Lançado'
+
+    default:
+      return status
   }
 }
