@@ -6,7 +6,8 @@ import {
   InputProps,
   useBoolean,
   ScaleFade,
-  FormErrorMessage
+  FormErrorMessage,
+  FormLabel
 } from '@chakra-ui/react'
 import { Field, FieldProps } from 'formik'
 
@@ -15,6 +16,7 @@ interface Props extends InputProps {
   type: string
   placeholder: string
   showErrorMessage?: boolean
+  label?: string
 }
 
 export const FormikInput = ({
@@ -22,6 +24,7 @@ export const FormikInput = ({
   type,
   placeholder,
   showErrorMessage = true,
+  label,
   ...props
 }: Props) => {
   const [blur, setBlur] = useBoolean()
@@ -32,18 +35,19 @@ export const FormikInput = ({
         const isInvalid = !!form.errors[name] && !!form.touched[name]
         return (
           <FormControl
+            id={name}
             isInvalid={isInvalid}
             onFocus={setBlur.off}
             onBlur={setBlur.on}
             {...props}
           >
+            {label && (
+              <FormLabel color="brand.gray.5" fontSize="lg">
+                {label}
+              </FormLabel>
+            )}
             <InputGroup d="flex" flexDirection="column">
-              <Input
-                {...field}
-                id={name}
-                type={type}
-                placeholder={placeholder}
-              />
+              <Input {...field} type={type} placeholder={placeholder} />
               {isInvalid && blur && (
                 <>
                   <ScaleFade in={blur} initialScale={0.5}>

@@ -11,6 +11,7 @@ import { Footer } from './Footer'
 import { Whitebox } from './Whitebox'
 import { Notifications } from './Notifications'
 import { Tooltip } from './Tooltip'
+import { Datepicker } from './Form/Datepicker'
 
 export {
   Loading,
@@ -25,5 +26,6 @@ export {
   Footer,
   Whitebox,
   Notifications,
-  Tooltip
+  Tooltip,
+  Datepicker
 }
