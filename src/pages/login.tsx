@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/client'
 
-import { LoginModule } from 'modules/login'
+import { LoginModule } from 'modules/Login'
 
 export default function LoginPage() {
   const [session] = useSession()

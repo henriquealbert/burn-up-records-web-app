@@ -5,11 +5,12 @@ import { PrivateLayout } from './PrivateLayout'
 import { AuthLayout } from './AuthLayout'
 import { ErrorMessage } from './ErrorMessage'
 import { FormikInput } from './Form/Input'
-import { GridList } from './GridList'
-import { GridListSkeleton } from './GridList/GridListSkeleton'
-import { Onboarding } from './Onboarding'
 import { AvatarUpload } from './AvatarUpload'
 import { ChakraNextImage } from './ChakraNextImage'
+import { Footer } from './Footer'
+import { Whitebox } from './Whitebox'
+import { Notifications } from './Notifications'
+import { Tooltip } from './Tooltip'
 
 export {
   Loading,
@@ -19,9 +20,10 @@ export {
   AuthLayout,
   ErrorMessage,
   FormikInput,
-  GridList,
-  GridListSkeleton,
-  Onboarding,
   AvatarUpload,
-  ChakraNextImage
+  ChakraNextImage,
+  Footer,
+  Whitebox,
+  Notifications,
+  Tooltip
 }

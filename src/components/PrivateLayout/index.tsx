@@ -1,43 +1,49 @@
 import { ReactNode } from 'react'
 import { useRouter } from 'next/router'
-import { Box, Flex, Grid } from '@chakra-ui/react'
+import { Grid, Flex, Heading } from '@chakra-ui/react'
 
 import { useAuth } from 'auth'
-import { Loading, Sidebar, Onboarding } from 'components'
+import { Onboarding } from 'modules/Onboarding'
+import { Loading, Sidebar, Footer, Whitebox, Notifications } from 'components'
 
-type LayoutProps = {
-  children: ReactNode
-}
-
-export const PrivateLayout = ({ children }: LayoutProps) => {
+export const PrivateLayout = ({ children, pageTitle }: LayoutProps) => {
   const { push } = useRouter()
   const { session, loading } = useAuth()
 
-  if (loading) return <Loading />
-  if (!session) push('/')
+  if (loading && !session) return <Loading />
+  if (!session && !loading) push('/')
 
   return (
     <>
-      {session && (
-        <>
-          <Grid
-            h="fit-available"
-            maxH="full"
-            w="full"
-            bgColor="gray.50"
-            templateColumns="340px 1fr"
-          >
-            <Sidebar />
+      <Grid
+        h="fit-available"
+        maxH="full"
+        w="full"
+        bgColor="brand.bg"
+        templateColumns="340px 1fr"
+      >
+        <Sidebar />
 
-            <Box h="full" w="full">
-              <Flex direction="column" h="full" w="full">
-                {children}
-              </Flex>
-            </Box>
-          </Grid>
-          <Onboarding />
-        </>
-      )}
+        <Flex direction="column" m={8} mb={0} as="main">
+          <Flex justifyContent="space-between">
+            <Heading as="h1" fontSize="4xl" fontWeight="medium" mb={8} mt={4}>
+              {pageTitle}
+            </Heading>
+            <Notifications />
+          </Flex>
+
+          <Whitebox>{children}</Whitebox>
+        </Flex>
+      </Grid>
+
+      <Footer />
+
+      <Onboarding />
     </>
   )
+}
+
+type LayoutProps = {
+  children: ReactNode
+  pageTitle: string
 }

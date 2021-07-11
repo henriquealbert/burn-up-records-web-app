@@ -1,5 +1,5 @@
 import { PrivateLayout } from 'components'
 
 export default function ArtistsPage() {
-  return <PrivateLayout>Artistas</PrivateLayout>
+  return <PrivateLayout pageTitle="Artistas">Artistas</PrivateLayout>
 }

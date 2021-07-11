@@ -1,6 +1,6 @@
 import { Box, SimpleGrid, Skeleton, SkeletonText } from '@chakra-ui/react'
 
-export const GridListSkeleton = () => (
+export const ReleaseListSkeleton = () => (
   <SimpleGrid minChildWidth="215px" spacing="24px">
     {[...new Array(10)].map(() => (
       <Box

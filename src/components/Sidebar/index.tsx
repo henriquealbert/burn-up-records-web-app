@@ -1,13 +1,10 @@
 import NextLink from 'next/link'
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { Button, Flex, Stack } from '@chakra-ui/react'
 
 import { LogOut } from './LogOut'
 import { sidebarLinks } from './sidebarLinks'
-import { Profile } from 'components'
-
-import logo from '../../../public/logo.svg'
+import { Profile, ChakraNextImage } from 'components'
 
 export const Sidebar = () => {
   const router = useRouter()
@@ -15,12 +12,11 @@ export const Sidebar = () => {
     <Flex
       direction="column"
       w="full"
-      h="100vh"
+      h="calc(100vh - 64px)"
       bgColor="white"
       zIndex="sticky"
-      borderRadius="lg"
     >
-      <Profile mt={20} />
+      <Profile mt={14} />
       <Flex justify="center" mt={6} mb={10}>
         <Button variant="primary">Lançar Track</Button>
       </Flex>
@@ -42,7 +38,14 @@ export const Sidebar = () => {
       <LogOut ml={16} mt={12} w="full" />
 
       <Flex justify="center" mb={4} mt="auto">
-        <Image src={logo} alt="Burn Up Records logo" title="Burn Up Records" />
+        <ChakraNextImage
+          src="/logo.svg"
+          width="117px"
+          height="65px"
+          alt="Burn Up Records logo"
+          title="Burn Up Records"
+          loading="eager"
+        />
       </Flex>
     </Flex>
   )

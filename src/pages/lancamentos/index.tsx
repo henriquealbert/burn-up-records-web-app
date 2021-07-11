@@ -1,21 +1,16 @@
-import {
-  PrivateLayout,
-  GridList,
-  ErrorMessage,
-  GridListSkeleton
-} from 'components'
 import { useAllReleasesQuery } from 'graphql/generated'
+import { PrivateLayout, ErrorMessage } from 'components'
+import { ReleaseListSkeleton, ReleaseList } from 'modules/releases/components'
 
 export default function ReleasesPage() {
-  // const { data, isError, isLoading } = useAllReleasesQuery()
+  const { data, isError, isLoading } = useAllReleasesQuery()
   return (
-    <PrivateLayout>
-      {/*
+    <PrivateLayout pageTitle="Lançamentos">
       <>
-        {isLoading && <GridListSkeleton />}
+        {isLoading && <ReleaseListSkeleton />}
         {isError && <ErrorMessage />}
-        {data && <GridList data={data} />}
-      </> */}
+        {data && <ReleaseList data={data} />}
+      </>
     </PrivateLayout>
   )
 }
