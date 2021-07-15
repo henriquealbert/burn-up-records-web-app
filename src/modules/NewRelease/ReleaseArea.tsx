@@ -9,6 +9,7 @@ export const ReleaseArea = () => {
     values: Values,
     { setSubmitting }: FormikHelpers<Values>
   ) => {
+    console.log(values)
     setSubmitting(false)
   }
 
@@ -29,7 +30,7 @@ export const ReleaseArea = () => {
             placeholder="Nome artístico"
             mb={4}
           />
-          <Datepicker />
+          <Datepicker name="date" label="Quando deseja lançar?" />
 
           <Flex justify="center" mb={10}>
             <Button type="submit" variant="primary" isLoading={isSubmitting}>
