@@ -1,6 +1,6 @@
 import {
   FormControl,
-  Input,
+  Input as ChakraInput,
   InputGroup,
   InputRightElement,
   InputProps,
@@ -11,15 +11,7 @@ import {
 } from '@chakra-ui/react'
 import { Field, FieldProps } from 'formik'
 
-interface Props extends InputProps {
-  name: string
-  type: string
-  placeholder: string
-  showErrorMessage?: boolean
-  label?: string
-}
-
-export const FormikInput = ({
+export const Input = ({
   name,
   type,
   placeholder,
@@ -47,7 +39,7 @@ export const FormikInput = ({
               </FormLabel>
             )}
             <InputGroup d="flex" flexDirection="column">
-              <Input {...field} type={type} placeholder={placeholder} />
+              <ChakraInput {...field} type={type} placeholder={placeholder} />
               {isInvalid && blur && (
                 <>
                   <ScaleFade in={blur} initialScale={0.5}>
@@ -72,4 +64,12 @@ export const FormikInput = ({
       }}
     </Field>
   )
+}
+
+interface Props extends InputProps {
+  name: string
+  type: string
+  placeholder?: string
+  showErrorMessage?: boolean
+  label?: string
 }

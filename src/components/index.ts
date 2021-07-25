@@ -4,14 +4,16 @@ import { Profile } from './Profile'
 import { PrivateLayout } from './PrivateLayout'
 import { AuthLayout } from './AuthLayout'
 import { ErrorMessage } from './ErrorMessage'
-import { FormikInput } from './Form/Input'
-import { AvatarUpload } from './AvatarUpload'
+import { Input } from './Form/Input'
+import { UploadImage } from './UploadImage'
 import { ChakraNextImage } from './ChakraNextImage'
 import { Footer } from './Footer'
 import { Whitebox } from './Whitebox'
 import { Notifications } from './Notifications'
 import { Tooltip } from './Tooltip'
 import { Datepicker } from './Form/Datepicker'
+import { Textarea } from './Form/Textarea'
+import { Radio } from './Form/Radio'
 
 export {
   Loading,
@@ -20,12 +22,14 @@ export {
   PrivateLayout,
   AuthLayout,
   ErrorMessage,
-  FormikInput,
-  AvatarUpload,
+  Input,
+  UploadImage,
   ChakraNextImage,
   Footer,
   Whitebox,
   Notifications,
   Tooltip,
-  Datepicker
+  Datepicker,
+  Textarea,
+  Radio
 }

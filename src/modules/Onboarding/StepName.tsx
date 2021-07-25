@@ -3,7 +3,7 @@ import { Button, Heading, Text, Box, Flex } from '@chakra-ui/react'
 import { Formik, Form, FormikHelpers, FormikProps } from 'formik'
 
 import { RightArrowIcon } from 'styles/icons'
-import { FormikInput } from 'components/Form/Input'
+import { Input } from 'components/Form/Input'
 import { useUpdateUserMutation } from 'graphql/generated'
 import { useAuth } from 'auth'
 
@@ -61,13 +61,13 @@ export const StepName = ({ setNext }: Props) => {
       >
         {({ isSubmitting }: FormikProps<Values>) => (
           <Box as={Form} w="full" h="full" autoComplete="off">
-            <FormikInput
+            <Input
               name="artist_name"
               type="text"
               placeholder="Nome artístico"
               mb={4}
             />
-            <FormikInput
+            <Input
               name="artist_name_confirmation"
               type="text"
               placeholder="Repetir nome artístico"

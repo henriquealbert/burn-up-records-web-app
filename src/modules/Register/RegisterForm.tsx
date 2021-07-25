@@ -6,7 +6,7 @@ import { RightArrowIcon } from 'styles/icons'
 import { Box, Button, Text } from '@chakra-ui/react'
 import { Formik, Form, FormikHelpers, FormikProps } from 'formik'
 
-import { FormikInput } from 'components/Form/Input'
+import { Input } from 'components/Form/Input'
 import { useCreateUserMutation } from 'graphql/generated'
 import { parseCallbackUrl } from 'helpers'
 
@@ -49,8 +49,8 @@ export const RegisterForm = () => {
     >
       {({ isSubmitting }: FormikProps<Values>) => (
         <Box as={Form} w="full" h="full">
-          <FormikInput name="email" type="email" placeholder="Email" mb={6} />
-          <FormikInput name="password" type="password" placeholder="Senha" />
+          <Input name="email" type="email" placeholder="Email" mb={6} />
+          <Input name="password" type="password" placeholder="Senha" />
 
           <Text fontSize="md" color="brand.gray.3" textAlign="center" mt={6}>
             Ao continuar você concorda com os

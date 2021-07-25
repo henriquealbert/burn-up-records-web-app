@@ -1,6 +1,7 @@
 import 'react-day-picker/lib/style.css'
 
 import {
+  Flex,
   FormControl,
   FormControlProps,
   FormErrorMessage,
@@ -9,6 +10,7 @@ import {
   InputGroup,
   useBoolean
 } from '@chakra-ui/react'
+import { ReactNode } from 'react'
 import ptBR from 'date-fns/locale/pt-BR'
 import { Field, FieldProps } from 'formik'
 import DayPickerInput from 'react-day-picker/DayPickerInput'
@@ -18,6 +20,7 @@ export const Datepicker = ({
   label,
   name,
   showErrorMessage,
+  labelTooltip,
   ...props
 }: Props) => {
   const [blur, setBlur] = useBoolean()
@@ -36,13 +39,17 @@ export const Datepicker = ({
             {...props}
           >
             {label && (
-              <FormLabel color="brand.gray.5" fontSize="lg">
-                {label}
-              </FormLabel>
+              <Flex alignItems="center" mb={2}>
+                <FormLabel color="brand.gray.5" fontSize="lg" mb={0}>
+                  {label}
+                </FormLabel>
+                {labelTooltip}
+              </Flex>
             )}
             <InputGroup
               d="flex"
               flexDirection="column"
+              maxW="135px"
               css={`
                 .DayPickerInput-Overlay {
                   border-radius: var(--chakra-radii-lg);
@@ -64,7 +71,7 @@ export const Datepicker = ({
             >
               <DayPickerInput
                 {...field}
-                placeholder={new Date().toLocaleDateString()}
+                placeholder=""
                 formatDate={formatDate}
                 format="dd/MM/yyyy"
                 dayPickerProps={{
@@ -149,4 +156,5 @@ interface Props extends FormControlProps {
   name: string
   showErrorMessage?: boolean
   label?: string
+  labelTooltip?: ReactNode
 }

@@ -9,12 +9,14 @@ import Heading from './components/heading'
 import Input from './components/input'
 import Modal from './components/modal'
 import Tabs from './components/tabs'
+import Textarea from './components/textarea'
+import Radio from './components/radio'
 
 const customTheme = extendTheme({
   ...global,
   colors,
   ...typography,
-  components: { Button, Heading, Input, Modal, Tabs }
+  components: { Button, Heading, Input, Modal, Tabs, Textarea, Radio }
 })
 
 export default customTheme

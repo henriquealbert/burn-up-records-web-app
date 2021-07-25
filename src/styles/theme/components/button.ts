@@ -19,6 +19,18 @@ const Button = {
         bgColor: 'brand.secondary.1'
       }
     },
+    secondary: {
+      py: 4,
+      px: 12,
+      h: 'auto',
+      maxH: '52px',
+      fontSize: 'lg',
+      bgColor: 'brand.secondary.2',
+      color: 'white',
+      _hover: {
+        bgColor: 'brand.secondary.1'
+      }
+    },
     google: {
       py: 5,
       px: 6,

@@ -4,7 +4,7 @@ import { RightArrowIcon } from 'styles/icons'
 import { Box, Button } from '@chakra-ui/react'
 import { Formik, Form, FormikHelpers, FormikProps } from 'formik'
 
-import { FormikInput } from 'components/Form/Input'
+import { Input } from 'components/Form/Input'
 import { parseCallbackUrl } from 'helpers'
 
 export const LoginForm = () => {
@@ -33,8 +33,8 @@ export const LoginForm = () => {
     >
       {({ isSubmitting }: FormikProps<Values>) => (
         <Box as={Form} w="full" h="full">
-          <FormikInput name="email" type="email" placeholder="Email" mb={6} />
-          <FormikInput name="password" type="password" placeholder="Senha" />
+          <Input name="email" type="email" placeholder="Email" mb={6} />
+          <Input name="password" type="password" placeholder="Senha" />
           <Button
             type="submit"
             variant="primary"
