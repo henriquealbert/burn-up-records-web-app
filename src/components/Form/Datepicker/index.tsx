@@ -9,10 +9,10 @@ import {
   InputGroup,
   useBoolean
 } from '@chakra-ui/react'
-import DayPickerInput from 'react-day-picker/DayPickerInput'
-import { format as dateFnsFormat, addWeeks, addMonths, addDays } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
 import { Field, FieldProps } from 'formik'
+import DayPickerInput from 'react-day-picker/DayPickerInput'
+import { format as dateFnsFormat, addDays } from 'date-fns'
 
 export const Datepicker = ({
   label,
@@ -40,7 +40,28 @@ export const Datepicker = ({
                 {label}
               </FormLabel>
             )}
-            <InputGroup d="flex" flexDirection="column">
+            <InputGroup
+              d="flex"
+              flexDirection="column"
+              css={`
+                .DayPickerInput-Overlay {
+                  border-radius: var(--chakra-radii-lg);
+                }
+                .DayPicker-Day {
+                  height: 40px;
+                  width: 40px;
+                  padding: 0;
+                }
+                .DayPicker-Day--disabled {
+                  cursor: not-allowed;
+                }
+                .DayPicker:not(.DayPicker--interactionDisabled)
+                  .DayPicker-Day:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected):not(.DayPicker-Day--outside):hover {
+                  background-color: var(--chakra-colors-brand-primary);
+                  color: var(--chakra-colors-white);
+                }
+              `}
+            >
               <DayPickerInput
                 {...field}
                 placeholder={new Date().toLocaleDateString()}
@@ -52,12 +73,12 @@ export const Datepicker = ({
                   weekdaysLong: WEEKDAYS_LONG['pt-BR'],
                   weekdaysShort: WEEKDAYS_SHORT['pt-BR'],
                   labels: LABELS['pt-BR'],
-                  month: addMonths(new Date(), 1),
-                  fromMonth: addMonths(new Date(), 1),
+                  month: addDays(new Date(), 40),
+                  fromMonth: addDays(new Date(), 40),
                   disabledDays: [
                     {
                       from: new Date(),
-                      to: addDays(addWeeks(new Date(), 6), 2)
+                      to: addDays(new Date(), 40)
                     },
                     {
                       before: new Date()
