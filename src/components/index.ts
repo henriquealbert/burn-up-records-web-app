@@ -14,6 +14,7 @@ import { Tooltip } from './Tooltip'
 import { Datepicker } from './Form/Datepicker'
 import { Textarea } from './Form/Textarea'
 import { Radio } from './Form/Radio'
+import { Select } from './Form/Select'
 
 export {
   Loading,
@@ -31,5 +32,6 @@ export {
   Tooltip,
   Datepicker,
   Textarea,
-  Radio
+  Radio,
+  Select
 }

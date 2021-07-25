@@ -17,6 +17,12 @@ const Button = {
       color: 'white',
       _hover: {
         bgColor: 'brand.secondary.1'
+      },
+      _disabled: {
+        bg: 'brand.secondary.1',
+        _hover: {
+          bg: 'var(--chakra-colors-brand-secondary-1) !important'
+        }
       }
     },
     secondary: {
@@ -29,6 +35,12 @@ const Button = {
       color: 'white',
       _hover: {
         bgColor: 'brand.secondary.1'
+      },
+      _disabled: {
+        bg: 'brand.secondary.1',
+        _hover: {
+          bg: 'var(--chakra-colors-brand-secondary-1) !important'
+        }
       }
     },
     google: {
