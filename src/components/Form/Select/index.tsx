@@ -68,8 +68,8 @@ const customTheme = (theme) => ({
   colors: {
     ...theme.colors,
     primary: 'var(--chakra-colors-brand-secondary-1)',
-    primary25: 'hsl(0, 95%, 90%)',
-    primary50: 'hsl(0, 95%, 85%)'
+    primary25: 'hsl(0, 100%, 95%)',
+    primary50: 'hsl(0, 100%, 90%)'
   }
 })
 
@@ -111,11 +111,13 @@ const customStyles = {
     lineHeight: '23px',
     color: 'var(--chakra-colors-brand-input-text-normal)'
   }),
-  option: (provided) => ({
+  option: (provided, state) => ({
     ...provided,
-    padding: '16px',
     fontSize: '18px',
-    lineHeight: '23px'
+    lineHeight: '23px',
+    color: state.isSelected
+      ? 'var(--chakra-colors-white)'
+      : 'var(--chakra-colors-brand-text)'
   }),
   menuList: (provided) => ({
     ...provided,

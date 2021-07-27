@@ -4,6 +4,8 @@ import { Formik, Form, FormikProps, FormikHelpers } from 'formik'
 
 import { Input, Select, Tooltip } from 'components'
 
+import { genreData } from './genreData'
+
 export const UploadTracks = ({ onSubmit }) => {
   const handleSubmit = async (
     values: Values,
@@ -29,7 +31,12 @@ export const UploadTracks = ({ onSubmit }) => {
       enableReinitialize
       validateOnMount
     >
-      {({ isSubmitting, setFieldValue, isValid }: FormikProps<Values>) => (
+      {({
+        isSubmitting,
+        setFieldValue,
+        isValid,
+        values
+      }: FormikProps<Values>) => (
         <SimpleGrid
           columns={2}
           spacingX={40}
@@ -44,20 +51,39 @@ export const UploadTracks = ({ onSubmit }) => {
             <Select
               label="Nome da versão"
               name="mix_name"
+              placeholder="Selecione uma opção..."
               options={[
-                { value: '1', label: 'Test' },
-                { value: '2', label: '2' }
+                { value: 'Original Mix', label: 'Original Mix' },
+                { value: 'Extended Mix', label: 'Extended Mix' },
+                { value: 'Radio Edit', label: 'Radio Edit' },
+                { value: 'Club Mix', label: 'Club Mix' },
+                { value: 'Remix', label: 'Remix' }
               ]}
             />
           </Box>
           <Box>
             <Input label="Artista(s)" name="track_artist" type="text" mb={8} />
             <Input
+              isDisabled={values.mix_name !== 'Remix'}
               label="Remix(ers)"
               name="remixer_name"
               type="text"
               mb={8}
-              labelTooltip={<Tooltip content="teste" />}
+              labelTooltip={
+                <Tooltip
+                  content={
+                    values.mix_name !== 'Remix'
+                      ? `Para habilitar, selecione o nome da versão como "Remix".`
+                      : 'Adicionar o nome dos artistas separado por vírgula.'
+                  }
+                />
+              }
+            />
+            <Select
+              label="Gênero"
+              name="genre"
+              placeholder="Selecione um gênero..."
+              options={genreData}
             />
           </Box>
         </SimpleGrid>
