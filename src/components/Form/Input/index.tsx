@@ -7,9 +7,11 @@ import {
   useBoolean,
   ScaleFade,
   FormErrorMessage,
-  FormLabel
+  FormLabel,
+  Flex
 } from '@chakra-ui/react'
 import { Field, FieldProps } from 'formik'
+import { ReactNode } from 'react'
 
 export const Input = ({
   name,
@@ -17,6 +19,7 @@ export const Input = ({
   placeholder,
   showErrorMessage = true,
   label,
+  labelTooltip,
   ...props
 }: Props) => {
   const [blur, setBlur] = useBoolean()
@@ -34,9 +37,12 @@ export const Input = ({
             {...props}
           >
             {label && (
-              <FormLabel color="brand.gray.5" fontSize="lg">
-                {label}
-              </FormLabel>
+              <Flex alignItems="center" mb={2}>
+                <FormLabel color="brand.gray.5" fontSize="lg" mb={0}>
+                  {label}
+                </FormLabel>
+                {labelTooltip}
+              </Flex>
             )}
             <InputGroup d="flex" flexDirection="column">
               <ChakraInput {...field} type={type} placeholder={placeholder} />
@@ -72,4 +78,5 @@ interface Props extends InputProps {
   placeholder?: string
   showErrorMessage?: boolean
   label?: string
+  labelTooltip?: ReactNode
 }

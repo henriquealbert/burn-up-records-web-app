@@ -2,7 +2,7 @@ import * as Yup from 'yup'
 import { Box, SimpleGrid } from '@chakra-ui/react'
 import { Formik, Form, FormikProps, FormikHelpers } from 'formik'
 
-import { Input, Select } from 'components'
+import { Input, Select, Tooltip } from 'components'
 
 export const UploadTracks = ({ onSubmit }) => {
   const handleSubmit = async (
@@ -39,17 +39,25 @@ export const UploadTracks = ({ onSubmit }) => {
           autoComplete="off"
         >
           <Box>
-            <Input label="Título da música" name="name" type="text" mb={8} />
+            <Input label="Nome da música" name="name" type="text" mb={8} />
 
-            <Select label="Nome da versão" name="mix_name" />
+            <Select
+              label="Nome da versão"
+              name="mix_name"
+              options={[
+                { value: '1', label: 'Test' },
+                { value: '2', label: '2' }
+              ]}
+            />
           </Box>
           <Box>
             <Input label="Artista(s)" name="track_artist" type="text" mb={8} />
             <Input
-              label="Artista Remix"
+              label="Remix(ers)"
               name="remixer_name"
               type="text"
               mb={8}
+              labelTooltip={<Tooltip content="teste" />}
             />
           </Box>
         </SimpleGrid>

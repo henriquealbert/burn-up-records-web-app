@@ -8,7 +8,7 @@ import { UploadTracks } from './UploadTracks'
 export const NewRelease = () => {
   const uploadTabRef = useRef(null)
   const [data, setData] = useState({})
-  const [nextStep, setNextStep] = useState(false)
+  const [nextStep, setNextStep] = useState(true)
 
   console.log(data)
 
