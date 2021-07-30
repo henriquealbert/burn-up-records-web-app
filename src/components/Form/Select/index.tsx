@@ -5,7 +5,7 @@ import {
   FormErrorMessage,
   FormLabel
 } from '@chakra-ui/react'
-import { Field, FieldProps } from 'formik'
+import { useField } from 'formik'
 import ReactSelect from 'react-select'
 
 export const Select = ({
@@ -19,47 +19,41 @@ export const Select = ({
   ...props
 }: Props) => {
   const [blur, setBlur] = useBoolean()
+  const [, meta, helpers] = useField(name)
+
+  const isInvalid = !!meta.error && !!meta.touched
 
   return (
-    <Field name={name}>
-      {({ field, form }: FieldProps) => {
-        const isInvalid = !!form.errors[name] && !!form.touched[name]
-        return (
-          <FormControl
-            id={name}
-            isInvalid={isInvalid}
-            onFocus={setBlur.off}
-            onBlur={setBlur.on}
-            {...props}
-          >
-            {label && (
-              <FormLabel color="brand.gray.5" fontSize="lg">
-                {label}
-              </FormLabel>
-            )}
+    <FormControl
+      id={name}
+      isInvalid={isInvalid}
+      onFocus={setBlur.off}
+      onBlur={setBlur.on}
+      {...props}
+    >
+      {label && (
+        <FormLabel color="brand.gray.5" fontSize="lg">
+          {label}
+        </FormLabel>
+      )}
 
-            <ReactSelect
-              options={options}
-              placeholder={placeholder}
-              styles={customStyles}
-              name={name}
-              onChange={(option) =>
-                form.setFieldValue(name, option?.value || '')
-              }
-              isClearable={isClearable}
-              isSearchable={isSearchable}
-              theme={customTheme}
-            />
+      <ReactSelect
+        options={options}
+        placeholder={placeholder}
+        styles={customStyles}
+        name={name}
+        onChange={(option) => helpers.setValue(option?.value || '')}
+        isClearable={isClearable}
+        isSearchable={isSearchable}
+        theme={customTheme}
+      />
 
-            {isInvalid && blur && showErrorMessage && (
-              <FormErrorMessage mt={0.5} ml={1}>
-                {form.errors[name]}
-              </FormErrorMessage>
-            )}
-          </FormControl>
-        )
-      }}
-    </Field>
+      {isInvalid && blur && showErrorMessage && (
+        <FormErrorMessage mt={0.5} ml={1}>
+          {meta.error}
+        </FormErrorMessage>
+      )}
+    </FormControl>
   )
 }
 

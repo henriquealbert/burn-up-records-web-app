@@ -60,11 +60,30 @@ const Button = {
       color: 'brand.primary',
       textDecoration: 'underline',
       h: 'auto',
+      w: 'fit-content',
       _hover: {
         color: 'brand.secondary.1'
       },
       _active: {
         color: 'brand.secondary.1'
+      },
+      _disabled: {
+        _hover: {
+          textDecoration: 'underline'
+        }
+      }
+    },
+    linkSecondary: {
+      color: 'brand.gray.4',
+      textDecoration: 'underline',
+      h: 'auto',
+      w: 'fit-content',
+      p: 0,
+      _hover: {
+        color: 'brand.gray.3'
+      },
+      _active: {
+        color: 'brand.gray.3'
       },
       _disabled: {
         _hover: {

@@ -10,8 +10,6 @@ export const NewRelease = () => {
   const [data, setData] = useState({})
   const [nextStep, setNextStep] = useState(true)
 
-  console.log(data)
-
   return (
     <Tabs variant="enclosed" h="full">
       <TabList>
@@ -23,7 +21,7 @@ export const NewRelease = () => {
         </Tab>
       </TabList>
       <TabPanels>
-        <TabPanel>
+        <TabPanel maxH="calc(100vh - 178px)" overflowY="auto">
           <ReleaseArea
             onSubmit={(values) => {
               setData((prevData) => ({ ...prevData, ...values }))
@@ -32,7 +30,7 @@ export const NewRelease = () => {
             }}
           />
         </TabPanel>
-        <TabPanel>
+        <TabPanel overflowY="auto" maxH="calc(100vh - 178px)">
           <UploadTracks onSubmit={null} />
         </TabPanel>
       </TabPanels>

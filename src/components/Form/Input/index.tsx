@@ -10,7 +10,7 @@ import {
   FormLabel,
   Flex
 } from '@chakra-ui/react'
-import { Field, FieldProps } from 'formik'
+import { useField } from 'formik'
 import { ReactNode } from 'react'
 
 export const Input = ({
@@ -23,52 +23,47 @@ export const Input = ({
   ...props
 }: Props) => {
   const [blur, setBlur] = useBoolean()
+  const [field, meta] = useField(name)
 
+  const isInvalid = !!meta.error && !!meta.touched
   return (
-    <Field name={name}>
-      {({ field, form }: FieldProps) => {
-        const isInvalid = !!form.errors[name] && !!form.touched[name]
-        return (
-          <FormControl
-            id={name}
-            isInvalid={isInvalid}
-            onFocus={setBlur.off}
-            onBlur={setBlur.on}
-            {...props}
-          >
-            {label && (
-              <Flex alignItems="center" mb={2}>
-                <FormLabel color="brand.gray.5" fontSize="lg" mb={0}>
-                  {label}
-                </FormLabel>
-                {labelTooltip}
-              </Flex>
+    <FormControl
+      id={name}
+      isInvalid={isInvalid}
+      onFocus={setBlur.off}
+      onBlur={setBlur.on}
+      {...props}
+    >
+      {label && (
+        <Flex alignItems="center" mb={2}>
+          <FormLabel color="brand.gray.5" fontSize="lg" mb={0}>
+            {label}
+          </FormLabel>
+          {labelTooltip}
+        </Flex>
+      )}
+      <InputGroup d="flex" flexDirection="column">
+        <ChakraInput {...field} type={type} placeholder={placeholder} />
+        {isInvalid && blur && (
+          <>
+            <ScaleFade in={blur} initialScale={0.5}>
+              <InputRightElement
+                fontSize="2xl"
+                color="brand.error.2"
+                fontWeight="bold"
+              >
+                !
+              </InputRightElement>
+            </ScaleFade>
+            {showErrorMessage && (
+              <FormErrorMessage mt={0.5} ml={1}>
+                {meta.error}
+              </FormErrorMessage>
             )}
-            <InputGroup d="flex" flexDirection="column">
-              <ChakraInput {...field} type={type} placeholder={placeholder} />
-              {isInvalid && blur && (
-                <>
-                  <ScaleFade in={blur} initialScale={0.5}>
-                    <InputRightElement
-                      fontSize="2xl"
-                      color="brand.error.2"
-                      fontWeight="bold"
-                    >
-                      !
-                    </InputRightElement>
-                  </ScaleFade>
-                  {showErrorMessage && (
-                    <FormErrorMessage mt={0.5} ml={1}>
-                      {form.errors[name]}
-                    </FormErrorMessage>
-                  )}
-                </>
-              )}
-            </InputGroup>
-          </FormControl>
-        )
-      }}
-    </Field>
+          </>
+        )}
+      </InputGroup>
+    </FormControl>
   )
 }
 
