@@ -7,7 +7,7 @@ import {
   FormLabel,
   Textarea as ChakraTextarea
 } from '@chakra-ui/react'
-import { Field, FieldProps } from 'formik'
+import { Control, useController } from 'react-hook-form'
 
 export const Textarea = ({
   name,
@@ -15,47 +15,55 @@ export const Textarea = ({
   showErrorMessage = true,
   label,
   rows,
+  control,
+  defaultValue,
   ...props
 }: Props) => {
   const [blur, setBlur] = useBoolean()
-
+  const {
+    field: { onBlur, onChange, ref, value },
+    fieldState: { invalid, error }
+  } = useController({
+    name,
+    control,
+    defaultValue
+  })
   return (
-    <Field name={name}>
-      {({ field, form }: FieldProps) => {
-        const isInvalid = !!form.errors[name] && !!form.touched[name]
-        return (
-          <FormControl
-            id={name}
-            isInvalid={isInvalid}
-            onFocus={setBlur.off}
-            onBlur={setBlur.on}
-            {...props}
-          >
-            {label && (
-              <FormLabel color="brand.gray.5" fontSize="lg">
-                {label}
-              </FormLabel>
+    <FormControl
+      id={name}
+      isInvalid={invalid}
+      onFocus={setBlur.off}
+      onBlur={setBlur.on}
+      {...props}
+    >
+      {label && (
+        <FormLabel color="brand.gray.5" fontSize="lg">
+          {label}
+        </FormLabel>
+      )}
+      <InputGroup d="flex" flexDirection="column">
+        <ChakraTextarea
+          {...{
+            rows,
+            placeholder,
+            name,
+            onBlur,
+            onChange,
+            ref,
+            value: value || ''
+          }}
+        />
+        {invalid && blur && (
+          <>
+            {showErrorMessage && (
+              <FormErrorMessage mt={0.5} ml={1}>
+                {error.message}
+              </FormErrorMessage>
             )}
-            <InputGroup d="flex" flexDirection="column">
-              <ChakraTextarea
-                {...field}
-                placeholder={placeholder}
-                rows={rows}
-              />
-              {isInvalid && blur && (
-                <>
-                  {showErrorMessage && (
-                    <FormErrorMessage mt={0.5} ml={1}>
-                      {form.errors[name]}
-                    </FormErrorMessage>
-                  )}
-                </>
-              )}
-            </InputGroup>
-          </FormControl>
-        )
-      }}
-    </Field>
+          </>
+        )}
+      </InputGroup>
+    </FormControl>
   )
 }
 
@@ -65,4 +73,7 @@ interface Props extends InputProps {
   showErrorMessage?: boolean
   label?: string
   rows?: number
+  defaultValue?: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  control: Control<any>
 }

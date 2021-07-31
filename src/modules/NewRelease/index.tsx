@@ -2,13 +2,14 @@ import { useRef, useState } from 'react'
 import { Tabs, Tab, TabList, TabPanels, TabPanel, Icon } from '@chakra-ui/react'
 import { BiRocket as RocketIcon, BiMusic as MusicIcon } from 'react-icons/bi'
 
-import { ReleaseArea } from './ReleaseArea'
-import { UploadTracks } from './UploadTracks'
+import { ReleaseArea, ReleaseValues } from './ReleaseArea'
+import { TracksValues, UploadTracks } from './UploadTracks'
 
 export const NewRelease = () => {
   const uploadTabRef = useRef(null)
-  const [data, setData] = useState({})
+  const [data, setData] = useState<NewReleaseTypes>()
   const [nextStep, setNextStep] = useState(true)
+  console.log(data)
 
   return (
     <Tabs variant="enclosed" h="full">
@@ -31,9 +32,15 @@ export const NewRelease = () => {
           />
         </TabPanel>
         <TabPanel overflowY="auto" maxH="calc(100vh - 178px)">
-          <UploadTracks onSubmit={null} />
+          <UploadTracks
+            onSubmit={(values) => {
+              setData((prevData) => ({ ...prevData, ...values }))
+            }}
+          />
         </TabPanel>
       </TabPanels>
     </Tabs>
   )
 }
+
+type NewReleaseTypes = ReleaseValues & TracksValues

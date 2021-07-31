@@ -7,61 +7,67 @@ import {
   RadioGroup,
   FormControlProps
 } from '@chakra-ui/react'
-import { Field, FieldProps } from 'formik'
+import { useController, Control } from 'react-hook-form'
 
 export const Radio = ({
   name,
   showErrorMessage = true,
   label,
   options,
+  control,
+  defaultValue,
   ...props
 }: Props) => {
   const [blur, setBlur] = useBoolean()
-
+  const {
+    field: { onBlur, onChange, ref, value },
+    fieldState: { invalid, error }
+  } = useController({
+    name,
+    control,
+    defaultValue
+  })
   return (
-    <Field name={name}>
-      {({ field, form }: FieldProps) => {
-        const isInvalid = !!form.errors[name] && !!form.touched[name]
-        return (
-          <FormControl
-            id={name}
-            isInvalid={isInvalid}
-            onFocus={setBlur.off}
-            onBlur={setBlur.on}
-            d="flex"
-            alignItems="center"
-            {...props}
-          >
-            {label && (
-              <FormLabel color="brand.gray.5" fontSize="lg" m="0" mr={6}>
-                {label}
-              </FormLabel>
+    <FormControl
+      id={name}
+      isInvalid={invalid}
+      onFocus={setBlur.off}
+      onBlur={setBlur.on}
+      d="flex"
+      alignItems="center"
+      {...props}
+    >
+      {label && (
+        <FormLabel color="brand.gray.5" fontSize="lg" m="0" mr={6}>
+          {label}
+        </FormLabel>
+      )}
+      <RadioGroup
+        size="lg"
+        {...{
+          onChange,
+          onBlur,
+          name,
+          ref,
+          value: value || ''
+        }}
+      >
+        {options.map((opt) => (
+          <ChakraRadio key={opt.value} value={opt.value} mr={6}>
+            {opt.label}
+          </ChakraRadio>
+        ))}
+        {invalid && blur && (
+          <>
+            {showErrorMessage && (
+              <FormErrorMessage mt={0.5} ml={1}>
+                {error.message}
+              </FormErrorMessage>
             )}
-            <RadioGroup
-              {...field}
-              name={name}
-              size="lg"
-              onChange={(value) => form.setFieldValue(name, value)}
-            >
-              {options.map((opt) => (
-                <ChakraRadio key={opt.value} value={opt.value} mr={6}>
-                  {opt.label}
-                </ChakraRadio>
-              ))}
-              {isInvalid && blur && (
-                <>
-                  {showErrorMessage && (
-                    <FormErrorMessage mt={0.5} ml={1}>
-                      {form.errors[name]}
-                    </FormErrorMessage>
-                  )}
-                </>
-              )}
-            </RadioGroup>
-          </FormControl>
-        )
-      }}
-    </Field>
+          </>
+        )}
+      </RadioGroup>
+    </FormControl>
   )
 }
 
@@ -70,6 +76,9 @@ interface Props extends FormControlProps {
   showErrorMessage?: boolean
   label?: string
   options: optionsType[]
+  defaultValue?: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  control: Control<any>
 }
 
 type optionsType = {

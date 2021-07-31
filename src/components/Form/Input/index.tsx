@@ -10,8 +10,8 @@ import {
   FormLabel,
   Flex
 } from '@chakra-ui/react'
-import { useField } from 'formik'
 import { ReactNode } from 'react'
+import { Control, useController } from 'react-hook-form'
 
 export const Input = ({
   name,
@@ -20,16 +20,24 @@ export const Input = ({
   showErrorMessage = true,
   label,
   labelTooltip,
+  defaultValue,
+  control,
   ...props
 }: Props) => {
   const [blur, setBlur] = useBoolean()
-  const [field, meta] = useField(name)
+  const {
+    field: { onBlur, onChange, ref, value },
+    fieldState: { invalid, error }
+  } = useController({
+    name,
+    control,
+    defaultValue
+  })
 
-  const isInvalid = !!meta.error && !!meta.touched
   return (
     <FormControl
       id={name}
-      isInvalid={isInvalid}
+      isInvalid={invalid}
       onFocus={setBlur.off}
       onBlur={setBlur.on}
       {...props}
@@ -43,8 +51,17 @@ export const Input = ({
         </Flex>
       )}
       <InputGroup d="flex" flexDirection="column">
-        <ChakraInput {...field} type={type} placeholder={placeholder} />
-        {isInvalid && blur && (
+        <ChakraInput
+          {...{
+            onBlur,
+            onChange,
+            ref,
+            value: value || '',
+            type,
+            placeholder
+          }}
+        />
+        {invalid && blur && (
           <>
             <ScaleFade in={blur} initialScale={0.5}>
               <InputRightElement
@@ -57,7 +74,7 @@ export const Input = ({
             </ScaleFade>
             {showErrorMessage && (
               <FormErrorMessage mt={0.5} ml={1}>
-                {meta.error}
+                {error.message}
               </FormErrorMessage>
             )}
           </>
@@ -74,4 +91,7 @@ interface Props extends InputProps {
   showErrorMessage?: boolean
   label?: string
   labelTooltip?: ReactNode
+  defaultValue?: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  control: Control<any>
 }
