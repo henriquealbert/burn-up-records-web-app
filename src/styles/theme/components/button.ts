@@ -100,6 +100,24 @@ const Button = {
       _hover: {
         color: 'brand.secondary.1'
       }
+    },
+    black: {
+      py: 4,
+      px: 12,
+      h: 'auto',
+      maxH: '52px',
+      fontSize: 'lg',
+      bgColor: 'black',
+      color: 'white',
+      _hover: {
+        bgColor: 'brand.gray.5'
+      },
+      _disabled: {
+        bg: 'brand.gray.3',
+        _hover: {
+          bg: 'var(--chakra-colors-brand-gray-3) !important'
+        }
+      }
     }
   }
 }
