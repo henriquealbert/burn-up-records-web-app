@@ -1,6 +1,7 @@
 import * as Yup from 'yup'
 import { Button, Heading, Text, Box, Flex } from '@chakra-ui/react'
-import { Formik, Form, FormikHelpers, FormikProps } from 'formik'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 import { RightArrowIcon } from 'styles/icons'
 import { Input } from 'components/Form/Input'
@@ -9,13 +10,23 @@ import { useAuth } from 'auth'
 
 export const StepName = ({ setNext }: Props) => {
   const { me } = useAuth()
-  const { mutateAsync } = useUpdateUserMutation()
+  const { mutateAsync: updateUser } = useUpdateUserMutation()
 
-  const handleSubmit = async (
-    values: Values,
-    { setSubmitting }: FormikHelpers<Values>
-  ) => {
-    await mutateAsync(
+  const {
+    handleSubmit,
+    control,
+    formState: { isValid, isSubmitting }
+  } = useForm<Values>({
+    defaultValues: {
+      artist_name: '',
+      artist_name_confirmation: ''
+    },
+    mode: 'all',
+    resolver: yupResolver(validationSchema)
+  })
+
+  const onSubmit = async (values: Values) => {
+    await updateUser(
       {
         input: {
           where: {
@@ -31,7 +42,6 @@ export const StepName = ({ setNext }: Props) => {
         onError: () => alert('Erro ao conectar com o servidor')
       }
     )
-    setSubmitting(false)
   }
   return (
     <Box maxW="390px" mx="auto">
@@ -52,40 +62,40 @@ export const StepName = ({ setNext }: Props) => {
         depois.*
       </Text>
 
-      <Formik
-        initialValues={{ artist_name: '', artist_name_confirmation: '' }}
-        onSubmit={handleSubmit}
-        validationSchema={validationSchema}
-        validateOnChange
-        enableReinitialize
+      <Box
+        as="form"
+        w="full"
+        h="full"
+        autoComplete="off"
+        onSubmit={handleSubmit(onSubmit)}
       >
-        {({ isSubmitting }: FormikProps<Values>) => (
-          <Box as={Form} w="full" h="full" autoComplete="off">
-            <Input
-              name="artist_name"
-              type="text"
-              placeholder="Nome artístico"
-              mb={4}
-            />
-            <Input
-              name="artist_name_confirmation"
-              type="text"
-              placeholder="Repetir nome artístico"
-              mb={8}
-            />
-            <Flex justify="center" mb={10}>
-              <Button
-                type="submit"
-                variant="primary"
-                isLoading={isSubmitting}
-                rightIcon={<RightArrowIcon mt={1} />}
-              >
-                Continuar
-              </Button>
-            </Flex>
-          </Box>
-        )}
-      </Formik>
+        <Input
+          control={control}
+          name="artist_name"
+          type="text"
+          placeholder="Nome artístico"
+          mb={4}
+        />
+        <Input
+          control={control}
+          name="artist_name_confirmation"
+          type="text"
+          placeholder="Repetir nome artístico"
+          mb={8}
+        />
+        <Flex justify="center" mb={10}>
+          <Button
+            type="submit"
+            variant="primary"
+            isLoading={isSubmitting}
+            rightIcon={<RightArrowIcon mt={1} />}
+            isDisabled={!isValid}
+          >
+            Continuar
+          </Button>
+        </Flex>
+      </Box>
+
       <Text color="brand.gray.3" textAlign="center" fontSize="sm">
         *Você não poderá alterar seu nome artístico pois ele estará atrelado aos
         diretos dos seus lançamentos.
