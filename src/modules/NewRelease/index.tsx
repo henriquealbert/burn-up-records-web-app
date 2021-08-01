@@ -21,13 +21,60 @@ import { BiRocket as RocketIcon, BiMusic as MusicIcon } from 'react-icons/bi'
 
 import { ReleaseArea, ReleaseValues } from './ReleaseArea'
 import { TracksValues, UploadTracks } from './UploadTracks'
+import {
+  Enum_Release_Status,
+  useCreateReleaseMutation,
+  useCreateTrackMutation
+} from 'graphql/generated'
+import { useAuth } from 'auth'
 
 export const NewRelease = () => {
+  const { me } = useAuth()
   const uploadTabRef = useRef(null)
+  const [nextStep, setNextStep] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState<NewReleaseTypes>()
-  const [nextStep, setNextStep] = useState(true)
   const { isOpen, onOpen, onClose } = useDisclosure()
-  console.log(data)
+
+  const { mutateAsync: createRelease } = useCreateReleaseMutation()
+  const { mutateAsync: createTrack } = useCreateTrackMutation()
+
+  const handleSubmit = async (values: TracksValues) => {
+    setIsLoading(true)
+    setData((prevData) => ({ ...prevData, ...values }))
+
+    await createRelease(
+      {
+        input: {
+          data: {
+            ...data.release,
+            status: Enum_Release_Status.Analise,
+            user: me?.user?.id
+          }
+        }
+      },
+      {
+        onSuccess: ({ createRelease }) => {
+          values.tracks.forEach(async (track) => {
+            await createTrack({
+              input: {
+                data: {
+                  ...track,
+                  release: createRelease.release.id
+                }
+              }
+            })
+          })
+          setIsLoading(false)
+          onOpen()
+        },
+        onError: () => {
+          setIsLoading(false)
+          alert('Erro ao criar seu release, tente novamente.')
+        }
+      }
+    )
+  }
 
   return (
     <>
@@ -51,12 +98,7 @@ export const NewRelease = () => {
             />
           </TabPanel>
           <TabPanel overflowY="auto" maxH="calc(100vh - 178px)">
-            <UploadTracks
-              onSubmit={(values) => {
-                setData((prevData) => ({ ...prevData, ...values }))
-                onOpen()
-              }}
-            />
+            <UploadTracks isLoading={isLoading} onSubmit={handleSubmit} />
           </TabPanel>
         </TabPanels>
       </Tabs>

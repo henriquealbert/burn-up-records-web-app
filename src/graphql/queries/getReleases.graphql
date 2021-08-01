@@ -7,8 +7,6 @@ query AllReleases {
     status
     catalog
     created_at
-    description
-    licensing_usage
     user {
       id
       email
@@ -16,6 +14,7 @@ query AllReleases {
     artwork {
       id
       url
+      formats
     }
   }
 }

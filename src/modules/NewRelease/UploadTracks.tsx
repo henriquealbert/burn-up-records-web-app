@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useAuth } from 'auth'
 import { TrackForm } from './TrackForm'
 
-export const UploadTracks = ({ onSubmit }: Props) => {
+export const UploadTracks = ({ onSubmit, isLoading }: Props) => {
   const { me } = useAuth()
   const {
     handleSubmit,
@@ -37,7 +37,7 @@ export const UploadTracks = ({ onSubmit }: Props) => {
 
   return (
     <form onSubmit={handleSubmit((data) => onSubmit(data))} autoComplete="off">
-      <TrackForm {...{ control, watch, isValid }} />
+      <TrackForm {...{ control, watch, isValid, isLoading }} />
     </form>
   )
 }
@@ -73,4 +73,5 @@ const validationSchema = Yup.object({
 
 type Props = {
   onSubmit: (data: TracksValues) => void
+  isLoading: boolean
 }

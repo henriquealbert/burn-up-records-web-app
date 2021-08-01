@@ -1,0 +1,30 @@
+mutation createRelease($input: createReleaseInput!) {
+  createRelease(input: $input) {
+    release {
+      id
+      name
+      date
+      type
+      description
+      artwork {
+        id
+        url
+        formats
+      }
+      all_royalties
+      term_contract
+      status
+      catalog
+      notes
+      tracks {
+        id
+        name
+      }
+      user {
+        id
+        email
+        artist_name
+      }
+    }
+  }
+}

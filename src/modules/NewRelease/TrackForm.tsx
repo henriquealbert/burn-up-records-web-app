@@ -6,7 +6,7 @@ import { Input, Select, Tooltip } from 'components'
 import { genreData } from './genreData'
 import { TracksValues } from './UploadTracks'
 
-export const TrackForm = ({ control, watch, isValid }) => {
+export const TrackForm = ({ control, watch, isValid, isLoading }) => {
   const { me } = useAuth()
   const { fields, append, remove } = useFieldArray<TracksValues>({
     control,
@@ -143,7 +143,12 @@ export const TrackForm = ({ control, watch, isValid }) => {
         >
           {'[+] Adicionar mais tracks'}
         </Button>
-        <Button variant="primary" type="submit" isDisabled={!isValid}>
+        <Button
+          variant="primary"
+          type="submit"
+          isLoading={isLoading}
+          isDisabled={!isValid}
+        >
           Enviar para análise
         </Button>
       </Flex>
