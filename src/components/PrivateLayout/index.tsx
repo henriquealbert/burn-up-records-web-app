@@ -1,12 +1,17 @@
 import { ReactNode } from 'react'
 import { useRouter } from 'next/router'
-import { Grid, Flex, Heading } from '@chakra-ui/react'
+import { Grid, Flex, Heading, Box } from '@chakra-ui/react'
 
 import { useAuth } from 'auth'
 import { Onboarding } from 'modules/Onboarding'
 import { Loading, Sidebar, Footer, Whitebox, Notifications } from 'components'
 
-export const PrivateLayout = ({ children, pageTitle }: LayoutProps) => {
+export const PrivateLayout = ({
+  children,
+  pageTitle,
+  header = true,
+  whitebox = true
+}: LayoutProps) => {
   const { push } = useRouter()
   const { session, loading } = useAuth()
 
@@ -25,14 +30,20 @@ export const PrivateLayout = ({ children, pageTitle }: LayoutProps) => {
         <Sidebar />
 
         <Flex direction="column" m={8} mb={0} as="main">
-          <Flex justifyContent="space-between">
-            <Heading as="h1" fontSize="4xl" fontWeight="medium" mb={8} mt={4}>
-              {pageTitle}
-            </Heading>
-            <Notifications />
-          </Flex>
+          {header && (
+            <Flex justifyContent="space-between">
+              <Heading as="h1" fontSize="4xl" fontWeight="medium" mb={8} mt={4}>
+                {pageTitle}
+              </Heading>
+              <Notifications />
+            </Flex>
+          )}
 
-          <Whitebox>{children}</Whitebox>
+          {whitebox ? (
+            <Whitebox>{children}</Whitebox>
+          ) : (
+            <Box h="calc(100% - 64px)">{children}</Box>
+          )}
         </Flex>
       </Grid>
 
@@ -45,5 +56,7 @@ export const PrivateLayout = ({ children, pageTitle }: LayoutProps) => {
 
 type LayoutProps = {
   children: ReactNode
-  pageTitle: string
+  pageTitle?: string
+  header?: boolean
+  whitebox?: boolean
 }

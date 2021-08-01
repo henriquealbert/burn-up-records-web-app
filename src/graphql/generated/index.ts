@@ -68,12 +68,6 @@ export enum Enum_Release_Type {
   Album = 'album'
 }
 
-export enum Enum_Track_Genre {
-  House = 'house',
-  TechHouse = 'tech_house',
-  DeepHouse = 'deep_house'
-}
-
 export type FileInfoInput = {
   name?: Maybe<Scalars['String']>
   alternativeText?: Maybe<Scalars['String']>
@@ -135,11 +129,8 @@ export type Morph =
   | ReleaseConnectionName
   | ReleaseConnectionDate
   | ReleaseConnectionType
-  | ReleaseConnectionLicensing_Usage
   | ReleaseConnectionDescription
   | ReleaseConnectionArtwork
-  | ReleaseConnectionProduced_By
-  | ReleaseConnectionVocalist
   | ReleaseConnectionAll_Royalties
   | ReleaseConnectionTerm_Contract
   | ReleaseConnectionStatus
@@ -158,13 +149,13 @@ export type Morph =
   | TrackConnectionUpdated_At
   | TrackConnectionName
   | TrackConnectionMix_Name
-  | TrackConnectionGenre
   | TrackConnectionUrl
   | TrackConnectionIsrc
   | TrackConnectionEan_Upc
   | TrackConnectionRelease
   | TrackConnectionTrack_Artist
   | TrackConnectionRemixer_Name
+  | TrackConnectionGenre
   | CreateTrackPayload
   | UpdateTrackPayload
   | DeleteTrackPayload
@@ -476,13 +467,10 @@ export type Release = {
   created_at: Scalars['DateTime']
   updated_at: Scalars['DateTime']
   name: Scalars['String']
-  date?: Maybe<Scalars['Date']>
+  date?: Maybe<Scalars['DateTime']>
   type?: Maybe<Enum_Release_Type>
-  licensing_usage?: Maybe<Scalars['Boolean']>
   description?: Maybe<Scalars['String']>
   artwork?: Maybe<UploadFile>
-  produced_by?: Maybe<Scalars['String']>
-  vocalist?: Maybe<Scalars['String']>
   all_royalties?: Maybe<Scalars['Boolean']>
   term_contract?: Maybe<Scalars['Boolean']>
   status?: Maybe<Enum_Release_Status>
@@ -538,7 +526,7 @@ export type ReleaseConnectionCreated_At = {
 
 export type ReleaseConnectionDate = {
   __typename?: 'ReleaseConnectionDate'
-  key?: Maybe<Scalars['ID']>
+  key?: Maybe<Scalars['DateTime']>
   connection?: Maybe<ReleaseConnection>
 }
 
@@ -554,12 +542,6 @@ export type ReleaseConnectionId = {
   connection?: Maybe<ReleaseConnection>
 }
 
-export type ReleaseConnectionLicensing_Usage = {
-  __typename?: 'ReleaseConnectionLicensing_usage'
-  key?: Maybe<Scalars['Boolean']>
-  connection?: Maybe<ReleaseConnection>
-}
-
 export type ReleaseConnectionName = {
   __typename?: 'ReleaseConnectionName'
   key?: Maybe<Scalars['String']>
@@ -568,12 +550,6 @@ export type ReleaseConnectionName = {
 
 export type ReleaseConnectionNotes = {
   __typename?: 'ReleaseConnectionNotes'
-  key?: Maybe<Scalars['String']>
-  connection?: Maybe<ReleaseConnection>
-}
-
-export type ReleaseConnectionProduced_By = {
-  __typename?: 'ReleaseConnectionProduced_by'
   key?: Maybe<Scalars['String']>
   connection?: Maybe<ReleaseConnection>
 }
@@ -608,12 +584,6 @@ export type ReleaseConnectionUser = {
   connection?: Maybe<ReleaseConnection>
 }
 
-export type ReleaseConnectionVocalist = {
-  __typename?: 'ReleaseConnectionVocalist'
-  key?: Maybe<Scalars['String']>
-  connection?: Maybe<ReleaseConnection>
-}
-
 export type ReleaseGroupBy = {
   __typename?: 'ReleaseGroupBy'
   id?: Maybe<Array<Maybe<ReleaseConnectionId>>>
@@ -622,11 +592,8 @@ export type ReleaseGroupBy = {
   name?: Maybe<Array<Maybe<ReleaseConnectionName>>>
   date?: Maybe<Array<Maybe<ReleaseConnectionDate>>>
   type?: Maybe<Array<Maybe<ReleaseConnectionType>>>
-  licensing_usage?: Maybe<Array<Maybe<ReleaseConnectionLicensing_Usage>>>
   description?: Maybe<Array<Maybe<ReleaseConnectionDescription>>>
   artwork?: Maybe<Array<Maybe<ReleaseConnectionArtwork>>>
-  produced_by?: Maybe<Array<Maybe<ReleaseConnectionProduced_By>>>
-  vocalist?: Maybe<Array<Maybe<ReleaseConnectionVocalist>>>
   all_royalties?: Maybe<Array<Maybe<ReleaseConnectionAll_Royalties>>>
   term_contract?: Maybe<Array<Maybe<ReleaseConnectionTerm_Contract>>>
   status?: Maybe<Array<Maybe<ReleaseConnectionStatus>>>
@@ -637,13 +604,10 @@ export type ReleaseGroupBy = {
 
 export type ReleaseInput = {
   name: Scalars['String']
-  date?: Maybe<Scalars['Date']>
+  date?: Maybe<Scalars['DateTime']>
   type?: Maybe<Enum_Release_Type>
-  licensing_usage?: Maybe<Scalars['Boolean']>
   description?: Maybe<Scalars['String']>
   artwork?: Maybe<Scalars['ID']>
-  produced_by?: Maybe<Scalars['String']>
-  vocalist?: Maybe<Scalars['String']>
   all_royalties?: Maybe<Scalars['Boolean']>
   term_contract?: Maybe<Scalars['Boolean']>
   status?: Maybe<Enum_Release_Status>
@@ -672,13 +636,13 @@ export type Track = {
   updated_at: Scalars['DateTime']
   name?: Maybe<Scalars['String']>
   mix_name?: Maybe<Scalars['String']>
-  genre?: Maybe<Enum_Track_Genre>
   url?: Maybe<Scalars['String']>
   ISRC?: Maybe<Scalars['String']>
   EAN_UPC?: Maybe<Scalars['String']>
   release?: Maybe<Release>
   track_artist?: Maybe<Scalars['String']>
   remixer_name?: Maybe<Scalars['String']>
+  genre?: Maybe<Scalars['String']>
 }
 
 export type TrackAggregator = {
@@ -773,25 +737,25 @@ export type TrackGroupBy = {
   updated_at?: Maybe<Array<Maybe<TrackConnectionUpdated_At>>>
   name?: Maybe<Array<Maybe<TrackConnectionName>>>
   mix_name?: Maybe<Array<Maybe<TrackConnectionMix_Name>>>
-  genre?: Maybe<Array<Maybe<TrackConnectionGenre>>>
   url?: Maybe<Array<Maybe<TrackConnectionUrl>>>
   ISRC?: Maybe<Array<Maybe<TrackConnectionIsrc>>>
   EAN_UPC?: Maybe<Array<Maybe<TrackConnectionEan_Upc>>>
   release?: Maybe<Array<Maybe<TrackConnectionRelease>>>
   track_artist?: Maybe<Array<Maybe<TrackConnectionTrack_Artist>>>
   remixer_name?: Maybe<Array<Maybe<TrackConnectionRemixer_Name>>>
+  genre?: Maybe<Array<Maybe<TrackConnectionGenre>>>
 }
 
 export type TrackInput = {
   name?: Maybe<Scalars['String']>
   mix_name?: Maybe<Scalars['String']>
-  genre?: Maybe<Enum_Track_Genre>
   url?: Maybe<Scalars['String']>
   ISRC?: Maybe<Scalars['String']>
   EAN_UPC?: Maybe<Scalars['String']>
   release?: Maybe<Scalars['ID']>
   track_artist?: Maybe<Scalars['String']>
   remixer_name?: Maybe<Scalars['String']>
+  genre?: Maybe<Scalars['String']>
   created_by?: Maybe<Scalars['ID']>
   updated_by?: Maybe<Scalars['ID']>
 }
@@ -1394,13 +1358,10 @@ export type EditLocaleInput = {
 
 export type EditReleaseInput = {
   name?: Maybe<Scalars['String']>
-  date?: Maybe<Scalars['Date']>
+  date?: Maybe<Scalars['DateTime']>
   type?: Maybe<Enum_Release_Type>
-  licensing_usage?: Maybe<Scalars['Boolean']>
   description?: Maybe<Scalars['String']>
   artwork?: Maybe<Scalars['ID']>
-  produced_by?: Maybe<Scalars['String']>
-  vocalist?: Maybe<Scalars['String']>
   all_royalties?: Maybe<Scalars['Boolean']>
   term_contract?: Maybe<Scalars['Boolean']>
   status?: Maybe<Enum_Release_Status>
@@ -1425,13 +1386,13 @@ export type EditRoleInput = {
 export type EditTrackInput = {
   name?: Maybe<Scalars['String']>
   mix_name?: Maybe<Scalars['String']>
-  genre?: Maybe<Enum_Track_Genre>
   url?: Maybe<Scalars['String']>
   ISRC?: Maybe<Scalars['String']>
   EAN_UPC?: Maybe<Scalars['String']>
   release?: Maybe<Scalars['ID']>
   track_artist?: Maybe<Scalars['String']>
   remixer_name?: Maybe<Scalars['String']>
+  genre?: Maybe<Scalars['String']>
   created_by?: Maybe<Scalars['ID']>
   updated_by?: Maybe<Scalars['ID']>
 }
@@ -1496,6 +1457,77 @@ export type UpdateUserPayload = {
   user?: Maybe<UsersPermissionsUser>
 }
 
+export type CreateReleaseMutationVariables = Exact<{
+  input: CreateReleaseInput
+}>
+
+export type CreateReleaseMutation = { __typename?: 'Mutation' } & {
+  createRelease?: Maybe<
+    { __typename?: 'createReleasePayload' } & {
+      release?: Maybe<
+        { __typename?: 'Release' } & Pick<
+          Release,
+          | 'id'
+          | 'name'
+          | 'date'
+          | 'type'
+          | 'description'
+          | 'all_royalties'
+          | 'term_contract'
+          | 'status'
+          | 'catalog'
+          | 'notes'
+        > & {
+            artwork?: Maybe<
+              { __typename?: 'UploadFile' } & Pick<
+                UploadFile,
+                'id' | 'url' | 'formats'
+              >
+            >
+            tracks?: Maybe<
+              Array<
+                Maybe<{ __typename?: 'Track' } & Pick<Track, 'id' | 'name'>>
+              >
+            >
+            user?: Maybe<
+              { __typename?: 'UsersPermissionsUser' } & Pick<
+                UsersPermissionsUser,
+                'id' | 'email' | 'artist_name'
+              >
+            >
+          }
+      >
+    }
+  >
+}
+
+export type CreateTrackMutationVariables = Exact<{
+  input: CreateTrackInput
+}>
+
+export type CreateTrackMutation = { __typename?: 'Mutation' } & {
+  createTrack?: Maybe<
+    { __typename?: 'createTrackPayload' } & {
+      track?: Maybe<
+        { __typename?: 'Track' } & Pick<
+          Track,
+          | 'id'
+          | 'name'
+          | 'mix_name'
+          | 'url'
+          | 'track_artist'
+          | 'remixer_name'
+          | 'genre'
+        > & {
+            release?: Maybe<
+              { __typename?: 'Release' } & Pick<Release, 'id' | 'name'>
+            >
+          }
+      >
+    }
+  >
+}
+
 export type CreateUserMutationVariables = Exact<{
   input: CreateUserInput
 }>
@@ -1557,39 +1589,136 @@ export type GetMeQuery = { __typename?: 'Query' } & {
   >
 }
 
-export type AllReleasesQueryVariables = Exact<{ [key: string]: never }>
+export type AllReleasesQueryVariables = Exact<{
+  id: Scalars['ID']
+}>
 
 export type AllReleasesQuery = { __typename?: 'Query' } & {
-  releases?: Maybe<
-    Array<
-      Maybe<
-        { __typename?: 'Release' } & Pick<
-          Release,
-          | 'id'
-          | 'name'
-          | 'date'
-          | 'type'
-          | 'status'
-          | 'catalog'
-          | 'created_at'
-          | 'description'
-          | 'licensing_usage'
-        > & {
-            user?: Maybe<
-              { __typename?: 'UsersPermissionsUser' } & Pick<
-                UsersPermissionsUser,
-                'id' | 'email'
-              >
+  user?: Maybe<
+    { __typename?: 'UsersPermissionsUser' } & Pick<
+      UsersPermissionsUser,
+      'id'
+    > & {
+        releases?: Maybe<
+          Array<
+            Maybe<
+              { __typename?: 'Release' } & Pick<
+                Release,
+                | 'id'
+                | 'name'
+                | 'date'
+                | 'type'
+                | 'status'
+                | 'catalog'
+                | 'created_at'
+              > & {
+                  artwork?: Maybe<
+                    { __typename?: 'UploadFile' } & Pick<
+                      UploadFile,
+                      'id' | 'url' | 'formats'
+                    >
+                  >
+                }
             >
-            artwork?: Maybe<
-              { __typename?: 'UploadFile' } & Pick<UploadFile, 'id' | 'url'>
-            >
-          }
-      >
-    >
+          >
+        >
+      }
   >
 }
 
+export const CreateReleaseDocument = `
+    mutation createRelease($input: createReleaseInput!) {
+  createRelease(input: $input) {
+    release {
+      id
+      name
+      date
+      type
+      description
+      artwork {
+        id
+        url
+        formats
+      }
+      all_royalties
+      term_contract
+      status
+      catalog
+      notes
+      tracks {
+        id
+        name
+      }
+      user {
+        id
+        email
+        artist_name
+      }
+    }
+  }
+}
+    `
+export const useCreateReleaseMutation = <TError = unknown, TContext = unknown>(
+  options?: UseMutationOptions<
+    CreateReleaseMutation,
+    TError,
+    CreateReleaseMutationVariables,
+    TContext
+  >
+) =>
+  useMutation<
+    CreateReleaseMutation,
+    TError,
+    CreateReleaseMutationVariables,
+    TContext
+  >(
+    (variables?: CreateReleaseMutationVariables) =>
+      myFetcher<CreateReleaseMutation, CreateReleaseMutationVariables>(
+        CreateReleaseDocument,
+        variables
+      )(),
+    options
+  )
+export const CreateTrackDocument = `
+    mutation createTrack($input: createTrackInput!) {
+  createTrack(input: $input) {
+    track {
+      id
+      name
+      mix_name
+      url
+      release {
+        id
+        name
+      }
+      track_artist
+      remixer_name
+      genre
+    }
+  }
+}
+    `
+export const useCreateTrackMutation = <TError = unknown, TContext = unknown>(
+  options?: UseMutationOptions<
+    CreateTrackMutation,
+    TError,
+    CreateTrackMutationVariables,
+    TContext
+  >
+) =>
+  useMutation<
+    CreateTrackMutation,
+    TError,
+    CreateTrackMutationVariables,
+    TContext
+  >(
+    (variables?: CreateTrackMutationVariables) =>
+      myFetcher<CreateTrackMutation, CreateTrackMutationVariables>(
+        CreateTrackDocument,
+        variables
+      )(),
+    options
+  )
 export const CreateUserDocument = `
     mutation createUser($input: createUserInput!) {
   createUser(input: $input) {
@@ -1689,30 +1818,28 @@ export const useGetMeQuery = <TData = GetMeQuery, TError = unknown>(
     options
   )
 export const AllReleasesDocument = `
-    query AllReleases {
-  releases {
+    query AllReleases($id: ID!) {
+  user(id: $id) {
     id
-    name
-    date
-    type
-    status
-    catalog
-    created_at
-    description
-    licensing_usage
-    user {
+    releases {
       id
-      email
-    }
-    artwork {
-      id
-      url
+      name
+      date
+      type
+      status
+      catalog
+      created_at
+      artwork {
+        id
+        url
+        formats
+      }
     }
   }
 }
     `
 export const useAllReleasesQuery = <TData = AllReleasesQuery, TError = unknown>(
-  variables?: AllReleasesQueryVariables,
+  variables: AllReleasesQueryVariables,
   options?: UseQueryOptions<AllReleasesQuery, TError, TData>
 ) =>
   useQuery<AllReleasesQuery, TError, TData>(

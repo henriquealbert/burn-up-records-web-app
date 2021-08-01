@@ -42,12 +42,6 @@ enum ENUM_RELEASE_TYPE {
   album
 }
 
-enum ENUM_TRACK_GENRE {
-  house
-  tech_house
-  deep_house
-}
-
 input FileInfoInput {
   name: String
   alternativeText: String
@@ -114,11 +108,8 @@ union Morph =
   | ReleaseConnectionName
   | ReleaseConnectionDate
   | ReleaseConnectionType
-  | ReleaseConnectionLicensing_usage
   | ReleaseConnectionDescription
   | ReleaseConnectionArtwork
-  | ReleaseConnectionProduced_by
-  | ReleaseConnectionVocalist
   | ReleaseConnectionAll_royalties
   | ReleaseConnectionTerm_contract
   | ReleaseConnectionStatus
@@ -137,13 +128,13 @@ union Morph =
   | TrackConnectionUpdated_at
   | TrackConnectionName
   | TrackConnectionMix_name
-  | TrackConnectionGenre
   | TrackConnectionUrl
   | TrackConnectionISRC
   | TrackConnectionEAN_UPC
   | TrackConnectionRelease
   | TrackConnectionTrack_artist
   | TrackConnectionRemixer_name
+  | TrackConnectionGenre
   | createTrackPayload
   | updateTrackPayload
   | deleteTrackPayload
@@ -349,13 +340,10 @@ type Release {
   created_at: DateTime!
   updated_at: DateTime!
   name: String!
-  date: Date
+  date: DateTime
   type: ENUM_RELEASE_TYPE
-  licensing_usage: Boolean
   description: String
   artwork: UploadFile
-  produced_by: String
-  vocalist: String
   all_royalties: Boolean
   term_contract: Boolean
   status: ENUM_RELEASE_STATUS
@@ -397,7 +385,7 @@ type ReleaseConnectionCreated_at {
 }
 
 type ReleaseConnectionDate {
-  key: ID
+  key: DateTime
   connection: ReleaseConnection
 }
 
@@ -411,22 +399,12 @@ type ReleaseConnectionId {
   connection: ReleaseConnection
 }
 
-type ReleaseConnectionLicensing_usage {
-  key: Boolean
-  connection: ReleaseConnection
-}
-
 type ReleaseConnectionName {
   key: String
   connection: ReleaseConnection
 }
 
 type ReleaseConnectionNotes {
-  key: String
-  connection: ReleaseConnection
-}
-
-type ReleaseConnectionProduced_by {
   key: String
   connection: ReleaseConnection
 }
@@ -456,11 +434,6 @@ type ReleaseConnectionUser {
   connection: ReleaseConnection
 }
 
-type ReleaseConnectionVocalist {
-  key: String
-  connection: ReleaseConnection
-}
-
 type ReleaseGroupBy {
   id: [ReleaseConnectionId]
   created_at: [ReleaseConnectionCreated_at]
@@ -468,11 +441,8 @@ type ReleaseGroupBy {
   name: [ReleaseConnectionName]
   date: [ReleaseConnectionDate]
   type: [ReleaseConnectionType]
-  licensing_usage: [ReleaseConnectionLicensing_usage]
   description: [ReleaseConnectionDescription]
   artwork: [ReleaseConnectionArtwork]
-  produced_by: [ReleaseConnectionProduced_by]
-  vocalist: [ReleaseConnectionVocalist]
   all_royalties: [ReleaseConnectionAll_royalties]
   term_contract: [ReleaseConnectionTerm_contract]
   status: [ReleaseConnectionStatus]
@@ -483,13 +453,10 @@ type ReleaseGroupBy {
 
 input ReleaseInput {
   name: String!
-  date: Date
+  date: DateTime
   type: ENUM_RELEASE_TYPE
-  licensing_usage: Boolean
   description: String
   artwork: ID
-  produced_by: String
-  vocalist: String
   all_royalties: Boolean
   term_contract: Boolean
   status: ENUM_RELEASE_STATUS
@@ -520,13 +487,13 @@ type Track {
   updated_at: DateTime!
   name: String
   mix_name: String
-  genre: ENUM_TRACK_GENRE
   url: String
   ISRC: String
   EAN_UPC: String
   release: Release
   track_artist: String
   remixer_name: String
+  genre: String
 }
 
 type TrackAggregator {
@@ -606,25 +573,25 @@ type TrackGroupBy {
   updated_at: [TrackConnectionUpdated_at]
   name: [TrackConnectionName]
   mix_name: [TrackConnectionMix_name]
-  genre: [TrackConnectionGenre]
   url: [TrackConnectionUrl]
   ISRC: [TrackConnectionISRC]
   EAN_UPC: [TrackConnectionEAN_UPC]
   release: [TrackConnectionRelease]
   track_artist: [TrackConnectionTrack_artist]
   remixer_name: [TrackConnectionRemixer_name]
+  genre: [TrackConnectionGenre]
 }
 
 input TrackInput {
   name: String
   mix_name: String
-  genre: ENUM_TRACK_GENRE
   url: String
   ISRC: String
   EAN_UPC: String
   release: ID
   track_artist: String
   remixer_name: String
+  genre: String
   created_by: ID
   updated_by: ID
 }
@@ -1147,13 +1114,10 @@ input editLocaleInput {
 
 input editReleaseInput {
   name: String
-  date: Date
+  date: DateTime
   type: ENUM_RELEASE_TYPE
-  licensing_usage: Boolean
   description: String
   artwork: ID
-  produced_by: String
-  vocalist: String
   all_royalties: Boolean
   term_contract: Boolean
   status: ENUM_RELEASE_STATUS
@@ -1178,13 +1142,13 @@ input editRoleInput {
 input editTrackInput {
   name: String
   mix_name: String
-  genre: ENUM_TRACK_GENRE
   url: String
   ISRC: String
   EAN_UPC: String
   release: ID
   track_artist: String
   remixer_name: String
+  genre: String
   created_by: ID
   updated_by: ID
 }

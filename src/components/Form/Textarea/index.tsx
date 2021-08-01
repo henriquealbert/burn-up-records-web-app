@@ -1,27 +1,22 @@
 import {
   FormControl,
-  Input as ChakraInput,
   InputGroup,
-  InputRightElement,
   InputProps,
   useBoolean,
-  ScaleFade,
   FormErrorMessage,
   FormLabel,
-  Flex
+  Textarea as ChakraTextarea
 } from '@chakra-ui/react'
-import { ReactNode } from 'react'
 import { Control, useController } from 'react-hook-form'
 
-export const Input = ({
+export const Textarea = ({
   name,
-  type,
   placeholder,
   showErrorMessage = true,
   label,
-  labelTooltip,
-  defaultValue,
+  rows,
   control,
+  defaultValue,
   ...props
 }: Props) => {
   const [blur, setBlur] = useBoolean()
@@ -33,7 +28,6 @@ export const Input = ({
     control,
     defaultValue
   })
-
   return (
     <FormControl
       id={name}
@@ -43,35 +37,24 @@ export const Input = ({
       {...props}
     >
       {label && (
-        <Flex alignItems="center" mb={2}>
-          <FormLabel color="brand.gray.5" fontSize="lg" mb={0}>
-            {label}
-          </FormLabel>
-          {labelTooltip}
-        </Flex>
+        <FormLabel color="brand.gray.5" fontSize="lg">
+          {label}
+        </FormLabel>
       )}
       <InputGroup d="flex" flexDirection="column">
-        <ChakraInput
+        <ChakraTextarea
           {...{
+            rows,
+            placeholder,
+            name,
             onBlur,
             onChange,
             ref,
-            value: value || '',
-            type,
-            placeholder
+            value: value || ''
           }}
         />
         {invalid && blur && (
           <>
-            <ScaleFade in={blur} initialScale={0.5}>
-              <InputRightElement
-                fontSize="2xl"
-                color="brand.error.2"
-                fontWeight="bold"
-              >
-                !
-              </InputRightElement>
-            </ScaleFade>
             {showErrorMessage && (
               <FormErrorMessage mt={0.5} ml={1}>
                 {error.message}
@@ -86,11 +69,10 @@ export const Input = ({
 
 interface Props extends InputProps {
   name: string
-  type: string
   placeholder?: string
   showErrorMessage?: boolean
   label?: string
-  labelTooltip?: ReactNode
+  rows?: number
   defaultValue?: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   control: Control<any>

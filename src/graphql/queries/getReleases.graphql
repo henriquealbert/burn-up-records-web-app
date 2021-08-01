@@ -1,21 +1,19 @@
-query AllReleases {
-  releases {
+query AllReleases($id: ID!) {
+  user(id: $id) {
     id
-    name
-    date
-    type
-    status
-    catalog
-    created_at
-    description
-    licensing_usage
-    user {
+    releases {
       id
-      email
-    }
-    artwork {
-      id
-      url
+      name
+      date
+      type
+      status
+      catalog
+      created_at
+      artwork {
+        id
+        url
+        formats
+      }
     }
   }
 }

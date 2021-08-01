@@ -18,7 +18,11 @@ export const Sidebar = () => {
     >
       <Profile mt={14} />
       <Flex justify="center" mt={6} mb={10}>
-        <Button variant="primary">Lançar Track</Button>
+        <NextLink passHref href="/lancamentos/novo-lancamento">
+          <Button as="a" cursor="pointer" variant="primary">
+            Lançar Track
+          </Button>
+        </NextLink>
       </Flex>
       <Stack spacing={5} ml={16}>
         {sidebarLinks.map((link) => (

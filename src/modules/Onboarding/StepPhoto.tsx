@@ -1,6 +1,6 @@
 import { Button, Heading, Text, Flex } from '@chakra-ui/react'
 import { useAuth } from 'auth'
-import { AvatarUpload } from 'components'
+import { UploadImage } from 'components'
 import { useUpdateUserMutation } from 'graphql/generated'
 import { useState } from 'react'
 import { useQueryClient } from 'react-query'
@@ -43,7 +43,12 @@ export const StepPhoto = ({ onClose }: Props) => {
         “Minha Conta”.
       </Text>
 
-      <AvatarUpload onUpload={setAvatarId} />
+      <UploadImage
+        avatar
+        text="Escolher foto"
+        name="avatar"
+        onUpload={setAvatarId}
+      />
 
       <Flex justify="center" mt="auto">
         <Button

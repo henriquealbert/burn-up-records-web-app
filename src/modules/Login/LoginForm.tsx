@@ -2,16 +2,27 @@ import * as Yup from 'yup'
 import { signIn } from 'next-auth/client'
 import { RightArrowIcon } from 'styles/icons'
 import { Box, Button } from '@chakra-ui/react'
-import { Formik, Form, FormikHelpers, FormikProps } from 'formik'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
 
-import { FormikInput } from 'components/Form/Input'
+import { Input } from 'components/Form/Input'
 import { parseCallbackUrl } from 'helpers'
 
 export const LoginForm = () => {
-  const handleSubmit = async (
-    values: Values,
-    { setSubmitting }: FormikHelpers<Values>
-  ) => {
+  const {
+    handleSubmit,
+    control,
+    formState: { isValid, isSubmitting }
+  } = useForm<Values>({
+    defaultValues: {
+      email: '',
+      password: ''
+    },
+    mode: 'all',
+    resolver: yupResolver(validationSchema)
+  })
+
+  const onSubmit = async (values: Values) => {
     try {
       await signIn('credentials', {
         email: values.email,
@@ -20,35 +31,37 @@ export const LoginForm = () => {
       })
     } catch (error) {
       alert(error)
-      setSubmitting(false)
     }
   }
 
   return (
-    <Formik
-      initialValues={{ email: '', password: '' }}
-      onSubmit={handleSubmit}
-      validationSchema={validationSchema}
-      validateOnChange
-    >
-      {({ isSubmitting }: FormikProps<Values>) => (
-        <Box as={Form} w="full" h="full">
-          <FormikInput name="email" type="email" placeholder="Email" mb={6} />
-          <FormikInput name="password" type="password" placeholder="Senha" />
-          <Button
-            type="submit"
-            variant="primary"
-            mt={8}
-            mb={12}
-            w="full"
-            isLoading={isSubmitting}
-            rightIcon={<RightArrowIcon mt={1} />}
-          >
-            Começar agora
-          </Button>
-        </Box>
-      )}
-    </Formik>
+    <Box as="form" w="full" h="full" onSubmit={handleSubmit(onSubmit)}>
+      <Input
+        control={control}
+        name="email"
+        type="email"
+        placeholder="Email"
+        mb={6}
+      />
+      <Input
+        control={control}
+        name="password"
+        type="password"
+        placeholder="Senha"
+      />
+      <Button
+        type="submit"
+        variant="primary"
+        mt={8}
+        mb={12}
+        w="full"
+        isLoading={isSubmitting}
+        rightIcon={<RightArrowIcon mt={1} />}
+        isDisabled={!isValid}
+      >
+        Começar agora
+      </Button>
+    </Box>
   )
 }
 

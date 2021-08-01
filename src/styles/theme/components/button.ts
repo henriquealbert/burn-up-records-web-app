@@ -17,6 +17,30 @@ const Button = {
       color: 'white',
       _hover: {
         bgColor: 'brand.secondary.1'
+      },
+      _disabled: {
+        bg: 'brand.secondary.1',
+        _hover: {
+          bg: 'var(--chakra-colors-brand-secondary-1) !important'
+        }
+      }
+    },
+    secondary: {
+      py: 4,
+      px: 12,
+      h: 'auto',
+      maxH: '52px',
+      fontSize: 'lg',
+      bgColor: 'brand.secondary.2',
+      color: 'white',
+      _hover: {
+        bgColor: 'brand.secondary.1'
+      },
+      _disabled: {
+        bg: 'brand.secondary.1',
+        _hover: {
+          bg: 'var(--chakra-colors-brand-secondary-1) !important'
+        }
       }
     },
     google: {
@@ -36,11 +60,30 @@ const Button = {
       color: 'brand.primary',
       textDecoration: 'underline',
       h: 'auto',
+      w: 'fit-content',
       _hover: {
         color: 'brand.secondary.1'
       },
       _active: {
         color: 'brand.secondary.1'
+      },
+      _disabled: {
+        _hover: {
+          textDecoration: 'underline'
+        }
+      }
+    },
+    linkSecondary: {
+      color: 'brand.gray.4',
+      textDecoration: 'underline',
+      h: 'auto',
+      w: 'fit-content',
+      p: 0,
+      _hover: {
+        color: 'brand.gray.3'
+      },
+      _active: {
+        color: 'brand.gray.3'
       },
       _disabled: {
         _hover: {
@@ -56,6 +99,24 @@ const Button = {
       justifyContent: 'flex-start',
       _hover: {
         color: 'brand.secondary.1'
+      }
+    },
+    black: {
+      py: 4,
+      px: 12,
+      h: 'auto',
+      maxH: '52px',
+      fontSize: 'lg',
+      bgColor: 'black',
+      color: 'white',
+      _hover: {
+        bgColor: 'brand.gray.5'
+      },
+      _disabled: {
+        bg: 'brand.gray.3',
+        _hover: {
+          bg: 'var(--chakra-colors-brand-gray-3) !important'
+        }
       }
     }
   }
