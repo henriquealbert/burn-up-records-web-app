@@ -16,6 +16,7 @@ import {
   Button,
   Flex
 } from '@chakra-ui/react'
+import { customAlphabet } from 'nanoid'
 import NextLink from 'next/link'
 import { BiRocket as RocketIcon, BiMusic as MusicIcon } from 'react-icons/bi'
 
@@ -49,7 +50,8 @@ export const NewRelease = () => {
           data: {
             ...data.release,
             status: Enum_Release_Status.Analise,
-            user: me?.user?.id
+            user: me?.user?.id,
+            catalog: `BUR${nanoid()}`
           }
         }
       },
@@ -146,3 +148,5 @@ export const NewRelease = () => {
 }
 
 type NewReleaseTypes = ReleaseValues & TracksValues
+
+const nanoid = customAlphabet('ABCDEFGHIJKLMNOPQRSTUVXWYZ0123456789', 10)
