@@ -10,15 +10,15 @@ import {
   getStatusColor
 } from 'helpers/getStatus'
 
-import { AllReleasesQuery } from 'graphql/generated'
+import { Maybe, Release, UploadFile } from 'graphql/generated'
 
-export const ReleaseList = ({ data }: GridListProps) => (
+export const ReleaseList = ({ releases }: GridListProps) => (
   <>
-    {data?.releases?.length === 0 ? (
+    {releases?.length === 0 ? (
       <BlankSlate />
     ) : (
       <Flex flexWrap="wrap">
-        {data?.releases?.map((item) => (
+        {releases?.map((item) => (
           <Box
             key={item?.id}
             h="370px"
@@ -99,8 +99,22 @@ export const ReleaseList = ({ data }: GridListProps) => (
   </>
 )
 
-type Releases = Pick<AllReleasesQuery, 'releases'>
-
 type GridListProps = {
-  data?: Releases
+  releases?: Maybe<
+    Array<
+      Maybe<
+        { __typename?: 'Release' } & Pick<
+          Release,
+          'id' | 'name' | 'date' | 'type' | 'status' | 'catalog' | 'created_at'
+        > & {
+            artwork?: Maybe<
+              { __typename?: 'UploadFile' } & Pick<
+                UploadFile,
+                'id' | 'url' | 'formats'
+              >
+            >
+          }
+      >
+    >
+  >
 }

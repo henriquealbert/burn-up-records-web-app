@@ -1589,31 +1589,40 @@ export type GetMeQuery = { __typename?: 'Query' } & {
   >
 }
 
-export type AllReleasesQueryVariables = Exact<{ [key: string]: never }>
+export type AllReleasesQueryVariables = Exact<{
+  id: Scalars['ID']
+}>
 
 export type AllReleasesQuery = { __typename?: 'Query' } & {
-  releases?: Maybe<
-    Array<
-      Maybe<
-        { __typename?: 'Release' } & Pick<
-          Release,
-          'id' | 'name' | 'date' | 'type' | 'status' | 'catalog' | 'created_at'
-        > & {
-            user?: Maybe<
-              { __typename?: 'UsersPermissionsUser' } & Pick<
-                UsersPermissionsUser,
-                'id' | 'email'
-              >
+  user?: Maybe<
+    { __typename?: 'UsersPermissionsUser' } & Pick<
+      UsersPermissionsUser,
+      'id'
+    > & {
+        releases?: Maybe<
+          Array<
+            Maybe<
+              { __typename?: 'Release' } & Pick<
+                Release,
+                | 'id'
+                | 'name'
+                | 'date'
+                | 'type'
+                | 'status'
+                | 'catalog'
+                | 'created_at'
+              > & {
+                  artwork?: Maybe<
+                    { __typename?: 'UploadFile' } & Pick<
+                      UploadFile,
+                      'id' | 'url' | 'formats'
+                    >
+                  >
+                }
             >
-            artwork?: Maybe<
-              { __typename?: 'UploadFile' } & Pick<
-                UploadFile,
-                'id' | 'url' | 'formats'
-              >
-            >
-          }
-      >
-    >
+          >
+        >
+      }
   >
 }
 
@@ -1809,29 +1818,28 @@ export const useGetMeQuery = <TData = GetMeQuery, TError = unknown>(
     options
   )
 export const AllReleasesDocument = `
-    query AllReleases {
-  releases {
+    query AllReleases($id: ID!) {
+  user(id: $id) {
     id
-    name
-    date
-    type
-    status
-    catalog
-    created_at
-    user {
+    releases {
       id
-      email
-    }
-    artwork {
-      id
-      url
-      formats
+      name
+      date
+      type
+      status
+      catalog
+      created_at
+      artwork {
+        id
+        url
+        formats
+      }
     }
   }
 }
     `
 export const useAllReleasesQuery = <TData = AllReleasesQuery, TError = unknown>(
-  variables?: AllReleasesQueryVariables,
+  variables: AllReleasesQueryVariables,
   options?: UseQueryOptions<AllReleasesQuery, TError, TData>
 ) =>
   useQuery<AllReleasesQuery, TError, TData>(
