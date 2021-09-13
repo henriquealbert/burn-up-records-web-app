@@ -1,0 +1,8 @@
+mutation login($data: AuthInput!) {
+  login(data: $data) {
+    token
+    user {
+      ...UserFragment
+    }
+  }
+}

@@ -1,0 +1,5 @@
+query getReleasesByUserId($userId: String!) {
+  releasesByUserId(userId: $userId) {
+    ...ReleaseFragment
+  }
+}

@@ -18,8 +18,8 @@ export const StepName = ({ setNext }: Props) => {
     formState: { isValid, isSubmitting }
   } = useForm<Values>({
     defaultValues: {
-      artist_name: '',
-      artist_name_confirmation: ''
+      name: '',
+      name_confirmation: ''
     },
     mode: 'all',
     resolver: yupResolver(validationSchema)
@@ -27,16 +27,7 @@ export const StepName = ({ setNext }: Props) => {
 
   const onSubmit = async (values: Values) => {
     await updateUser(
-      {
-        input: {
-          where: {
-            id: me?.user?.id as string
-          },
-          data: {
-            artist_name: values.artist_name
-          }
-        }
-      },
+      { data: { name: values.name }, id: me.id },
       {
         onSuccess: () => setNext(true),
         onError: () => alert('Erro ao conectar com o servidor')
@@ -71,14 +62,14 @@ export const StepName = ({ setNext }: Props) => {
       >
         <Input
           control={control}
-          name="artist_name"
+          name="name"
           type="text"
           placeholder="Nome artístico"
           mb={4}
         />
         <Input
           control={control}
-          name="artist_name_confirmation"
+          name="name_confirmation"
           type="text"
           placeholder="Repetir nome artístico"
           mb={8}
@@ -109,14 +100,14 @@ interface Props {
 }
 
 interface Values {
-  artist_name: string
-  artist_name_confirmation: string
+  name: string
+  name_confirmation: string
 }
 
 const validationSchema = Yup.object({
-  artist_name: Yup.string().required('Obrigatório.'),
-  artist_name_confirmation: Yup.string().oneOf(
-    [Yup.ref('artist_name'), null],
+  name: Yup.string().required('Obrigatório.'),
+  name_confirmation: Yup.string().oneOf(
+    [Yup.ref('name'), null],
     'Nomes devem ser iguais.'
   )
 })

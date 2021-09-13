@@ -9,9 +9,8 @@ generates:
       - typescript-react-query
     config:
       scalars:
-        Date: Date
         DateTime: Date
-        Time: string
+        Upload: unknown
       fetcher:
         func: './fetcher#myFetcher'
 

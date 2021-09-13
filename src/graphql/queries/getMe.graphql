@@ -1,16 +1,5 @@
-query getMe($id: ID!) {
-  user(id: $id) {
-    id
-    email
-    artist_name
-    onboarding
-    avatar {
-      id
-      url
-      formats
-    }
-    releases {
-      id
-    }
+query getMe {
+  me {
+    ...UserFragment
   }
 }

@@ -14,15 +14,8 @@ export const StepPhoto = ({ onClose }: Props) => {
   const handleSubmit = async () => {
     await mutateAsync(
       {
-        input: {
-          where: {
-            id: me?.user?.id as string
-          },
-          data: {
-            avatar: avatarId,
-            onboarding: true
-          }
-        }
+        data: { onboardingCompleted: true }, // TODO: change to real url
+        id: me.id
       },
       {
         onSuccess: () => {

@@ -1,15 +1,5 @@
-mutation updateUser($input: updateUserInput!) {
-  updateUser(input: $input) {
-    user {
-      id
-      artist_name
-      email
-      username
-      onboarding
-      avatar {
-        id
-        url
-      }
-    }
+mutation updateUser($data: UpdateUserInput!, $id: String!) {
+  updateUser(data: $data, id: $id) {
+    ...UserFragment
   }
 }

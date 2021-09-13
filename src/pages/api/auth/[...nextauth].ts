@@ -5,8 +5,8 @@ import NextAuth, { Account, User } from 'next-auth'
 import { NextApiRequest, NextApiResponse } from 'next-auth/internals/utils'
 
 type AuthorizeProps = {
-  email: string
-  password: string
+  user: User
+  jwt: string
 }
 
 const options = {
@@ -17,22 +17,8 @@ const options = {
     Providers.Credentials({
       name: 'Sign-in',
       credentials: {},
-      async authorize({ email, password }: AuthorizeProps) {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/auth/local`,
-          {
-            method: 'POST',
-            body: new URLSearchParams({ identifier: email, password })
-          }
-        )
-
-        const data = await response.json()
-
-        if (data.user) {
-          return { ...data.user, jwt: data.jwt }
-        } else {
-          return null
-        }
+      async authorize({ user, jwt }: AuthorizeProps) {
+        return { ...user, jwt }
       }
     }),
     Providers.Google({

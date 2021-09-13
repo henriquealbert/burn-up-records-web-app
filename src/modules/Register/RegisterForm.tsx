@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import { Input } from 'components/Form/Input'
-import { useCreateUserMutation } from 'graphql/generated'
+import { useCreateUserMutation, useLoginMutation } from 'graphql/generated'
 import { parseCallbackUrl } from 'helpers'
 
 export const RegisterForm = () => {
@@ -25,29 +25,33 @@ export const RegisterForm = () => {
   })
 
   const { mutateAsync: createUser } = useCreateUserMutation()
+  const { mutateAsync: login } = useLoginMutation()
 
   const onSubmit = async (values: Values) => {
     await createUser(
       {
-        input: {
-          data: {
-            username: values.email,
-            email: values.email,
-            password: values.password,
-            confirmed: true,
-            onboarding: false
-          }
+        data: {
+          email: values.email,
+          password: values.password,
+          onboardingCompleted: false
         }
       },
       {
         onSuccess: async () => {
-          await signIn('credentials', {
-            email: values.email,
-            password: values.password,
-            callbackUrl: parseCallbackUrl('/lancamentos')
-          })
+          await login(
+            { data: { email: values.email, password: values.password } },
+            {
+              onSuccess: async (data) =>
+                await signIn('credentials', {
+                  user: data.login.user,
+                  jwt: data.login.token,
+                  callbackUrl: parseCallbackUrl('/lancamentos')
+                }),
+              onError: () => alert('Erro ao realizar o login.')
+            }
+          )
         },
-        onError: () => alert('Erro ao tentar criar sua conta')
+        onError: () => alert('Erro ao tentar criar sua conta.')
       }
     )
   }

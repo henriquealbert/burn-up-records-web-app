@@ -7,8 +7,11 @@ import { yupResolver } from '@hookform/resolvers/yup'
 
 import { Input } from 'components/Form/Input'
 import { parseCallbackUrl } from 'helpers'
+import { useLoginMutation } from 'graphql/generated'
 
 export const LoginForm = () => {
+  const { mutateAsync: login } = useLoginMutation()
+
   const {
     handleSubmit,
     control,
@@ -24,11 +27,18 @@ export const LoginForm = () => {
 
   const onSubmit = async (values: Values) => {
     try {
-      await signIn('credentials', {
-        email: values.email,
-        password: values.password,
-        callbackUrl: parseCallbackUrl('/lancamentos')
-      })
+      await login(
+        { data: { email: values.email, password: values.password } },
+        {
+          onSuccess: async (data) =>
+            await signIn('credentials', {
+              user: data.login.user,
+              jwt: data.login.token,
+              callbackUrl: parseCallbackUrl('/lancamentos')
+            }),
+          onError: () => alert('Erro ao realizar o login.')
+        }
+      )
     } catch (error) {
       alert(error)
     }

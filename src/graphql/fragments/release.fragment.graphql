@@ -1,0 +1,14 @@
+fragment ReleaseFragment on Release {
+  id
+  name
+  date
+  type
+  notes
+  userId
+  status
+  royalty
+  catalog
+  contract
+  artworkUrl
+  description
+}

@@ -9,10 +9,12 @@ export type Maybe<T> = T | null
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K]
 }
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
-  { [SubKey in K]?: Maybe<T[SubKey]> }
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
-  { [SubKey in K]: Maybe<T[SubKey]> }
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>
+}
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>
+}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string
@@ -20,1644 +22,448 @@ export type Scalars = {
   Boolean: boolean
   Int: number
   Float: number
-  Date: Date
   DateTime: Date
-  JSON: any
-  Long: any
-  Time: string
-  Upload: any
+  Upload: unknown
 }
 
-export type AdminUser = {
-  __typename?: 'AdminUser'
-  id: Scalars['ID']
-  username?: Maybe<Scalars['String']>
-  firstname: Scalars['String']
-  lastname: Scalars['String']
+export type AuthInput = {
+  email: Scalars['String']
+  password: Scalars['String']
 }
 
-export type ComponentSocialSocialLinkInput = {
-  instagram?: Maybe<Scalars['String']>
-  soundcloud?: Maybe<Scalars['String']>
-  spotify?: Maybe<Scalars['String']>
-  beatport?: Maybe<Scalars['String']>
-  youtube?: Maybe<Scalars['String']>
+export type AuthType = {
+  __typename?: 'AuthType'
+  token: Scalars['String']
+  user: User
 }
 
-export type ComponentSocialSocialLinks = {
-  __typename?: 'ComponentSocialSocialLinks'
-  id: Scalars['ID']
-  instagram?: Maybe<Scalars['String']>
-  soundcloud?: Maybe<Scalars['String']>
-  spotify?: Maybe<Scalars['String']>
-  beatport?: Maybe<Scalars['String']>
-  youtube?: Maybe<Scalars['String']>
-}
-
-export enum Enum_Release_Status {
-  Analise = 'analise',
-  Aprovado = 'aprovado',
-  Corrigir = 'corrigir',
-  Negado = 'negado',
-  Lancado = 'lancado'
-}
-
-export enum Enum_Release_Type {
-  Single = 'single',
-  Ep = 'ep',
-  Album = 'album'
-}
-
-export type FileInfoInput = {
-  name?: Maybe<Scalars['String']>
-  alternativeText?: Maybe<Scalars['String']>
-  caption?: Maybe<Scalars['String']>
-}
-
-export type FileInput = {
+export type CreateReleaseInput = {
+  artworkUrl: Scalars['String']
+  catalog: Scalars['String']
+  contract?: Maybe<Scalars['Boolean']>
+  date: Scalars['DateTime']
+  description: Scalars['String']
   name: Scalars['String']
-  alternativeText?: Maybe<Scalars['String']>
-  caption?: Maybe<Scalars['String']>
-  width?: Maybe<Scalars['Int']>
-  height?: Maybe<Scalars['Int']>
-  formats?: Maybe<Scalars['JSON']>
-  hash: Scalars['String']
-  ext?: Maybe<Scalars['String']>
-  mime: Scalars['String']
-  size: Scalars['Float']
+  notes?: Maybe<Scalars['String']>
+  royalty?: Maybe<Royalty>
+  status: Status
+  type: Type
+  userId: Scalars['String']
+}
+
+export type CreateTrackInput = {
+  EAN?: Maybe<Scalars['String']>
+  ISRC?: Maybe<Scalars['String']>
+  artists: Scalars['String']
+  genre: Scalars['String']
+  mixName: Scalars['String']
+  name: Scalars['String']
+  releaseId: Scalars['String']
+  remixer?: Maybe<Scalars['String']>
   url: Scalars['String']
-  previewUrl?: Maybe<Scalars['String']>
-  provider: Scalars['String']
-  provider_metadata?: Maybe<Scalars['JSON']>
-  related?: Maybe<Array<Maybe<Scalars['ID']>>>
-  created_by?: Maybe<Scalars['ID']>
-  updated_by?: Maybe<Scalars['ID']>
 }
 
-export type I18NLocale = {
-  __typename?: 'I18NLocale'
-  id: Scalars['ID']
-  created_at: Scalars['DateTime']
-  updated_at: Scalars['DateTime']
+export type CreateUserInput = {
+  avatarUrl?: Maybe<Scalars['String']>
+  email: Scalars['String']
   name?: Maybe<Scalars['String']>
-  code?: Maybe<Scalars['String']>
+  onboardingCompleted?: Maybe<Scalars['Boolean']>
+  password: Scalars['String']
+  plan?: Maybe<Plan>
 }
-
-export type InputId = {
-  id: Scalars['ID']
-}
-
-export type LocaleInput = {
-  name?: Maybe<Scalars['String']>
-  code?: Maybe<Scalars['String']>
-  created_by?: Maybe<Scalars['ID']>
-  updated_by?: Maybe<Scalars['ID']>
-}
-
-export type Morph =
-  | UsersPermissionsMe
-  | UsersPermissionsMeRole
-  | UsersPermissionsLoginPayload
-  | UserPermissionsPasswordPayload
-  | Release
-  | ReleaseConnection
-  | ReleaseAggregator
-  | ReleaseGroupBy
-  | ReleaseConnectionId
-  | ReleaseConnectionCreated_At
-  | ReleaseConnectionUpdated_At
-  | ReleaseConnectionName
-  | ReleaseConnectionDate
-  | ReleaseConnectionType
-  | ReleaseConnectionDescription
-  | ReleaseConnectionArtwork
-  | ReleaseConnectionAll_Royalties
-  | ReleaseConnectionTerm_Contract
-  | ReleaseConnectionStatus
-  | ReleaseConnectionCatalog
-  | ReleaseConnectionUser
-  | ReleaseConnectionNotes
-  | CreateReleasePayload
-  | UpdateReleasePayload
-  | DeleteReleasePayload
-  | Track
-  | TrackConnection
-  | TrackAggregator
-  | TrackGroupBy
-  | TrackConnectionId
-  | TrackConnectionCreated_At
-  | TrackConnectionUpdated_At
-  | TrackConnectionName
-  | TrackConnectionMix_Name
-  | TrackConnectionUrl
-  | TrackConnectionIsrc
-  | TrackConnectionEan_Upc
-  | TrackConnectionRelease
-  | TrackConnectionTrack_Artist
-  | TrackConnectionRemixer_Name
-  | TrackConnectionGenre
-  | CreateTrackPayload
-  | UpdateTrackPayload
-  | DeleteTrackPayload
-  | I18NLocale
-  | UploadFile
-  | UploadFileConnection
-  | UploadFileAggregator
-  | UploadFileAggregatorSum
-  | UploadFileAggregatorAvg
-  | UploadFileAggregatorMin
-  | UploadFileAggregatorMax
-  | UploadFileGroupBy
-  | UploadFileConnectionId
-  | UploadFileConnectionCreated_At
-  | UploadFileConnectionUpdated_At
-  | UploadFileConnectionName
-  | UploadFileConnectionAlternativeText
-  | UploadFileConnectionCaption
-  | UploadFileConnectionWidth
-  | UploadFileConnectionHeight
-  | UploadFileConnectionFormats
-  | UploadFileConnectionHash
-  | UploadFileConnectionExt
-  | UploadFileConnectionMime
-  | UploadFileConnectionSize
-  | UploadFileConnectionUrl
-  | UploadFileConnectionPreviewUrl
-  | UploadFileConnectionProvider
-  | UploadFileConnectionProvider_Metadata
-  | DeleteFilePayload
-  | UsersPermissionsPermission
-  | UsersPermissionsRole
-  | UsersPermissionsRoleConnection
-  | UsersPermissionsRoleAggregator
-  | UsersPermissionsRoleGroupBy
-  | UsersPermissionsRoleConnectionId
-  | UsersPermissionsRoleConnectionName
-  | UsersPermissionsRoleConnectionDescription
-  | UsersPermissionsRoleConnectionType
-  | CreateRolePayload
-  | UpdateRolePayload
-  | DeleteRolePayload
-  | UsersPermissionsUser
-  | UsersPermissionsUserConnection
-  | UsersPermissionsUserAggregator
-  | UsersPermissionsUserGroupBy
-  | UsersPermissionsUserConnectionId
-  | UsersPermissionsUserConnectionCreated_At
-  | UsersPermissionsUserConnectionUpdated_At
-  | UsersPermissionsUserConnectionUsername
-  | UsersPermissionsUserConnectionEmail
-  | UsersPermissionsUserConnectionProvider
-  | UsersPermissionsUserConnectionConfirmed
-  | UsersPermissionsUserConnectionBlocked
-  | UsersPermissionsUserConnectionRole
-  | UsersPermissionsUserConnectionArtist_Name
-  | UsersPermissionsUserConnectionBiography
-  | UsersPermissionsUserConnectionSocial_Links
-  | UsersPermissionsUserConnectionOnboarding
-  | UsersPermissionsUserConnectionAvatar
-  | CreateUserPayload
-  | UpdateUserPayload
-  | DeleteUserPayload
-  | ComponentSocialSocialLinks
 
 export type Mutation = {
   __typename?: 'Mutation'
-  createRelease?: Maybe<CreateReleasePayload>
-  updateRelease?: Maybe<UpdateReleasePayload>
-  deleteRelease?: Maybe<DeleteReleasePayload>
-  createTrack?: Maybe<CreateTrackPayload>
-  updateTrack?: Maybe<UpdateTrackPayload>
-  deleteTrack?: Maybe<DeleteTrackPayload>
-  deleteFile?: Maybe<DeleteFilePayload>
-  createRole?: Maybe<CreateRolePayload>
-  updateRole?: Maybe<UpdateRolePayload>
-  deleteRole?: Maybe<DeleteRolePayload>
-  createUser?: Maybe<CreateUserPayload>
-  updateUser?: Maybe<UpdateUserPayload>
-  deleteUser?: Maybe<DeleteUserPayload>
-  upload: UploadFile
-  multipleUpload: Array<Maybe<UploadFile>>
-  updateFileInfo: UploadFile
-  login: UsersPermissionsLoginPayload
-  register: UsersPermissionsLoginPayload
-  forgotPassword?: Maybe<UserPermissionsPasswordPayload>
-  resetPassword?: Maybe<UsersPermissionsLoginPayload>
-  emailConfirmation?: Maybe<UsersPermissionsLoginPayload>
+  createRelease: Release
+  createTrack: Track
+  createUser: User
+  deleteFile: Scalars['Boolean']
+  deleteRelease: Release
+  deleteTrack: Track
+  deleteUser: User
+  login: AuthType
+  updateRelease: Release
+  updateTrack: Track
+  updateUser: User
+  uploadFile: Scalars['String']
 }
 
 export type MutationCreateReleaseArgs = {
-  input?: Maybe<CreateReleaseInput>
-}
-
-export type MutationUpdateReleaseArgs = {
-  input?: Maybe<UpdateReleaseInput>
-}
-
-export type MutationDeleteReleaseArgs = {
-  input?: Maybe<DeleteReleaseInput>
+  data: CreateReleaseInput
 }
 
 export type MutationCreateTrackArgs = {
-  input?: Maybe<CreateTrackInput>
-}
-
-export type MutationUpdateTrackArgs = {
-  input?: Maybe<UpdateTrackInput>
-}
-
-export type MutationDeleteTrackArgs = {
-  input?: Maybe<DeleteTrackInput>
-}
-
-export type MutationDeleteFileArgs = {
-  input?: Maybe<DeleteFileInput>
-}
-
-export type MutationCreateRoleArgs = {
-  input?: Maybe<CreateRoleInput>
-}
-
-export type MutationUpdateRoleArgs = {
-  input?: Maybe<UpdateRoleInput>
-}
-
-export type MutationDeleteRoleArgs = {
-  input?: Maybe<DeleteRoleInput>
+  data: CreateTrackInput
 }
 
 export type MutationCreateUserArgs = {
-  input?: Maybe<CreateUserInput>
+  data: CreateUserInput
 }
 
-export type MutationUpdateUserArgs = {
-  input?: Maybe<UpdateUserInput>
+export type MutationDeleteFileArgs = {
+  fileName: Scalars['String']
+}
+
+export type MutationDeleteReleaseArgs = {
+  id: Scalars['String']
+}
+
+export type MutationDeleteTrackArgs = {
+  id: Scalars['String']
 }
 
 export type MutationDeleteUserArgs = {
-  input?: Maybe<DeleteUserInput>
-}
-
-export type MutationUploadArgs = {
-  refId?: Maybe<Scalars['ID']>
-  ref?: Maybe<Scalars['String']>
-  field?: Maybe<Scalars['String']>
-  source?: Maybe<Scalars['String']>
-  info?: Maybe<FileInfoInput>
-  file: Scalars['Upload']
-}
-
-export type MutationMultipleUploadArgs = {
-  refId?: Maybe<Scalars['ID']>
-  ref?: Maybe<Scalars['String']>
-  field?: Maybe<Scalars['String']>
-  source?: Maybe<Scalars['String']>
-  files: Array<Maybe<Scalars['Upload']>>
-}
-
-export type MutationUpdateFileInfoArgs = {
-  id: Scalars['ID']
-  info: FileInfoInput
+  id: Scalars['String']
 }
 
 export type MutationLoginArgs = {
-  input: UsersPermissionsLoginInput
+  data: AuthInput
 }
 
-export type MutationRegisterArgs = {
-  input: UsersPermissionsRegisterInput
+export type MutationUpdateReleaseArgs = {
+  data: UpdateReleaseInput
+  id: Scalars['String']
 }
 
-export type MutationForgotPasswordArgs = {
-  email: Scalars['String']
+export type MutationUpdateTrackArgs = {
+  data: UpdateTrackInput
+  id: Scalars['String']
 }
 
-export type MutationResetPasswordArgs = {
-  password: Scalars['String']
-  passwordConfirmation: Scalars['String']
-  code: Scalars['String']
+export type MutationUpdateUserArgs = {
+  data: UpdateUserInput
+  id: Scalars['String']
 }
 
-export type MutationEmailConfirmationArgs = {
-  confirmation: Scalars['String']
+export type MutationUploadFileArgs = {
+  file: Scalars['Upload']
 }
 
-export enum PublicationState {
-  Live = 'LIVE',
-  Preview = 'PREVIEW'
+export enum Plan {
+  Free = 'FREE',
+  Premium = 'PREMIUM'
 }
 
 export type Query = {
   __typename?: 'Query'
-  release?: Maybe<Release>
-  releases?: Maybe<Array<Maybe<Release>>>
-  releasesConnection?: Maybe<ReleaseConnection>
-  track?: Maybe<Track>
-  tracks?: Maybe<Array<Maybe<Track>>>
-  tracksConnection?: Maybe<TrackConnection>
-  files?: Maybe<Array<Maybe<UploadFile>>>
-  filesConnection?: Maybe<UploadFileConnection>
-  role?: Maybe<UsersPermissionsRole>
-  roles?: Maybe<Array<Maybe<UsersPermissionsRole>>>
-  rolesConnection?: Maybe<UsersPermissionsRoleConnection>
-  user?: Maybe<UsersPermissionsUser>
-  users?: Maybe<Array<Maybe<UsersPermissionsUser>>>
-  usersConnection?: Maybe<UsersPermissionsUserConnection>
-  me?: Maybe<UsersPermissionsMe>
+  me: User
+  release: Release
+  releases: Array<Release>
+  releasesByUserId: Array<Release>
+  track: Track
+  tracks: Array<Track>
+  user: User
+  userByEmail: User
+  users: Array<User>
 }
 
 export type QueryReleaseArgs = {
-  id: Scalars['ID']
-  publicationState?: Maybe<PublicationState>
+  id: Scalars['String']
 }
 
-export type QueryReleasesArgs = {
-  sort?: Maybe<Scalars['String']>
-  limit?: Maybe<Scalars['Int']>
-  start?: Maybe<Scalars['Int']>
-  where?: Maybe<Scalars['JSON']>
-  publicationState?: Maybe<PublicationState>
-}
-
-export type QueryReleasesConnectionArgs = {
-  sort?: Maybe<Scalars['String']>
-  limit?: Maybe<Scalars['Int']>
-  start?: Maybe<Scalars['Int']>
-  where?: Maybe<Scalars['JSON']>
+export type QueryReleasesByUserIdArgs = {
+  userId: Scalars['String']
 }
 
 export type QueryTrackArgs = {
-  id: Scalars['ID']
-  publicationState?: Maybe<PublicationState>
-}
-
-export type QueryTracksArgs = {
-  sort?: Maybe<Scalars['String']>
-  limit?: Maybe<Scalars['Int']>
-  start?: Maybe<Scalars['Int']>
-  where?: Maybe<Scalars['JSON']>
-  publicationState?: Maybe<PublicationState>
-}
-
-export type QueryTracksConnectionArgs = {
-  sort?: Maybe<Scalars['String']>
-  limit?: Maybe<Scalars['Int']>
-  start?: Maybe<Scalars['Int']>
-  where?: Maybe<Scalars['JSON']>
-}
-
-export type QueryFilesArgs = {
-  sort?: Maybe<Scalars['String']>
-  limit?: Maybe<Scalars['Int']>
-  start?: Maybe<Scalars['Int']>
-  where?: Maybe<Scalars['JSON']>
-  publicationState?: Maybe<PublicationState>
-}
-
-export type QueryFilesConnectionArgs = {
-  sort?: Maybe<Scalars['String']>
-  limit?: Maybe<Scalars['Int']>
-  start?: Maybe<Scalars['Int']>
-  where?: Maybe<Scalars['JSON']>
-}
-
-export type QueryRoleArgs = {
-  id: Scalars['ID']
-  publicationState?: Maybe<PublicationState>
-}
-
-export type QueryRolesArgs = {
-  sort?: Maybe<Scalars['String']>
-  limit?: Maybe<Scalars['Int']>
-  start?: Maybe<Scalars['Int']>
-  where?: Maybe<Scalars['JSON']>
-  publicationState?: Maybe<PublicationState>
-}
-
-export type QueryRolesConnectionArgs = {
-  sort?: Maybe<Scalars['String']>
-  limit?: Maybe<Scalars['Int']>
-  start?: Maybe<Scalars['Int']>
-  where?: Maybe<Scalars['JSON']>
+  id: Scalars['String']
 }
 
 export type QueryUserArgs = {
-  id: Scalars['ID']
-  publicationState?: Maybe<PublicationState>
+  id: Scalars['String']
 }
 
-export type QueryUsersArgs = {
-  sort?: Maybe<Scalars['String']>
-  limit?: Maybe<Scalars['Int']>
-  start?: Maybe<Scalars['Int']>
-  where?: Maybe<Scalars['JSON']>
-  publicationState?: Maybe<PublicationState>
-}
-
-export type QueryUsersConnectionArgs = {
-  sort?: Maybe<Scalars['String']>
-  limit?: Maybe<Scalars['Int']>
-  start?: Maybe<Scalars['Int']>
-  where?: Maybe<Scalars['JSON']>
+export type QueryUserByEmailArgs = {
+  email: Scalars['String']
 }
 
 export type Release = {
   __typename?: 'Release'
+  artworkUrl: Scalars['String']
+  catalog: Scalars['String']
+  contract?: Maybe<Scalars['Boolean']>
+  date: Scalars['DateTime']
+  description: Scalars['String']
   id: Scalars['ID']
-  created_at: Scalars['DateTime']
-  updated_at: Scalars['DateTime']
   name: Scalars['String']
-  date?: Maybe<Scalars['DateTime']>
-  type?: Maybe<Enum_Release_Type>
-  description?: Maybe<Scalars['String']>
-  artwork?: Maybe<UploadFile>
-  all_royalties?: Maybe<Scalars['Boolean']>
-  term_contract?: Maybe<Scalars['Boolean']>
-  status?: Maybe<Enum_Release_Status>
-  catalog?: Maybe<Scalars['String']>
-  user?: Maybe<UsersPermissionsUser>
   notes?: Maybe<Scalars['String']>
-  tracks?: Maybe<Array<Maybe<Track>>>
+  royalty?: Maybe<Royalty>
+  status: Status
+  tracks: Array<Track>
+  type: Type
+  user: User
+  userId: Scalars['String']
 }
 
-export type ReleaseTracksArgs = {
-  sort?: Maybe<Scalars['String']>
-  limit?: Maybe<Scalars['Int']>
-  start?: Maybe<Scalars['Int']>
-  where?: Maybe<Scalars['JSON']>
+export enum Role {
+  Admin = 'ADMIN',
+  User = 'USER'
 }
 
-export type ReleaseAggregator = {
-  __typename?: 'ReleaseAggregator'
-  count?: Maybe<Scalars['Int']>
-  totalCount?: Maybe<Scalars['Int']>
+export enum Royalty {
+  All = 'ALL',
+  Half = 'HALF',
+  Standard = 'STANDARD'
 }
 
-export type ReleaseConnection = {
-  __typename?: 'ReleaseConnection'
-  values?: Maybe<Array<Maybe<Release>>>
-  groupBy?: Maybe<ReleaseGroupBy>
-  aggregate?: Maybe<ReleaseAggregator>
-}
-
-export type ReleaseConnectionAll_Royalties = {
-  __typename?: 'ReleaseConnectionAll_royalties'
-  key?: Maybe<Scalars['Boolean']>
-  connection?: Maybe<ReleaseConnection>
-}
-
-export type ReleaseConnectionArtwork = {
-  __typename?: 'ReleaseConnectionArtwork'
-  key?: Maybe<Scalars['ID']>
-  connection?: Maybe<ReleaseConnection>
-}
-
-export type ReleaseConnectionCatalog = {
-  __typename?: 'ReleaseConnectionCatalog'
-  key?: Maybe<Scalars['String']>
-  connection?: Maybe<ReleaseConnection>
-}
-
-export type ReleaseConnectionCreated_At = {
-  __typename?: 'ReleaseConnectionCreated_at'
-  key?: Maybe<Scalars['DateTime']>
-  connection?: Maybe<ReleaseConnection>
-}
-
-export type ReleaseConnectionDate = {
-  __typename?: 'ReleaseConnectionDate'
-  key?: Maybe<Scalars['DateTime']>
-  connection?: Maybe<ReleaseConnection>
-}
-
-export type ReleaseConnectionDescription = {
-  __typename?: 'ReleaseConnectionDescription'
-  key?: Maybe<Scalars['String']>
-  connection?: Maybe<ReleaseConnection>
-}
-
-export type ReleaseConnectionId = {
-  __typename?: 'ReleaseConnectionId'
-  key?: Maybe<Scalars['ID']>
-  connection?: Maybe<ReleaseConnection>
-}
-
-export type ReleaseConnectionName = {
-  __typename?: 'ReleaseConnectionName'
-  key?: Maybe<Scalars['String']>
-  connection?: Maybe<ReleaseConnection>
-}
-
-export type ReleaseConnectionNotes = {
-  __typename?: 'ReleaseConnectionNotes'
-  key?: Maybe<Scalars['String']>
-  connection?: Maybe<ReleaseConnection>
-}
-
-export type ReleaseConnectionStatus = {
-  __typename?: 'ReleaseConnectionStatus'
-  key?: Maybe<Scalars['String']>
-  connection?: Maybe<ReleaseConnection>
-}
-
-export type ReleaseConnectionTerm_Contract = {
-  __typename?: 'ReleaseConnectionTerm_contract'
-  key?: Maybe<Scalars['Boolean']>
-  connection?: Maybe<ReleaseConnection>
-}
-
-export type ReleaseConnectionType = {
-  __typename?: 'ReleaseConnectionType'
-  key?: Maybe<Scalars['String']>
-  connection?: Maybe<ReleaseConnection>
-}
-
-export type ReleaseConnectionUpdated_At = {
-  __typename?: 'ReleaseConnectionUpdated_at'
-  key?: Maybe<Scalars['DateTime']>
-  connection?: Maybe<ReleaseConnection>
-}
-
-export type ReleaseConnectionUser = {
-  __typename?: 'ReleaseConnectionUser'
-  key?: Maybe<Scalars['ID']>
-  connection?: Maybe<ReleaseConnection>
-}
-
-export type ReleaseGroupBy = {
-  __typename?: 'ReleaseGroupBy'
-  id?: Maybe<Array<Maybe<ReleaseConnectionId>>>
-  created_at?: Maybe<Array<Maybe<ReleaseConnectionCreated_At>>>
-  updated_at?: Maybe<Array<Maybe<ReleaseConnectionUpdated_At>>>
-  name?: Maybe<Array<Maybe<ReleaseConnectionName>>>
-  date?: Maybe<Array<Maybe<ReleaseConnectionDate>>>
-  type?: Maybe<Array<Maybe<ReleaseConnectionType>>>
-  description?: Maybe<Array<Maybe<ReleaseConnectionDescription>>>
-  artwork?: Maybe<Array<Maybe<ReleaseConnectionArtwork>>>
-  all_royalties?: Maybe<Array<Maybe<ReleaseConnectionAll_Royalties>>>
-  term_contract?: Maybe<Array<Maybe<ReleaseConnectionTerm_Contract>>>
-  status?: Maybe<Array<Maybe<ReleaseConnectionStatus>>>
-  catalog?: Maybe<Array<Maybe<ReleaseConnectionCatalog>>>
-  user?: Maybe<Array<Maybe<ReleaseConnectionUser>>>
-  notes?: Maybe<Array<Maybe<ReleaseConnectionNotes>>>
-}
-
-export type ReleaseInput = {
-  name: Scalars['String']
-  date?: Maybe<Scalars['DateTime']>
-  type?: Maybe<Enum_Release_Type>
-  description?: Maybe<Scalars['String']>
-  artwork?: Maybe<Scalars['ID']>
-  all_royalties?: Maybe<Scalars['Boolean']>
-  term_contract?: Maybe<Scalars['Boolean']>
-  status?: Maybe<Enum_Release_Status>
-  tracks?: Maybe<Array<Maybe<Scalars['ID']>>>
-  catalog?: Maybe<Scalars['String']>
-  user?: Maybe<Scalars['ID']>
-  notes?: Maybe<Scalars['String']>
-  created_by?: Maybe<Scalars['ID']>
-  updated_by?: Maybe<Scalars['ID']>
-}
-
-export type RoleInput = {
-  name: Scalars['String']
-  description?: Maybe<Scalars['String']>
-  type?: Maybe<Scalars['String']>
-  permissions?: Maybe<Array<Maybe<Scalars['ID']>>>
-  users?: Maybe<Array<Maybe<Scalars['ID']>>>
-  created_by?: Maybe<Scalars['ID']>
-  updated_by?: Maybe<Scalars['ID']>
+export enum Status {
+  Analise = 'ANALISE',
+  Aprovado = 'APROVADO',
+  Corrigir = 'CORRIGIR',
+  Lancado = 'LANCADO',
+  Reprovado = 'REPROVADO'
 }
 
 export type Track = {
   __typename?: 'Track'
-  id: Scalars['ID']
-  created_at: Scalars['DateTime']
-  updated_at: Scalars['DateTime']
-  name?: Maybe<Scalars['String']>
-  mix_name?: Maybe<Scalars['String']>
-  url?: Maybe<Scalars['String']>
+  EAN?: Maybe<Scalars['String']>
   ISRC?: Maybe<Scalars['String']>
-  EAN_UPC?: Maybe<Scalars['String']>
-  release?: Maybe<Release>
-  track_artist?: Maybe<Scalars['String']>
-  remixer_name?: Maybe<Scalars['String']>
-  genre?: Maybe<Scalars['String']>
-}
-
-export type TrackAggregator = {
-  __typename?: 'TrackAggregator'
-  count?: Maybe<Scalars['Int']>
-  totalCount?: Maybe<Scalars['Int']>
-}
-
-export type TrackConnection = {
-  __typename?: 'TrackConnection'
-  values?: Maybe<Array<Maybe<Track>>>
-  groupBy?: Maybe<TrackGroupBy>
-  aggregate?: Maybe<TrackAggregator>
-}
-
-export type TrackConnectionCreated_At = {
-  __typename?: 'TrackConnectionCreated_at'
-  key?: Maybe<Scalars['DateTime']>
-  connection?: Maybe<TrackConnection>
-}
-
-export type TrackConnectionEan_Upc = {
-  __typename?: 'TrackConnectionEAN_UPC'
-  key?: Maybe<Scalars['String']>
-  connection?: Maybe<TrackConnection>
-}
-
-export type TrackConnectionGenre = {
-  __typename?: 'TrackConnectionGenre'
-  key?: Maybe<Scalars['String']>
-  connection?: Maybe<TrackConnection>
-}
-
-export type TrackConnectionIsrc = {
-  __typename?: 'TrackConnectionISRC'
-  key?: Maybe<Scalars['String']>
-  connection?: Maybe<TrackConnection>
-}
-
-export type TrackConnectionId = {
-  __typename?: 'TrackConnectionId'
-  key?: Maybe<Scalars['ID']>
-  connection?: Maybe<TrackConnection>
-}
-
-export type TrackConnectionMix_Name = {
-  __typename?: 'TrackConnectionMix_name'
-  key?: Maybe<Scalars['String']>
-  connection?: Maybe<TrackConnection>
-}
-
-export type TrackConnectionName = {
-  __typename?: 'TrackConnectionName'
-  key?: Maybe<Scalars['String']>
-  connection?: Maybe<TrackConnection>
-}
-
-export type TrackConnectionRelease = {
-  __typename?: 'TrackConnectionRelease'
-  key?: Maybe<Scalars['ID']>
-  connection?: Maybe<TrackConnection>
-}
-
-export type TrackConnectionRemixer_Name = {
-  __typename?: 'TrackConnectionRemixer_name'
-  key?: Maybe<Scalars['String']>
-  connection?: Maybe<TrackConnection>
-}
-
-export type TrackConnectionTrack_Artist = {
-  __typename?: 'TrackConnectionTrack_artist'
-  key?: Maybe<Scalars['String']>
-  connection?: Maybe<TrackConnection>
-}
-
-export type TrackConnectionUpdated_At = {
-  __typename?: 'TrackConnectionUpdated_at'
-  key?: Maybe<Scalars['DateTime']>
-  connection?: Maybe<TrackConnection>
-}
-
-export type TrackConnectionUrl = {
-  __typename?: 'TrackConnectionUrl'
-  key?: Maybe<Scalars['String']>
-  connection?: Maybe<TrackConnection>
-}
-
-export type TrackGroupBy = {
-  __typename?: 'TrackGroupBy'
-  id?: Maybe<Array<Maybe<TrackConnectionId>>>
-  created_at?: Maybe<Array<Maybe<TrackConnectionCreated_At>>>
-  updated_at?: Maybe<Array<Maybe<TrackConnectionUpdated_At>>>
-  name?: Maybe<Array<Maybe<TrackConnectionName>>>
-  mix_name?: Maybe<Array<Maybe<TrackConnectionMix_Name>>>
-  url?: Maybe<Array<Maybe<TrackConnectionUrl>>>
-  ISRC?: Maybe<Array<Maybe<TrackConnectionIsrc>>>
-  EAN_UPC?: Maybe<Array<Maybe<TrackConnectionEan_Upc>>>
-  release?: Maybe<Array<Maybe<TrackConnectionRelease>>>
-  track_artist?: Maybe<Array<Maybe<TrackConnectionTrack_Artist>>>
-  remixer_name?: Maybe<Array<Maybe<TrackConnectionRemixer_Name>>>
-  genre?: Maybe<Array<Maybe<TrackConnectionGenre>>>
-}
-
-export type TrackInput = {
-  name?: Maybe<Scalars['String']>
-  mix_name?: Maybe<Scalars['String']>
-  url?: Maybe<Scalars['String']>
-  ISRC?: Maybe<Scalars['String']>
-  EAN_UPC?: Maybe<Scalars['String']>
-  release?: Maybe<Scalars['ID']>
-  track_artist?: Maybe<Scalars['String']>
-  remixer_name?: Maybe<Scalars['String']>
-  genre?: Maybe<Scalars['String']>
-  created_by?: Maybe<Scalars['ID']>
-  updated_by?: Maybe<Scalars['ID']>
-}
-
-export type UploadFile = {
-  __typename?: 'UploadFile'
+  artists: Scalars['String']
+  genre: Scalars['String']
   id: Scalars['ID']
-  created_at: Scalars['DateTime']
-  updated_at: Scalars['DateTime']
+  mixName: Scalars['String']
   name: Scalars['String']
-  alternativeText?: Maybe<Scalars['String']>
-  caption?: Maybe<Scalars['String']>
-  width?: Maybe<Scalars['Int']>
-  height?: Maybe<Scalars['Int']>
-  formats?: Maybe<Scalars['JSON']>
-  hash: Scalars['String']
-  ext?: Maybe<Scalars['String']>
-  mime: Scalars['String']
-  size: Scalars['Float']
+  release: Release
+  releaseId: Scalars['String']
+  remixer?: Maybe<Scalars['String']>
   url: Scalars['String']
-  previewUrl?: Maybe<Scalars['String']>
-  provider: Scalars['String']
-  provider_metadata?: Maybe<Scalars['JSON']>
-  related?: Maybe<Array<Maybe<Morph>>>
 }
 
-export type UploadFileRelatedArgs = {
-  sort?: Maybe<Scalars['String']>
-  limit?: Maybe<Scalars['Int']>
-  start?: Maybe<Scalars['Int']>
-  where?: Maybe<Scalars['JSON']>
-}
-
-export type UploadFileAggregator = {
-  __typename?: 'UploadFileAggregator'
-  count?: Maybe<Scalars['Int']>
-  totalCount?: Maybe<Scalars['Int']>
-  sum?: Maybe<UploadFileAggregatorSum>
-  avg?: Maybe<UploadFileAggregatorAvg>
-  min?: Maybe<UploadFileAggregatorMin>
-  max?: Maybe<UploadFileAggregatorMax>
-}
-
-export type UploadFileAggregatorAvg = {
-  __typename?: 'UploadFileAggregatorAvg'
-  width?: Maybe<Scalars['Float']>
-  height?: Maybe<Scalars['Float']>
-  size?: Maybe<Scalars['Float']>
-}
-
-export type UploadFileAggregatorMax = {
-  __typename?: 'UploadFileAggregatorMax'
-  width?: Maybe<Scalars['Float']>
-  height?: Maybe<Scalars['Float']>
-  size?: Maybe<Scalars['Float']>
-}
-
-export type UploadFileAggregatorMin = {
-  __typename?: 'UploadFileAggregatorMin'
-  width?: Maybe<Scalars['Float']>
-  height?: Maybe<Scalars['Float']>
-  size?: Maybe<Scalars['Float']>
-}
-
-export type UploadFileAggregatorSum = {
-  __typename?: 'UploadFileAggregatorSum'
-  width?: Maybe<Scalars['Float']>
-  height?: Maybe<Scalars['Float']>
-  size?: Maybe<Scalars['Float']>
-}
-
-export type UploadFileConnection = {
-  __typename?: 'UploadFileConnection'
-  values?: Maybe<Array<Maybe<UploadFile>>>
-  groupBy?: Maybe<UploadFileGroupBy>
-  aggregate?: Maybe<UploadFileAggregator>
-}
-
-export type UploadFileConnectionAlternativeText = {
-  __typename?: 'UploadFileConnectionAlternativeText'
-  key?: Maybe<Scalars['String']>
-  connection?: Maybe<UploadFileConnection>
-}
-
-export type UploadFileConnectionCaption = {
-  __typename?: 'UploadFileConnectionCaption'
-  key?: Maybe<Scalars['String']>
-  connection?: Maybe<UploadFileConnection>
-}
-
-export type UploadFileConnectionCreated_At = {
-  __typename?: 'UploadFileConnectionCreated_at'
-  key?: Maybe<Scalars['DateTime']>
-  connection?: Maybe<UploadFileConnection>
-}
-
-export type UploadFileConnectionExt = {
-  __typename?: 'UploadFileConnectionExt'
-  key?: Maybe<Scalars['String']>
-  connection?: Maybe<UploadFileConnection>
-}
-
-export type UploadFileConnectionFormats = {
-  __typename?: 'UploadFileConnectionFormats'
-  key?: Maybe<Scalars['JSON']>
-  connection?: Maybe<UploadFileConnection>
-}
-
-export type UploadFileConnectionHash = {
-  __typename?: 'UploadFileConnectionHash'
-  key?: Maybe<Scalars['String']>
-  connection?: Maybe<UploadFileConnection>
-}
-
-export type UploadFileConnectionHeight = {
-  __typename?: 'UploadFileConnectionHeight'
-  key?: Maybe<Scalars['Int']>
-  connection?: Maybe<UploadFileConnection>
-}
-
-export type UploadFileConnectionId = {
-  __typename?: 'UploadFileConnectionId'
-  key?: Maybe<Scalars['ID']>
-  connection?: Maybe<UploadFileConnection>
-}
-
-export type UploadFileConnectionMime = {
-  __typename?: 'UploadFileConnectionMime'
-  key?: Maybe<Scalars['String']>
-  connection?: Maybe<UploadFileConnection>
-}
-
-export type UploadFileConnectionName = {
-  __typename?: 'UploadFileConnectionName'
-  key?: Maybe<Scalars['String']>
-  connection?: Maybe<UploadFileConnection>
-}
-
-export type UploadFileConnectionPreviewUrl = {
-  __typename?: 'UploadFileConnectionPreviewUrl'
-  key?: Maybe<Scalars['String']>
-  connection?: Maybe<UploadFileConnection>
-}
-
-export type UploadFileConnectionProvider = {
-  __typename?: 'UploadFileConnectionProvider'
-  key?: Maybe<Scalars['String']>
-  connection?: Maybe<UploadFileConnection>
-}
-
-export type UploadFileConnectionProvider_Metadata = {
-  __typename?: 'UploadFileConnectionProvider_metadata'
-  key?: Maybe<Scalars['JSON']>
-  connection?: Maybe<UploadFileConnection>
-}
-
-export type UploadFileConnectionSize = {
-  __typename?: 'UploadFileConnectionSize'
-  key?: Maybe<Scalars['Float']>
-  connection?: Maybe<UploadFileConnection>
-}
-
-export type UploadFileConnectionUpdated_At = {
-  __typename?: 'UploadFileConnectionUpdated_at'
-  key?: Maybe<Scalars['DateTime']>
-  connection?: Maybe<UploadFileConnection>
-}
-
-export type UploadFileConnectionUrl = {
-  __typename?: 'UploadFileConnectionUrl'
-  key?: Maybe<Scalars['String']>
-  connection?: Maybe<UploadFileConnection>
-}
-
-export type UploadFileConnectionWidth = {
-  __typename?: 'UploadFileConnectionWidth'
-  key?: Maybe<Scalars['Int']>
-  connection?: Maybe<UploadFileConnection>
-}
-
-export type UploadFileGroupBy = {
-  __typename?: 'UploadFileGroupBy'
-  id?: Maybe<Array<Maybe<UploadFileConnectionId>>>
-  created_at?: Maybe<Array<Maybe<UploadFileConnectionCreated_At>>>
-  updated_at?: Maybe<Array<Maybe<UploadFileConnectionUpdated_At>>>
-  name?: Maybe<Array<Maybe<UploadFileConnectionName>>>
-  alternativeText?: Maybe<Array<Maybe<UploadFileConnectionAlternativeText>>>
-  caption?: Maybe<Array<Maybe<UploadFileConnectionCaption>>>
-  width?: Maybe<Array<Maybe<UploadFileConnectionWidth>>>
-  height?: Maybe<Array<Maybe<UploadFileConnectionHeight>>>
-  formats?: Maybe<Array<Maybe<UploadFileConnectionFormats>>>
-  hash?: Maybe<Array<Maybe<UploadFileConnectionHash>>>
-  ext?: Maybe<Array<Maybe<UploadFileConnectionExt>>>
-  mime?: Maybe<Array<Maybe<UploadFileConnectionMime>>>
-  size?: Maybe<Array<Maybe<UploadFileConnectionSize>>>
-  url?: Maybe<Array<Maybe<UploadFileConnectionUrl>>>
-  previewUrl?: Maybe<Array<Maybe<UploadFileConnectionPreviewUrl>>>
-  provider?: Maybe<Array<Maybe<UploadFileConnectionProvider>>>
-  provider_metadata?: Maybe<Array<Maybe<UploadFileConnectionProvider_Metadata>>>
-}
-
-export type UserInput = {
-  username: Scalars['String']
-  email: Scalars['String']
-  provider?: Maybe<Scalars['String']>
-  password?: Maybe<Scalars['String']>
-  resetPasswordToken?: Maybe<Scalars['String']>
-  confirmationToken?: Maybe<Scalars['String']>
-  confirmed?: Maybe<Scalars['Boolean']>
-  blocked?: Maybe<Scalars['Boolean']>
-  role?: Maybe<Scalars['ID']>
-  artist_name?: Maybe<Scalars['String']>
-  biography?: Maybe<Scalars['String']>
-  social_links?: Maybe<ComponentSocialSocialLinkInput>
-  releases?: Maybe<Array<Maybe<Scalars['ID']>>>
-  onboarding?: Maybe<Scalars['Boolean']>
-  avatar?: Maybe<Scalars['ID']>
-  created_by?: Maybe<Scalars['ID']>
-  updated_by?: Maybe<Scalars['ID']>
-}
-
-export type UserPermissionsPasswordPayload = {
-  __typename?: 'UserPermissionsPasswordPayload'
-  ok: Scalars['Boolean']
-}
-
-export type UsersPermissionsLoginInput = {
-  identifier: Scalars['String']
-  password: Scalars['String']
-  provider?: Maybe<Scalars['String']>
-}
-
-export type UsersPermissionsLoginPayload = {
-  __typename?: 'UsersPermissionsLoginPayload'
-  jwt?: Maybe<Scalars['String']>
-  user: UsersPermissionsMe
-}
-
-export type UsersPermissionsMe = {
-  __typename?: 'UsersPermissionsMe'
-  id: Scalars['ID']
-  username: Scalars['String']
-  email: Scalars['String']
-  confirmed?: Maybe<Scalars['Boolean']>
-  blocked?: Maybe<Scalars['Boolean']>
-  role?: Maybe<UsersPermissionsMeRole>
-}
-
-export type UsersPermissionsMeRole = {
-  __typename?: 'UsersPermissionsMeRole'
-  id: Scalars['ID']
-  name: Scalars['String']
-  description?: Maybe<Scalars['String']>
-  type?: Maybe<Scalars['String']>
-}
-
-export type UsersPermissionsPermission = {
-  __typename?: 'UsersPermissionsPermission'
-  id: Scalars['ID']
-  type: Scalars['String']
-  controller: Scalars['String']
-  action: Scalars['String']
-  enabled: Scalars['Boolean']
-  policy?: Maybe<Scalars['String']>
-  role?: Maybe<UsersPermissionsRole>
-}
-
-export type UsersPermissionsRegisterInput = {
-  username: Scalars['String']
-  email: Scalars['String']
-  password: Scalars['String']
-}
-
-export type UsersPermissionsRole = {
-  __typename?: 'UsersPermissionsRole'
-  id: Scalars['ID']
-  name: Scalars['String']
-  description?: Maybe<Scalars['String']>
-  type?: Maybe<Scalars['String']>
-  permissions?: Maybe<Array<Maybe<UsersPermissionsPermission>>>
-  users?: Maybe<Array<Maybe<UsersPermissionsUser>>>
-}
-
-export type UsersPermissionsRolePermissionsArgs = {
-  sort?: Maybe<Scalars['String']>
-  limit?: Maybe<Scalars['Int']>
-  start?: Maybe<Scalars['Int']>
-  where?: Maybe<Scalars['JSON']>
-}
-
-export type UsersPermissionsRoleUsersArgs = {
-  sort?: Maybe<Scalars['String']>
-  limit?: Maybe<Scalars['Int']>
-  start?: Maybe<Scalars['Int']>
-  where?: Maybe<Scalars['JSON']>
-}
-
-export type UsersPermissionsRoleAggregator = {
-  __typename?: 'UsersPermissionsRoleAggregator'
-  count?: Maybe<Scalars['Int']>
-  totalCount?: Maybe<Scalars['Int']>
-}
-
-export type UsersPermissionsRoleConnection = {
-  __typename?: 'UsersPermissionsRoleConnection'
-  values?: Maybe<Array<Maybe<UsersPermissionsRole>>>
-  groupBy?: Maybe<UsersPermissionsRoleGroupBy>
-  aggregate?: Maybe<UsersPermissionsRoleAggregator>
-}
-
-export type UsersPermissionsRoleConnectionDescription = {
-  __typename?: 'UsersPermissionsRoleConnectionDescription'
-  key?: Maybe<Scalars['String']>
-  connection?: Maybe<UsersPermissionsRoleConnection>
-}
-
-export type UsersPermissionsRoleConnectionId = {
-  __typename?: 'UsersPermissionsRoleConnectionId'
-  key?: Maybe<Scalars['ID']>
-  connection?: Maybe<UsersPermissionsRoleConnection>
-}
-
-export type UsersPermissionsRoleConnectionName = {
-  __typename?: 'UsersPermissionsRoleConnectionName'
-  key?: Maybe<Scalars['String']>
-  connection?: Maybe<UsersPermissionsRoleConnection>
-}
-
-export type UsersPermissionsRoleConnectionType = {
-  __typename?: 'UsersPermissionsRoleConnectionType'
-  key?: Maybe<Scalars['String']>
-  connection?: Maybe<UsersPermissionsRoleConnection>
-}
-
-export type UsersPermissionsRoleGroupBy = {
-  __typename?: 'UsersPermissionsRoleGroupBy'
-  id?: Maybe<Array<Maybe<UsersPermissionsRoleConnectionId>>>
-  name?: Maybe<Array<Maybe<UsersPermissionsRoleConnectionName>>>
-  description?: Maybe<Array<Maybe<UsersPermissionsRoleConnectionDescription>>>
-  type?: Maybe<Array<Maybe<UsersPermissionsRoleConnectionType>>>
-}
-
-export type UsersPermissionsUser = {
-  __typename?: 'UsersPermissionsUser'
-  id: Scalars['ID']
-  created_at: Scalars['DateTime']
-  updated_at: Scalars['DateTime']
-  username: Scalars['String']
-  email: Scalars['String']
-  provider?: Maybe<Scalars['String']>
-  confirmed?: Maybe<Scalars['Boolean']>
-  blocked?: Maybe<Scalars['Boolean']>
-  role?: Maybe<UsersPermissionsRole>
-  artist_name?: Maybe<Scalars['String']>
-  biography?: Maybe<Scalars['String']>
-  social_links?: Maybe<ComponentSocialSocialLinks>
-  onboarding?: Maybe<Scalars['Boolean']>
-  avatar?: Maybe<UploadFile>
-  releases?: Maybe<Array<Maybe<Release>>>
-}
-
-export type UsersPermissionsUserReleasesArgs = {
-  sort?: Maybe<Scalars['String']>
-  limit?: Maybe<Scalars['Int']>
-  start?: Maybe<Scalars['Int']>
-  where?: Maybe<Scalars['JSON']>
-}
-
-export type UsersPermissionsUserAggregator = {
-  __typename?: 'UsersPermissionsUserAggregator'
-  count?: Maybe<Scalars['Int']>
-  totalCount?: Maybe<Scalars['Int']>
-}
-
-export type UsersPermissionsUserConnection = {
-  __typename?: 'UsersPermissionsUserConnection'
-  values?: Maybe<Array<Maybe<UsersPermissionsUser>>>
-  groupBy?: Maybe<UsersPermissionsUserGroupBy>
-  aggregate?: Maybe<UsersPermissionsUserAggregator>
-}
-
-export type UsersPermissionsUserConnectionArtist_Name = {
-  __typename?: 'UsersPermissionsUserConnectionArtist_name'
-  key?: Maybe<Scalars['String']>
-  connection?: Maybe<UsersPermissionsUserConnection>
-}
-
-export type UsersPermissionsUserConnectionAvatar = {
-  __typename?: 'UsersPermissionsUserConnectionAvatar'
-  key?: Maybe<Scalars['ID']>
-  connection?: Maybe<UsersPermissionsUserConnection>
-}
-
-export type UsersPermissionsUserConnectionBiography = {
-  __typename?: 'UsersPermissionsUserConnectionBiography'
-  key?: Maybe<Scalars['String']>
-  connection?: Maybe<UsersPermissionsUserConnection>
-}
-
-export type UsersPermissionsUserConnectionBlocked = {
-  __typename?: 'UsersPermissionsUserConnectionBlocked'
-  key?: Maybe<Scalars['Boolean']>
-  connection?: Maybe<UsersPermissionsUserConnection>
-}
-
-export type UsersPermissionsUserConnectionConfirmed = {
-  __typename?: 'UsersPermissionsUserConnectionConfirmed'
-  key?: Maybe<Scalars['Boolean']>
-  connection?: Maybe<UsersPermissionsUserConnection>
-}
-
-export type UsersPermissionsUserConnectionCreated_At = {
-  __typename?: 'UsersPermissionsUserConnectionCreated_at'
-  key?: Maybe<Scalars['DateTime']>
-  connection?: Maybe<UsersPermissionsUserConnection>
-}
-
-export type UsersPermissionsUserConnectionEmail = {
-  __typename?: 'UsersPermissionsUserConnectionEmail'
-  key?: Maybe<Scalars['String']>
-  connection?: Maybe<UsersPermissionsUserConnection>
-}
-
-export type UsersPermissionsUserConnectionId = {
-  __typename?: 'UsersPermissionsUserConnectionId'
-  key?: Maybe<Scalars['ID']>
-  connection?: Maybe<UsersPermissionsUserConnection>
-}
-
-export type UsersPermissionsUserConnectionOnboarding = {
-  __typename?: 'UsersPermissionsUserConnectionOnboarding'
-  key?: Maybe<Scalars['Boolean']>
-  connection?: Maybe<UsersPermissionsUserConnection>
-}
-
-export type UsersPermissionsUserConnectionProvider = {
-  __typename?: 'UsersPermissionsUserConnectionProvider'
-  key?: Maybe<Scalars['String']>
-  connection?: Maybe<UsersPermissionsUserConnection>
-}
-
-export type UsersPermissionsUserConnectionRole = {
-  __typename?: 'UsersPermissionsUserConnectionRole'
-  key?: Maybe<Scalars['ID']>
-  connection?: Maybe<UsersPermissionsUserConnection>
-}
-
-export type UsersPermissionsUserConnectionSocial_Links = {
-  __typename?: 'UsersPermissionsUserConnectionSocial_links'
-  key?: Maybe<Scalars['ID']>
-  connection?: Maybe<UsersPermissionsUserConnection>
-}
-
-export type UsersPermissionsUserConnectionUpdated_At = {
-  __typename?: 'UsersPermissionsUserConnectionUpdated_at'
-  key?: Maybe<Scalars['DateTime']>
-  connection?: Maybe<UsersPermissionsUserConnection>
-}
-
-export type UsersPermissionsUserConnectionUsername = {
-  __typename?: 'UsersPermissionsUserConnectionUsername'
-  key?: Maybe<Scalars['String']>
-  connection?: Maybe<UsersPermissionsUserConnection>
-}
-
-export type UsersPermissionsUserGroupBy = {
-  __typename?: 'UsersPermissionsUserGroupBy'
-  id?: Maybe<Array<Maybe<UsersPermissionsUserConnectionId>>>
-  created_at?: Maybe<Array<Maybe<UsersPermissionsUserConnectionCreated_At>>>
-  updated_at?: Maybe<Array<Maybe<UsersPermissionsUserConnectionUpdated_At>>>
-  username?: Maybe<Array<Maybe<UsersPermissionsUserConnectionUsername>>>
-  email?: Maybe<Array<Maybe<UsersPermissionsUserConnectionEmail>>>
-  provider?: Maybe<Array<Maybe<UsersPermissionsUserConnectionProvider>>>
-  confirmed?: Maybe<Array<Maybe<UsersPermissionsUserConnectionConfirmed>>>
-  blocked?: Maybe<Array<Maybe<UsersPermissionsUserConnectionBlocked>>>
-  role?: Maybe<Array<Maybe<UsersPermissionsUserConnectionRole>>>
-  artist_name?: Maybe<Array<Maybe<UsersPermissionsUserConnectionArtist_Name>>>
-  biography?: Maybe<Array<Maybe<UsersPermissionsUserConnectionBiography>>>
-  social_links?: Maybe<Array<Maybe<UsersPermissionsUserConnectionSocial_Links>>>
-  onboarding?: Maybe<Array<Maybe<UsersPermissionsUserConnectionOnboarding>>>
-  avatar?: Maybe<Array<Maybe<UsersPermissionsUserConnectionAvatar>>>
-}
-
-export type CreateReleaseInput = {
-  data?: Maybe<ReleaseInput>
-}
-
-export type CreateReleasePayload = {
-  __typename?: 'createReleasePayload'
-  release?: Maybe<Release>
-}
-
-export type CreateRoleInput = {
-  data?: Maybe<RoleInput>
-}
-
-export type CreateRolePayload = {
-  __typename?: 'createRolePayload'
-  role?: Maybe<UsersPermissionsRole>
-}
-
-export type CreateTrackInput = {
-  data?: Maybe<TrackInput>
-}
-
-export type CreateTrackPayload = {
-  __typename?: 'createTrackPayload'
-  track?: Maybe<Track>
-}
-
-export type CreateUserInput = {
-  data?: Maybe<UserInput>
-}
-
-export type CreateUserPayload = {
-  __typename?: 'createUserPayload'
-  user?: Maybe<UsersPermissionsUser>
-}
-
-export type DeleteFileInput = {
-  where?: Maybe<InputId>
-}
-
-export type DeleteFilePayload = {
-  __typename?: 'deleteFilePayload'
-  file?: Maybe<UploadFile>
-}
-
-export type DeleteReleaseInput = {
-  where?: Maybe<InputId>
-}
-
-export type DeleteReleasePayload = {
-  __typename?: 'deleteReleasePayload'
-  release?: Maybe<Release>
-}
-
-export type DeleteRoleInput = {
-  where?: Maybe<InputId>
-}
-
-export type DeleteRolePayload = {
-  __typename?: 'deleteRolePayload'
-  role?: Maybe<UsersPermissionsRole>
-}
-
-export type DeleteTrackInput = {
-  where?: Maybe<InputId>
-}
-
-export type DeleteTrackPayload = {
-  __typename?: 'deleteTrackPayload'
-  track?: Maybe<Track>
-}
-
-export type DeleteUserInput = {
-  where?: Maybe<InputId>
-}
-
-export type DeleteUserPayload = {
-  __typename?: 'deleteUserPayload'
-  user?: Maybe<UsersPermissionsUser>
-}
-
-export type EditComponentSocialSocialLinkInput = {
-  id?: Maybe<Scalars['ID']>
-  instagram?: Maybe<Scalars['String']>
-  soundcloud?: Maybe<Scalars['String']>
-  spotify?: Maybe<Scalars['String']>
-  beatport?: Maybe<Scalars['String']>
-  youtube?: Maybe<Scalars['String']>
-}
-
-export type EditFileInput = {
-  name?: Maybe<Scalars['String']>
-  alternativeText?: Maybe<Scalars['String']>
-  caption?: Maybe<Scalars['String']>
-  width?: Maybe<Scalars['Int']>
-  height?: Maybe<Scalars['Int']>
-  formats?: Maybe<Scalars['JSON']>
-  hash?: Maybe<Scalars['String']>
-  ext?: Maybe<Scalars['String']>
-  mime?: Maybe<Scalars['String']>
-  size?: Maybe<Scalars['Float']>
-  url?: Maybe<Scalars['String']>
-  previewUrl?: Maybe<Scalars['String']>
-  provider?: Maybe<Scalars['String']>
-  provider_metadata?: Maybe<Scalars['JSON']>
-  related?: Maybe<Array<Maybe<Scalars['ID']>>>
-  created_by?: Maybe<Scalars['ID']>
-  updated_by?: Maybe<Scalars['ID']>
-}
-
-export type EditLocaleInput = {
-  name?: Maybe<Scalars['String']>
-  code?: Maybe<Scalars['String']>
-  created_by?: Maybe<Scalars['ID']>
-  updated_by?: Maybe<Scalars['ID']>
-}
-
-export type EditReleaseInput = {
-  name?: Maybe<Scalars['String']>
-  date?: Maybe<Scalars['DateTime']>
-  type?: Maybe<Enum_Release_Type>
-  description?: Maybe<Scalars['String']>
-  artwork?: Maybe<Scalars['ID']>
-  all_royalties?: Maybe<Scalars['Boolean']>
-  term_contract?: Maybe<Scalars['Boolean']>
-  status?: Maybe<Enum_Release_Status>
-  tracks?: Maybe<Array<Maybe<Scalars['ID']>>>
-  catalog?: Maybe<Scalars['String']>
-  user?: Maybe<Scalars['ID']>
-  notes?: Maybe<Scalars['String']>
-  created_by?: Maybe<Scalars['ID']>
-  updated_by?: Maybe<Scalars['ID']>
-}
-
-export type EditRoleInput = {
-  name?: Maybe<Scalars['String']>
-  description?: Maybe<Scalars['String']>
-  type?: Maybe<Scalars['String']>
-  permissions?: Maybe<Array<Maybe<Scalars['ID']>>>
-  users?: Maybe<Array<Maybe<Scalars['ID']>>>
-  created_by?: Maybe<Scalars['ID']>
-  updated_by?: Maybe<Scalars['ID']>
-}
-
-export type EditTrackInput = {
-  name?: Maybe<Scalars['String']>
-  mix_name?: Maybe<Scalars['String']>
-  url?: Maybe<Scalars['String']>
-  ISRC?: Maybe<Scalars['String']>
-  EAN_UPC?: Maybe<Scalars['String']>
-  release?: Maybe<Scalars['ID']>
-  track_artist?: Maybe<Scalars['String']>
-  remixer_name?: Maybe<Scalars['String']>
-  genre?: Maybe<Scalars['String']>
-  created_by?: Maybe<Scalars['ID']>
-  updated_by?: Maybe<Scalars['ID']>
-}
-
-export type EditUserInput = {
-  username?: Maybe<Scalars['String']>
-  email?: Maybe<Scalars['String']>
-  provider?: Maybe<Scalars['String']>
-  password?: Maybe<Scalars['String']>
-  resetPasswordToken?: Maybe<Scalars['String']>
-  confirmationToken?: Maybe<Scalars['String']>
-  confirmed?: Maybe<Scalars['Boolean']>
-  blocked?: Maybe<Scalars['Boolean']>
-  role?: Maybe<Scalars['ID']>
-  artist_name?: Maybe<Scalars['String']>
-  biography?: Maybe<Scalars['String']>
-  social_links?: Maybe<EditComponentSocialSocialLinkInput>
-  releases?: Maybe<Array<Maybe<Scalars['ID']>>>
-  onboarding?: Maybe<Scalars['Boolean']>
-  avatar?: Maybe<Scalars['ID']>
-  created_by?: Maybe<Scalars['ID']>
-  updated_by?: Maybe<Scalars['ID']>
+export enum Type {
+  Album = 'ALBUM',
+  Ep = 'EP',
+  Single = 'SINGLE'
 }
 
 export type UpdateReleaseInput = {
-  where?: Maybe<InputId>
-  data?: Maybe<EditReleaseInput>
-}
-
-export type UpdateReleasePayload = {
-  __typename?: 'updateReleasePayload'
-  release?: Maybe<Release>
-}
-
-export type UpdateRoleInput = {
-  where?: Maybe<InputId>
-  data?: Maybe<EditRoleInput>
-}
-
-export type UpdateRolePayload = {
-  __typename?: 'updateRolePayload'
-  role?: Maybe<UsersPermissionsRole>
+  artworkUrl?: Maybe<Scalars['String']>
+  catalog?: Maybe<Scalars['String']>
+  contract?: Maybe<Scalars['Boolean']>
+  date?: Maybe<Scalars['DateTime']>
+  description?: Maybe<Scalars['String']>
+  name?: Maybe<Scalars['String']>
+  notes?: Maybe<Scalars['String']>
+  royalty?: Maybe<Royalty>
+  status?: Maybe<Status>
+  type?: Maybe<Type>
+  userId?: Maybe<Scalars['String']>
 }
 
 export type UpdateTrackInput = {
-  where?: Maybe<InputId>
-  data?: Maybe<EditTrackInput>
-}
-
-export type UpdateTrackPayload = {
-  __typename?: 'updateTrackPayload'
-  track?: Maybe<Track>
+  EAN?: Maybe<Scalars['String']>
+  ISRC?: Maybe<Scalars['String']>
+  artists?: Maybe<Scalars['String']>
+  genre?: Maybe<Scalars['String']>
+  mixName?: Maybe<Scalars['String']>
+  name?: Maybe<Scalars['String']>
+  releaseId?: Maybe<Scalars['String']>
+  remixer?: Maybe<Scalars['String']>
+  url?: Maybe<Scalars['String']>
 }
 
 export type UpdateUserInput = {
-  where?: Maybe<InputId>
-  data?: Maybe<EditUserInput>
+  avatarUrl?: Maybe<Scalars['String']>
+  email?: Maybe<Scalars['String']>
+  name?: Maybe<Scalars['String']>
+  onboardingCompleted?: Maybe<Scalars['Boolean']>
+  password?: Maybe<Scalars['String']>
+  plan?: Maybe<Plan>
 }
 
-export type UpdateUserPayload = {
-  __typename?: 'updateUserPayload'
-  user?: Maybe<UsersPermissionsUser>
+export type User = {
+  __typename?: 'User'
+  avatarUrl?: Maybe<Scalars['String']>
+  email: Scalars['String']
+  id: Scalars['ID']
+  name?: Maybe<Scalars['String']>
+  onboardingCompleted?: Maybe<Scalars['Boolean']>
+  plan: Plan
+  releases: Array<Release>
+  role: Role
+}
+
+export type ReleaseFragmentFragment = {
+  __typename?: 'Release'
+  id: string
+  name: string
+  date: Date
+  type: Type
+  notes?: Maybe<string>
+  userId: string
+  status: Status
+  royalty?: Maybe<Royalty>
+  catalog: string
+  contract?: Maybe<boolean>
+  artworkUrl: string
+  description: string
+}
+
+export type UserFragmentFragment = {
+  __typename?: 'User'
+  id: string
+  name?: Maybe<string>
+  role: Role
+  plan: Plan
+  email: string
+  avatarUrl?: Maybe<string>
+  onboardingCompleted?: Maybe<boolean>
 }
 
 export type CreateReleaseMutationVariables = Exact<{
-  input: CreateReleaseInput
+  data: CreateReleaseInput
 }>
 
-export type CreateReleaseMutation = { __typename?: 'Mutation' } & {
-  createRelease?: Maybe<
-    { __typename?: 'createReleasePayload' } & {
-      release?: Maybe<
-        { __typename?: 'Release' } & Pick<
-          Release,
-          | 'id'
-          | 'name'
-          | 'date'
-          | 'type'
-          | 'description'
-          | 'all_royalties'
-          | 'term_contract'
-          | 'status'
-          | 'catalog'
-          | 'notes'
-        > & {
-            artwork?: Maybe<
-              { __typename?: 'UploadFile' } & Pick<
-                UploadFile,
-                'id' | 'url' | 'formats'
-              >
-            >
-            tracks?: Maybe<
-              Array<
-                Maybe<{ __typename?: 'Track' } & Pick<Track, 'id' | 'name'>>
-              >
-            >
-            user?: Maybe<
-              { __typename?: 'UsersPermissionsUser' } & Pick<
-                UsersPermissionsUser,
-                'id' | 'email' | 'artist_name'
-              >
-            >
-          }
-      >
-    }
-  >
-}
-
-export type CreateTrackMutationVariables = Exact<{
-  input: CreateTrackInput
-}>
-
-export type CreateTrackMutation = { __typename?: 'Mutation' } & {
-  createTrack?: Maybe<
-    { __typename?: 'createTrackPayload' } & {
-      track?: Maybe<
-        { __typename?: 'Track' } & Pick<
-          Track,
-          | 'id'
-          | 'name'
-          | 'mix_name'
-          | 'url'
-          | 'track_artist'
-          | 'remixer_name'
-          | 'genre'
-        > & {
-            release?: Maybe<
-              { __typename?: 'Release' } & Pick<Release, 'id' | 'name'>
-            >
-          }
-      >
-    }
-  >
+export type CreateReleaseMutation = {
+  __typename?: 'Mutation'
+  createRelease: {
+    __typename?: 'Release'
+    id: string
+    name: string
+    date: Date
+    type: Type
+    notes?: Maybe<string>
+    userId: string
+    status: Status
+    royalty?: Maybe<Royalty>
+    catalog: string
+    contract?: Maybe<boolean>
+    artworkUrl: string
+    description: string
+  }
 }
 
 export type CreateUserMutationVariables = Exact<{
-  input: CreateUserInput
+  data: CreateUserInput
 }>
 
-export type CreateUserMutation = { __typename?: 'Mutation' } & {
-  createUser?: Maybe<
-    { __typename?: 'createUserPayload' } & {
-      user?: Maybe<
-        { __typename?: 'UsersPermissionsUser' } & Pick<
-          UsersPermissionsUser,
-          'id' | 'username' | 'email' | 'onboarding'
-        >
-      >
-    }
-  >
+export type CreateUserMutation = {
+  __typename?: 'Mutation'
+  createUser: {
+    __typename?: 'User'
+    id: string
+    name?: Maybe<string>
+    role: Role
+    plan: Plan
+    email: string
+    avatarUrl?: Maybe<string>
+    onboardingCompleted?: Maybe<boolean>
+  }
 }
 
-export type UpdateUserMutationVariables = Exact<{
-  input: UpdateUserInput
+export type LoginMutationVariables = Exact<{
+  data: AuthInput
 }>
 
-export type UpdateUserMutation = { __typename?: 'Mutation' } & {
-  updateUser?: Maybe<
-    { __typename?: 'updateUserPayload' } & {
-      user?: Maybe<
-        { __typename?: 'UsersPermissionsUser' } & Pick<
-          UsersPermissionsUser,
-          'id' | 'artist_name' | 'email' | 'username' | 'onboarding'
-        > & {
-            avatar?: Maybe<
-              { __typename?: 'UploadFile' } & Pick<UploadFile, 'id' | 'url'>
-            >
-          }
-      >
-    }
-  >
-}
-
-export type GetMeQueryVariables = Exact<{
-  id: Scalars['ID']
-}>
-
-export type GetMeQuery = { __typename?: 'Query' } & {
-  user?: Maybe<
-    { __typename?: 'UsersPermissionsUser' } & Pick<
-      UsersPermissionsUser,
-      'id' | 'email' | 'artist_name' | 'onboarding'
-    > & {
-        avatar?: Maybe<
-          { __typename?: 'UploadFile' } & Pick<
-            UploadFile,
-            'id' | 'url' | 'formats'
-          >
-        >
-        releases?: Maybe<
-          Array<Maybe<{ __typename?: 'Release' } & Pick<Release, 'id'>>>
-        >
-      }
-  >
-}
-
-export type AllReleasesQueryVariables = Exact<{
-  id: Scalars['ID']
-}>
-
-export type AllReleasesQuery = { __typename?: 'Query' } & {
-  user?: Maybe<
-    { __typename?: 'UsersPermissionsUser' } & Pick<
-      UsersPermissionsUser,
-      'id'
-    > & {
-        releases?: Maybe<
-          Array<
-            Maybe<
-              { __typename?: 'Release' } & Pick<
-                Release,
-                | 'id'
-                | 'name'
-                | 'date'
-                | 'type'
-                | 'status'
-                | 'catalog'
-                | 'created_at'
-              > & {
-                  artwork?: Maybe<
-                    { __typename?: 'UploadFile' } & Pick<
-                      UploadFile,
-                      'id' | 'url' | 'formats'
-                    >
-                  >
-                }
-            >
-          >
-        >
-      }
-  >
-}
-
-export const CreateReleaseDocument = `
-    mutation createRelease($input: createReleaseInput!) {
-  createRelease(input: $input) {
-    release {
-      id
-      name
-      date
-      type
-      description
-      artwork {
-        id
-        url
-        formats
-      }
-      all_royalties
-      term_contract
-      status
-      catalog
-      notes
-      tracks {
-        id
-        name
-      }
-      user {
-        id
-        email
-        artist_name
-      }
+export type LoginMutation = {
+  __typename?: 'Mutation'
+  login: {
+    __typename?: 'AuthType'
+    token: string
+    user: {
+      __typename?: 'User'
+      id: string
+      name?: Maybe<string>
+      role: Role
+      plan: Plan
+      email: string
+      avatarUrl?: Maybe<string>
+      onboardingCompleted?: Maybe<boolean>
     }
   }
 }
+
+export type UpdateUserMutationVariables = Exact<{
+  data: UpdateUserInput
+  id: Scalars['String']
+}>
+
+export type UpdateUserMutation = {
+  __typename?: 'Mutation'
+  updateUser: {
+    __typename?: 'User'
+    id: string
+    name?: Maybe<string>
+    role: Role
+    plan: Plan
+    email: string
+    avatarUrl?: Maybe<string>
+    onboardingCompleted?: Maybe<boolean>
+  }
+}
+
+export type GetMeQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetMeQuery = {
+  __typename?: 'Query'
+  me: {
+    __typename?: 'User'
+    id: string
+    name?: Maybe<string>
+    role: Role
+    plan: Plan
+    email: string
+    avatarUrl?: Maybe<string>
+    onboardingCompleted?: Maybe<boolean>
+  }
+}
+
+export type GetReleasesByUserIdQueryVariables = Exact<{
+  userId: Scalars['String']
+}>
+
+export type GetReleasesByUserIdQuery = {
+  __typename?: 'Query'
+  releasesByUserId: Array<{
+    __typename?: 'Release'
+    id: string
+    name: string
+    date: Date
+    type: Type
+    notes?: Maybe<string>
+    userId: string
+    status: Status
+    royalty?: Maybe<Royalty>
+    catalog: string
+    contract?: Maybe<boolean>
+    artworkUrl: string
+    description: string
+  }>
+}
+
+export const ReleaseFragmentFragmentDoc = `
+    fragment ReleaseFragment on Release {
+  id
+  name
+  date
+  type
+  notes
+  userId
+  status
+  royalty
+  catalog
+  contract
+  artworkUrl
+  description
+}
     `
+export const UserFragmentFragmentDoc = `
+    fragment UserFragment on User {
+  id
+  name
+  role
+  plan
+  email
+  avatarUrl
+  onboardingCompleted
+}
+    `
+export const CreateReleaseDocument = `
+    mutation createRelease($data: CreateReleaseInput!) {
+  createRelease(data: $data) {
+    ...ReleaseFragment
+  }
+}
+    ${ReleaseFragmentFragmentDoc}`
 export const useCreateReleaseMutation = <TError = unknown, TContext = unknown>(
   options?: UseMutationOptions<
     CreateReleaseMutation,
@@ -1679,58 +485,13 @@ export const useCreateReleaseMutation = <TError = unknown, TContext = unknown>(
       )(),
     options
   )
-export const CreateTrackDocument = `
-    mutation createTrack($input: createTrackInput!) {
-  createTrack(input: $input) {
-    track {
-      id
-      name
-      mix_name
-      url
-      release {
-        id
-        name
-      }
-      track_artist
-      remixer_name
-      genre
-    }
-  }
-}
-    `
-export const useCreateTrackMutation = <TError = unknown, TContext = unknown>(
-  options?: UseMutationOptions<
-    CreateTrackMutation,
-    TError,
-    CreateTrackMutationVariables,
-    TContext
-  >
-) =>
-  useMutation<
-    CreateTrackMutation,
-    TError,
-    CreateTrackMutationVariables,
-    TContext
-  >(
-    (variables?: CreateTrackMutationVariables) =>
-      myFetcher<CreateTrackMutation, CreateTrackMutationVariables>(
-        CreateTrackDocument,
-        variables
-      )(),
-    options
-  )
 export const CreateUserDocument = `
-    mutation createUser($input: createUserInput!) {
-  createUser(input: $input) {
-    user {
-      id
-      username
-      email
-      onboarding
-    }
+    mutation createUser($data: CreateUserInput!) {
+  createUser(data: $data) {
+    ...UserFragment
   }
 }
-    `
+    ${UserFragmentFragmentDoc}`
 export const useCreateUserMutation = <TError = unknown, TContext = unknown>(
   options?: UseMutationOptions<
     CreateUserMutation,
@@ -1752,23 +513,39 @@ export const useCreateUserMutation = <TError = unknown, TContext = unknown>(
       )(),
     options
   )
-export const UpdateUserDocument = `
-    mutation updateUser($input: updateUserInput!) {
-  updateUser(input: $input) {
+export const LoginDocument = `
+    mutation login($data: AuthInput!) {
+  login(data: $data) {
+    token
     user {
-      id
-      artist_name
-      email
-      username
-      onboarding
-      avatar {
-        id
-        url
-      }
+      ...UserFragment
     }
   }
 }
-    `
+    ${UserFragmentFragmentDoc}`
+export const useLoginMutation = <TError = unknown, TContext = unknown>(
+  options?: UseMutationOptions<
+    LoginMutation,
+    TError,
+    LoginMutationVariables,
+    TContext
+  >
+) =>
+  useMutation<LoginMutation, TError, LoginMutationVariables, TContext>(
+    (variables?: LoginMutationVariables) =>
+      myFetcher<LoginMutation, LoginMutationVariables>(
+        LoginDocument,
+        variables
+      )(),
+    options
+  )
+export const UpdateUserDocument = `
+    mutation updateUser($data: UpdateUserInput!, $id: String!) {
+  updateUser(data: $data, id: $id) {
+    ...UserFragment
+  }
+}
+    ${UserFragmentFragmentDoc}`
 export const useUpdateUserMutation = <TError = unknown, TContext = unknown>(
   options?: UseMutationOptions<
     UpdateUserMutation,
@@ -1791,61 +568,39 @@ export const useUpdateUserMutation = <TError = unknown, TContext = unknown>(
     options
   )
 export const GetMeDocument = `
-    query getMe($id: ID!) {
-  user(id: $id) {
-    id
-    email
-    artist_name
-    onboarding
-    avatar {
-      id
-      url
-      formats
-    }
-    releases {
-      id
-    }
+    query getMe {
+  me {
+    ...UserFragment
   }
 }
-    `
+    ${UserFragmentFragmentDoc}`
 export const useGetMeQuery = <TData = GetMeQuery, TError = unknown>(
-  variables: GetMeQueryVariables,
+  variables?: GetMeQueryVariables,
   options?: UseQueryOptions<GetMeQuery, TError, TData>
 ) =>
   useQuery<GetMeQuery, TError, TData>(
-    ['getMe', variables],
+    variables === undefined ? ['getMe'] : ['getMe', variables],
     myFetcher<GetMeQuery, GetMeQueryVariables>(GetMeDocument, variables),
     options
   )
-export const AllReleasesDocument = `
-    query AllReleases($id: ID!) {
-  user(id: $id) {
-    id
-    releases {
-      id
-      name
-      date
-      type
-      status
-      catalog
-      created_at
-      artwork {
-        id
-        url
-        formats
-      }
-    }
+export const GetReleasesByUserIdDocument = `
+    query getReleasesByUserId($userId: String!) {
+  releasesByUserId(userId: $userId) {
+    ...ReleaseFragment
   }
 }
-    `
-export const useAllReleasesQuery = <TData = AllReleasesQuery, TError = unknown>(
-  variables: AllReleasesQueryVariables,
-  options?: UseQueryOptions<AllReleasesQuery, TError, TData>
+    ${ReleaseFragmentFragmentDoc}`
+export const useGetReleasesByUserIdQuery = <
+  TData = GetReleasesByUserIdQuery,
+  TError = unknown
+>(
+  variables: GetReleasesByUserIdQueryVariables,
+  options?: UseQueryOptions<GetReleasesByUserIdQuery, TError, TData>
 ) =>
-  useQuery<AllReleasesQuery, TError, TData>(
-    ['AllReleases', variables],
-    myFetcher<AllReleasesQuery, AllReleasesQueryVariables>(
-      AllReleasesDocument,
+  useQuery<GetReleasesByUserIdQuery, TError, TData>(
+    ['getReleasesByUserId', variables],
+    myFetcher<GetReleasesByUserIdQuery, GetReleasesByUserIdQueryVariables>(
+      GetReleasesByUserIdDocument,
       variables
     ),
     options
