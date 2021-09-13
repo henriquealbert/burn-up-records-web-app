@@ -32,8 +32,7 @@ export const RegisterForm = () => {
       {
         data: {
           email: values.email,
-          password: values.password,
-          onboardingCompleted: false
+          password: values.password
         }
       },
       {

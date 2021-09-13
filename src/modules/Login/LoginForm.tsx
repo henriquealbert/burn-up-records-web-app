@@ -26,22 +26,18 @@ export const LoginForm = () => {
   })
 
   const onSubmit = async (values: Values) => {
-    try {
-      await login(
-        { data: { email: values.email, password: values.password } },
-        {
-          onSuccess: async (data) =>
-            await signIn('credentials', {
-              user: data.login.user,
-              jwt: data.login.token,
-              callbackUrl: parseCallbackUrl('/lancamentos')
-            }),
-          onError: () => alert('Erro ao realizar o login.')
-        }
-      )
-    } catch (error) {
-      alert(error)
-    }
+    await login(
+      { data: { email: values.email, password: values.password } },
+      {
+        onSuccess: async (data) =>
+          await signIn('credentials', {
+            user: data.login.user,
+            jwt: data.login.token,
+            callbackUrl: parseCallbackUrl('/lancamentos')
+          }),
+        onError: () => alert('Erro ao realizar o login.')
+      }
+    )
   }
 
   return (
