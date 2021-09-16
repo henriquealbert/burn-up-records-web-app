@@ -54,6 +54,7 @@
     "@graphql-codegen/typescript-operations": "2.1.4",
     "@graphql-codegen/typescript-react-query": "^3.0.1",
     "@graphql-eslint/eslint-plugin": "^2.1.0",
+    "@next/eslint-plugin-next": "^11.1.2",
     "@types/js-cookie": "^2.2.7",
     "@types/node": "^16.9.1",
     "@types/react": "^17.0.21",
