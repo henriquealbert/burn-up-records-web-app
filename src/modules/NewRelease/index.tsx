@@ -22,11 +22,7 @@ import { BiRocket as RocketIcon, BiMusic as MusicIcon } from 'react-icons/bi'
 
 import { ReleaseArea, ReleaseValues } from './ReleaseArea'
 import { TracksValues, UploadTracks } from './UploadTracks'
-import {
-  Enum_Release_Status,
-  useCreateReleaseMutation,
-  useCreateTrackMutation
-} from 'graphql/generated'
+import { Status, useCreateReleaseMutation } from 'graphql/generated'
 import { useAuth } from 'auth'
 
 export const NewRelease = () => {
@@ -38,7 +34,7 @@ export const NewRelease = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const { mutateAsync: createRelease } = useCreateReleaseMutation()
-  const { mutateAsync: createTrack } = useCreateTrackMutation()
+  // const { mutateAsync: createTrack } = useCreateTrackMutation()
 
   const handleSubmit = async (values: TracksValues) => {
     setIsLoading(true)
@@ -46,27 +42,26 @@ export const NewRelease = () => {
 
     await createRelease(
       {
-        input: {
-          data: {
-            ...data.release,
-            status: Enum_Release_Status.Analise,
-            user: me?.user?.id,
-            catalog: `BUR${nanoid()}`
-          }
+        data: {
+          ...data.release,
+          status: Status.Analise,
+          userId: me?.id,
+          catalog: `BUR${nanoid()}`,
+          artworkUrl: null
         }
       },
       {
         onSuccess: ({ createRelease }) => {
-          values.tracks.forEach(async (track) => {
-            await createTrack({
-              input: {
-                data: {
-                  ...track,
-                  release: createRelease.release.id
-                }
-              }
-            })
-          })
+          // values.tracks.forEach(async (track) => {
+          //   await createTrack({
+          //     input: {
+          //       data: {
+          //         ...track,
+          //         release: createRelease.release.id
+          //       }
+          //     }
+          //   })
+          // })
           setIsLoading(false)
           onOpen()
         },

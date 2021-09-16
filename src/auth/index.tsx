@@ -1,10 +1,10 @@
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 import { createContext, ReactNode, useContext } from 'react'
 import { GetMeQuery, useGetMeQuery } from 'graphql/generated'
 import { Session } from 'next-auth'
 
 interface ContextTypes {
-  me?: GetMeQuery
+  me?: GetMeQuery['me']
   isMeLoading?: boolean
   session?: Session | null
   loading?: boolean
@@ -17,22 +17,21 @@ interface AuthProviderProps {
 }
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [session, loading] = useSession()
-  const { data: me, isLoading: isMeLoading } = useGetMeQuery(
-    { id: session?.id as string },
-    {
-      enabled: !!session?.id,
-      staleTime: 60 * 60 * 1000, // 1 hour
-      keepPreviousData: true
-    }
-  )
+  const { data: session, status } = useSession()
+
+  const { data, isLoading } = useGetMeQuery(null, {
+    enabled: !!session?.jwt,
+    staleTime: 60 * 60 * 1000, // 1 hour
+    keepPreviousData: true
+  })
+
   return (
     <AuthContext.Provider
       value={{
-        me,
-        isMeLoading,
+        me: data?.me,
+        isMeLoading: isLoading,
         session,
-        loading
+        loading: status === 'loading'
       }}
     >
       {children}

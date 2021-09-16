@@ -1,17 +1,13 @@
-import { useAllReleasesQuery } from 'graphql/generated'
 import { PrivateLayout, ErrorMessage } from 'components'
 import { ReleaseListSkeleton, ReleaseList } from 'modules/releases/components'
 import { useAuth } from 'auth'
+import { useGetReleasesByUserIdQuery } from 'graphql/generated'
 
 export default function ReleasesPage() {
-  const { me } = useAuth()
-  const { data, isError, isLoading } = useAllReleasesQuery(
-    {
-      id: me?.user?.id as string
-    },
-    {
-      enabled: !!me?.user?.id
-    }
+  const { me, isMeLoading } = useAuth()
+  const { data, isError, isLoading } = useGetReleasesByUserIdQuery(
+    { userId: me?.id },
+    { enabled: !isMeLoading }
   )
 
   return (
@@ -19,7 +15,7 @@ export default function ReleasesPage() {
       <>
         {isLoading && <ReleaseListSkeleton />}
         {isError && <ErrorMessage />}
-        {data && <ReleaseList releases={data?.user?.releases} />}
+        {data && <ReleaseList releases={data?.releasesByUserId} />}
       </>
     </PrivateLayout>
   )

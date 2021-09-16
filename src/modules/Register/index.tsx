@@ -8,7 +8,6 @@ export const RegisterModule = () => {
   return (
     <AuthLayout
       title="Bora começar 🔥"
-      googleBtnText="Cadastrar com o Google"
       renderForm={<RegisterForm />}
       renderFooter={
         <Flex justify="center">

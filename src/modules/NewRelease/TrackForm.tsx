@@ -134,7 +134,7 @@ export const TrackForm = ({ control, watch, isValid, isLoading }) => {
             append({
               name: '',
               mix_name: '',
-              track_artist: me?.user.artist_name,
+              track_artist: me?.name,
               remixer_name: '',
               genre: '',
               url: ''

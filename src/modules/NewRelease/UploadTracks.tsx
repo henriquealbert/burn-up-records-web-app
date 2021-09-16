@@ -22,7 +22,7 @@ export const UploadTracks = ({ onSubmit, isLoading }: Props) => {
           mix_name: '',
           name: '',
           remixer_name: '',
-          track_artist: me?.user?.artist_name,
+          track_artist: me?.name,
           url: ''
         }
       ]
@@ -32,8 +32,8 @@ export const UploadTracks = ({ onSubmit, isLoading }: Props) => {
   })
 
   useEffect(() => {
-    reset({ tracks: [{ track_artist: me?.user.artist_name }] })
-  }, [me?.user.artist_name, reset])
+    reset({ tracks: [{ track_artist: me?.name }] })
+  }, [me?.name, reset])
 
   return (
     <form onSubmit={handleSubmit((data) => onSubmit(data))} autoComplete="off">

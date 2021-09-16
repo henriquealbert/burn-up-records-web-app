@@ -18,9 +18,10 @@ export const Onboarding = () => {
   const { me, isMeLoading } = useAuth()
   const [next, setNext] = useState(false)
   const { isOpen, onOpen, onClose } = useDisclosure()
+
   // Verify if there is an artist name, if not, start the onboarding process
   useEffect(() => {
-    if (!me?.user?.onboarding && !isMeLoading) {
+    if (!me?.onboardingCompleted && !isMeLoading) {
       onOpen()
     } else {
       onClose()

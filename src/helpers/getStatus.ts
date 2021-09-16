@@ -1,9 +1,9 @@
-import { Enum_Release_Status, Maybe } from 'graphql/generated'
+import { Status, Maybe } from 'graphql/generated'
 
-export const getStatusColor = (status?: Maybe<Enum_Release_Status>) => {
+export const getStatusColor = (status?: Maybe<Status>) => {
   if (!status) return
   switch (status) {
-    case 'negado':
+    case Status.Reprovado:
       return 'brand.gray.2'
 
     default:
@@ -11,41 +11,41 @@ export const getStatusColor = (status?: Maybe<Enum_Release_Status>) => {
   }
 }
 
-export const getStatusBgColor = (status?: Maybe<Enum_Release_Status>) => {
+export const getStatusBgColor = (status?: Maybe<Status>) => {
   if (!status) return
   switch (status) {
-    case 'negado':
+    case Status.Reprovado:
       return 'brand.gray.1'
 
-    case 'analise':
+    case Status.Analise:
       return 'brand.gray.2'
 
-    case 'aprovado':
+    case Status.Aprovado:
       return 'brand.gray.3'
 
-    case 'corrigir':
+    case Status.Corrigir:
       return 'brand.error.1'
 
-    case 'lancado':
+    case Status.Lancado:
       return 'black'
   }
 }
 
-export const getStatusName = (status?: Maybe<Enum_Release_Status>) => {
+export const getStatusName = (status?: Maybe<Status>) => {
   switch (status) {
-    case 'negado':
+    case Status.Reprovado:
       return 'Reprovado'
 
-    case 'analise':
+    case Status.Analise:
       return 'Em análise'
 
-    case 'aprovado':
+    case Status.Aprovado:
       return 'Aprovado'
 
-    case 'corrigir':
+    case Status.Corrigir:
       return 'Corrigir'
 
-    case 'lancado':
+    case Status.Lancado:
       return 'Lançado'
 
     default:

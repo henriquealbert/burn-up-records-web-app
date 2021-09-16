@@ -1,4 +1,4 @@
-import { signout } from 'next-auth/client'
+import { signOut } from 'next-auth/react'
 import { BiPowerOff } from 'react-icons/bi'
 import { Icon, Button, ButtonProps } from '@chakra-ui/react'
 import { parseCallbackUrl } from 'helpers'
@@ -8,7 +8,7 @@ export const LogOut = (props: ButtonProps) => (
     variant="menu"
     leftIcon={<Icon as={BiPowerOff} w={6} h={6} />}
     onClick={() =>
-      signout({ redirect: false, callbackUrl: parseCallbackUrl('/') })
+      signOut({ redirect: false, callbackUrl: parseCallbackUrl('/') })
     }
     {...props}
   >

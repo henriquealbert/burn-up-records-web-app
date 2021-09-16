@@ -9,8 +9,7 @@ import {
   getStatusName,
   getStatusColor
 } from 'helpers/getStatus'
-
-import { Maybe, Release, UploadFile } from 'graphql/generated'
+import { GetReleasesByUserIdQuery } from 'graphql/generated'
 
 export const ReleaseList = ({ releases }: GridListProps) => (
   <>
@@ -30,14 +29,14 @@ export const ReleaseList = ({ releases }: GridListProps) => (
             mb={8}
           >
             <NextLink href={`/lancamentos/${item?.id}`} passHref>
-              {item?.artwork?.url ? (
+              {item?.artworkUrl ? (
                 <Box maxH="164px">
                   <ChakraNextImage
                     width="164px"
                     height="164px"
                     objectFit="cover"
                     borderRadius="16px"
-                    src={item?.artwork?.url}
+                    src={item?.artworkUrl}
                     cursor="pointer"
                   />
                 </Box>
@@ -100,21 +99,5 @@ export const ReleaseList = ({ releases }: GridListProps) => (
 )
 
 type GridListProps = {
-  releases?: Maybe<
-    Array<
-      Maybe<
-        { __typename?: 'Release' } & Pick<
-          Release,
-          'id' | 'name' | 'date' | 'type' | 'status' | 'catalog' | 'created_at'
-        > & {
-            artwork?: Maybe<
-              { __typename?: 'UploadFile' } & Pick<
-                UploadFile,
-                'id' | 'url' | 'formats'
-              >
-            >
-          }
-      >
-    >
-  >
+  releases?: GetReleasesByUserIdQuery['releasesByUserId']
 }
