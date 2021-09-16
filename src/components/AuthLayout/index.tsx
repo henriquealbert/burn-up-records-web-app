@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { signIn } from 'next-auth/client'
+import { signIn } from 'next-auth/react'
 import { GoogleIcon } from 'styles/icons'
 import { Flex, Heading, Button, Text } from '@chakra-ui/react'
 import { parseCallbackUrl } from 'helpers'

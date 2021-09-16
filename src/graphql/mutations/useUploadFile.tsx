@@ -1,6 +1,5 @@
 import { useMutation } from 'react-query'
 import { api } from 'graphql/generated/fetcher'
-import { FileInput } from 'graphql/generated'
 import { AxiosResponse } from 'axios'
 
 export const useUploadFileMutation = () =>
@@ -15,7 +14,7 @@ interface ResponseTypes extends AxiosResponse {
   data: FileTypes[]
 }
 
-interface FileTypes extends FileInput {
+interface FileTypes {
   id: number
   formats?: Formats
 }

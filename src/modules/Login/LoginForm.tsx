@@ -1,5 +1,5 @@
 import * as Yup from 'yup'
-import { signIn } from 'next-auth/client'
+import { signIn } from 'next-auth/react'
 import { RightArrowIcon } from 'styles/icons'
 import { Box, Button } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'

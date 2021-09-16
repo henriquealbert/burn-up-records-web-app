@@ -11,7 +11,7 @@ import {
   Radio,
   Tooltip
 } from 'components'
-import { Enum_Release_Type } from 'graphql/generated'
+import { Type } from 'graphql/generated'
 
 export const ReleaseArea = ({ onSubmit }: Props) => {
   const {
@@ -24,7 +24,7 @@ export const ReleaseArea = ({ onSubmit }: Props) => {
       release: {
         name: '',
         date: null,
-        type: Enum_Release_Type.Single,
+        type: Type.Single,
         description: '',
         artwork: ''
       }
@@ -109,16 +109,16 @@ export const ReleaseArea = ({ onSubmit }: Props) => {
 }
 
 const radioOptions = [
-  { value: Enum_Release_Type.Single, label: 'Single' },
-  { value: Enum_Release_Type.Ep, label: 'EP' },
-  { value: Enum_Release_Type.Album, label: 'Álbum' }
+  { value: Type.Single, label: 'Single' },
+  { value: Type.Ep, label: 'EP' },
+  { value: Type.Album, label: 'Álbum' }
 ]
 
 export type ReleaseValues = {
   release: {
     name: string
     date: Date
-    type: Enum_Release_Type
+    type: Type
     description: string
     artwork: string
   }
