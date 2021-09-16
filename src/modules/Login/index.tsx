@@ -7,7 +7,6 @@ import { AuthLayout } from 'components/AuthLayout'
 export const LoginModule = () => (
   <AuthLayout
     title="Bora lançar track 🤘"
-    googleBtnText="Entrar com o Google"
     renderForm={<LoginForm />}
     renderFooter={
       <Flex justify="center">
