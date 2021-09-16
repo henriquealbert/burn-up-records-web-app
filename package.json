@@ -8,7 +8,6 @@
     "start": "next start",
     "lint": "eslint src",
     "next:lint": "next lint",
-    "generate": "yarn plop --plopfile generators/plopfile.js",
     "postinstall": "husky install",
     "update": "yarn upgrade-interactive --latest",
     "schema:download": "graphql-codegen --require dotenv/config --config ./src/graphql/schema.yml dotenv_config_path=.env.local",
@@ -71,7 +70,6 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "husky": "7.0.2",
     "lint-staged": "^11.1.2",
-    "plop": "^2.7.4",
     "prettier": "^2.4.1",
     "typescript": "^4.4.3"
   }
