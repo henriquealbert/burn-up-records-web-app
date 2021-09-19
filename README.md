@@ -1,5 +1,9 @@
 # Burn Up Records
 
+## What is it?
+It's a SaaS for independent artists to release their songs in all virtual stores, such as Spotify, iTunes, Beatport, and  +200 stores.
+The artist has the option to use it for free and split the royalties of the song 50/50, or pay a small monthly fee to receive 100% of the royalties.
+
 ## What is inside?
 
 This project uses lot of stuff as:
@@ -11,6 +15,11 @@ This project uses lot of stuff as:
 - [Prettier](https://prettier.io/)
 - [Husky](https://github.com/typicode/husky)
 - [GraphQL Code Generator](https://www.graphql-code-generator.com/)
+- [React-Query](https://react-query.tanstack.com/)
+- [React-Hook-Form](https://react-hook-form.com/)
+- [Next-Auth](https://next-auth.js.org/)
+- [AWS S3](https://aws.amazon.com/pt/)
+- [Vercel](https://vercel.com/home)
 
 ## Commands
 
