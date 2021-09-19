@@ -4,7 +4,7 @@
 It's a SaaS for independent artists to release their songs in all virtual stores, such as Spotify, iTunes, Beatport, and  +200 stores.
 The artist has the option to use it for free and split the royalties of the song 50/50, or pay a small monthly fee to receive 100% of the royalties.
 
-![alt text](https://github.com/henriquealbert/burn-up-records-web-app/tree/master/assets/image.jpeg)
+![](https://raw.githubusercontent.com/henriquealbert/burn-up-records-web-app/master/assets/image.jpeg)
 
 ## What is inside?
 
