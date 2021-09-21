@@ -1,23 +1,24 @@
-import { NextAuthOptions } from 'next-auth'
+import { Session } from 'next-auth'
+import { JWT } from 'next-auth/jwt'
+import Providers from 'next-auth/providers'
 import NextAuth, { User } from 'next-auth'
-import { NextApiRequest, NextApiResponse } from 'next'
-import CredentialsProvider from 'next-auth/providers/credentials'
+import { NextApiRequest, NextApiResponse } from 'next-auth/internals/utils'
 
 type AuthorizeProps = {
-  user: User
+  user: any
   jwt: string
 }
 
-const options: NextAuthOptions = {
+const options = {
   pages: {
     signIn: '/cadastrar'
   },
   providers: [
-    CredentialsProvider({
+    Providers.Credentials({
       name: 'Sign-in',
       credentials: {},
       async authorize({ user, jwt }: AuthorizeProps) {
-        if (user && jwt) {
+        if (user) {
           return { ...user, jwt }
         } else {
           return null
@@ -26,17 +27,21 @@ const options: NextAuthOptions = {
     })
   ],
   callbacks: {
-    session: async ({ session, user }) => {
+    session: async (session: Session, user: User) => {
       session.jwt = user.jwt
       session.id = user.id
+
       return Promise.resolve(session)
     },
-    jwt: async ({ token, user }) => {
-      token.id = user?.id
-      token.jwt = user?.jwt
+    jwt: async (token: JWT, user: User) => {
+      if (user) {
+        token.id = user?.id
+        token.jwt = user?.jwt
+      }
+
       return Promise.resolve(token)
     },
-    async redirect({ url, baseUrl }) {
+    async redirect(url: string, baseUrl: string) {
       return url.startsWith(baseUrl) ? url : baseUrl
     }
   }

@@ -1,41 +1,20 @@
-import { useMutation } from 'react-query'
-import { api } from 'graphql/generated/fetcher'
-import { AxiosResponse } from 'axios'
+import { useMutation, useQuery } from 'react-query'
+import axios from 'axios'
 
-export const useUploadFileMutation = () =>
-  useMutation((file: File): Promise<ResponseTypes> => {
+export const useUploadFileMutation = () => {
+  const { data } = useQuery(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/upload-to-s3`
+  )
+
+  console.log(data)
+  return useMutation((file: File) => {
     const formData = new FormData()
     formData.append('files', file)
 
-    return api(`${process.env.NEXT_PUBLIC_API_URL}/upload`, formData)
+    return axios.put('', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
   })
-
-interface ResponseTypes extends AxiosResponse {
-  data: FileTypes[]
-}
-
-interface FileTypes {
-  id: number
-  formats?: Formats
-}
-
-export type Formats = {
-  small: Format
-  thumbnail: Format
-}
-
-type Format = {
-  ext: string
-  hash: string
-  height: number
-  mime: string
-  name: string
-  path: null
-  provider_metadata: {
-    public_id: string
-    resource_type: string
-  }
-  size: number
-  url: string
-  width: number
 }

@@ -1,4 +1,4 @@
-import { signOut } from 'next-auth/react'
+import { signOut } from 'next-auth/client'
 import { BiPowerOff } from 'react-icons/bi'
 import { Icon, Button, ButtonProps } from '@chakra-ui/react'
 import { parseCallbackUrl } from 'helpers'

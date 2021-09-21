@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { AppProps } from 'next/app'
 import { ChakraProvider, CSSReset } from '@chakra-ui/react'
-import { SessionProvider as NextAuthProvider } from 'next-auth/react'
+import { Provider as NextAuthProvider } from 'next-auth/client'
 import { QueryProvider } from 'graphql/client'
 import { AuthProvider } from 'auth'
 import customTheme from 'styles/theme'

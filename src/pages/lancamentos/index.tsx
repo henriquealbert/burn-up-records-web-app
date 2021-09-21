@@ -7,7 +7,7 @@ export default function ReleasesPage() {
   const { me, isMeLoading } = useAuth()
   const { data, isError, isLoading } = useGetReleasesByUserIdQuery(
     { userId: me?.id },
-    { enabled: !isMeLoading }
+    { enabled: !isMeLoading && !!me?.id }
   )
 
   return (

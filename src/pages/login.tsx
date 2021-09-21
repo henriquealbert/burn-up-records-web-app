@@ -1,10 +1,9 @@
 import { useRouter } from 'next/router'
-import { useSession } from 'next-auth/react'
-
+import { useSession } from 'next-auth/client'
 import { LoginModule } from 'modules/Login'
 
 export default function LoginPage() {
-  const { data: session } = useSession()
+  const [session] = useSession()
   const { push } = useRouter()
 
   if (session) push('/lancamentos')
