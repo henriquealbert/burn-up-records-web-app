@@ -30,3 +30,10 @@ This project uses lot of stuff as:
 - `start`: Starts a simple server with the build production code
 - `lint`: Runs the linter in all components and pages
 - `graphql:codegen`: Generates Typescript types and custom React Query hooks for each `*.graphql` file.
+
+
+## TO DO
+- [ ] Add unit testing
+- [ ] Reimplement the new design screens
+- [ ] Home page screen
+- [ ] Release the beta version
