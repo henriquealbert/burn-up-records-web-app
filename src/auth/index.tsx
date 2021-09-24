@@ -1,4 +1,4 @@
-import { useSession } from 'next-auth/react'
+import { useSession } from 'next-auth/client'
 import { createContext, ReactNode, useContext } from 'react'
 import { GetMeQuery, useGetMeQuery } from 'graphql/generated'
 import { Session } from 'next-auth'
@@ -17,7 +17,7 @@ interface AuthProviderProps {
 }
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
-  const { data: session, status } = useSession()
+  const [session, loading] = useSession()
 
   const { data, isLoading } = useGetMeQuery(null, {
     enabled: !!session?.jwt,
@@ -31,7 +31,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         me: data?.me,
         isMeLoading: isLoading,
         session,
-        loading: status === 'loading'
+        loading
       }}
     >
       {children}

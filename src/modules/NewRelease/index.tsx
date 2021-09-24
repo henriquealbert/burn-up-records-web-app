@@ -40,37 +40,37 @@ export const NewRelease = () => {
     setIsLoading(true)
     setData((prevData) => ({ ...prevData, ...values }))
 
-    await createRelease(
-      {
-        data: {
-          ...data.release,
-          status: Status.Analise,
-          userId: me?.id,
-          catalog: `BUR${nanoid()}`,
-          artworkUrl: null
-        }
-      },
-      {
-        onSuccess: ({ createRelease }) => {
-          // values.tracks.forEach(async (track) => {
-          //   await createTrack({
-          //     input: {
-          //       data: {
-          //         ...track,
-          //         release: createRelease.release.id
-          //       }
-          //     }
-          //   })
-          // })
-          setIsLoading(false)
-          onOpen()
-        },
-        onError: () => {
-          setIsLoading(false)
-          alert('Erro ao criar seu release, tente novamente.')
-        }
-      }
-    )
+    // await createRelease(
+    //   {
+    //     data: {
+    //       ...data.release,
+    //       status: Status.Analise,
+    //       userId: me?.id,
+    //       catalog: `BUR${nanoid()}`,
+    //       artworkUrl: null
+    //     }
+    //   },
+    //   {
+    //     onSuccess: ({ createRelease }) => {
+    //       // values.tracks.forEach(async (track) => {
+    //       //   await createTrack({
+    //       //     input: {
+    //       //       data: {
+    //       //         ...track,
+    //       //         release: createRelease.release.id
+    //       //       }
+    //       //     }
+    //       //   })
+    //       // })
+    //       setIsLoading(false)
+    //       onOpen()
+    //     },
+    //     onError: () => {
+    //       setIsLoading(false)
+    //       alert('Erro ao criar seu release, tente novamente.')
+    //     }
+    //   }
+    // )
   }
 
   return (

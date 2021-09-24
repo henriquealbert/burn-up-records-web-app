@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { getSession } from 'next-auth/react'
+import { getSession } from 'next-auth/client'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const api = async (url: string, data: string | any) => {
