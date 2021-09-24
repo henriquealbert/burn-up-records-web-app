@@ -118,7 +118,7 @@ export type ReleaseValues = {
   release: {
     name: string
     date: Date
-    type: Type
+    type?: Type
     description: string
     artwork: string
   }
@@ -128,7 +128,6 @@ const validationSchema = Yup.object({
   release: Yup.object({
     name: Yup.string().required('Obrigatório.'),
     date: Yup.date().required('Obrigatório.'),
-    type: Yup.string().required('Obrigatório.'),
     description: Yup.string().required('Obrigatório.'),
     artwork: Yup.string().required('Obrigatório.')
   })
