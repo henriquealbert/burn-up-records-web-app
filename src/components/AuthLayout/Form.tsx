@@ -1,22 +1,16 @@
 import * as Yup from 'yup'
-import { signIn } from 'next-auth/client'
-import { RightArrowIcon } from 'styles/icons'
 import { Box, Button } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import { Input } from 'components/Form/Input'
-import { parseCallbackUrl } from 'helpers'
-import { useLoginMutation } from 'graphql/generated'
 
-export const LoginForm = () => {
-  const { mutateAsync: login } = useLoginMutation()
-
+export const Form = ({ onSubmit, submitButtonText }) => {
   const {
     handleSubmit,
     control,
     formState: { isValid, isSubmitting }
-  } = useForm<Values>({
+  } = useForm<FormValuesTypes>({
     defaultValues: {
       email: '',
       password: ''
@@ -25,53 +19,43 @@ export const LoginForm = () => {
     resolver: yupResolver(validationSchema)
   })
 
-  const onSubmit = async (values: Values) => {
-    await login(
-      { data: { email: values.email, password: values.password } },
-      {
-        onSuccess: async (data) =>
-          await signIn('credentials', {
-            user: data.login.user,
-            jwt: data.login.token,
-            callbackUrl: parseCallbackUrl('/lancamentos')
-          }),
-        onError: () => alert('Erro ao realizar o login.')
-      }
-    )
-  }
+  const _onSubmit = async (values: FormValuesTypes) =>
+    onSubmit && (await onSubmit(values))
 
   return (
-    <Box as="form" w="full" h="full" onSubmit={handleSubmit(onSubmit)}>
+    <Box as="form" onSubmit={handleSubmit(_onSubmit)}>
       <Input
+        variant="flushed"
+        showErrorMessage={false}
         control={control}
         name="email"
         type="email"
         placeholder="Email"
-        mb={6}
+        mb={10}
       />
       <Input
+        variant="flushed"
+        showErrorMessage={false}
         control={control}
         name="password"
         type="password"
         placeholder="Senha"
+        mb={10}
       />
       <Button
         type="submit"
-        variant="primary"
-        mt={8}
-        mb={12}
+        variant="outline"
         w="full"
         isLoading={isSubmitting}
-        rightIcon={<RightArrowIcon mt={1} />}
         isDisabled={!isValid}
       >
-        Começar agora
+        {submitButtonText}
       </Button>
     </Box>
   )
 }
 
-interface Values {
+export type FormValuesTypes = {
   email: string
   password: string
 }

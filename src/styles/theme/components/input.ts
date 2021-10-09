@@ -27,6 +27,29 @@ const Input = {
           color: 'brand.error.2'
         }
       }
+    },
+    flushed: {
+      field: {
+        h: '26px',
+        borderColor: 'brand.7',
+        pb: '8px',
+        _placeholder: {
+          color: 'brand.7',
+          fontSize: 'sm',
+          lineHeight: '18px'
+        },
+        _focus: {
+          boxShadow: 'none',
+          borderColor: 'black',
+          borderBottom: '2px',
+          pb: '7px'
+        },
+        _invalid: {
+          boxShadow: 'none',
+          borderBottom: '2px solid var(--chakra-colors-brand-2)',
+          pb: '7px'
+        }
+      }
     }
   }
 }

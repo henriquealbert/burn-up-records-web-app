@@ -2,10 +2,8 @@ import {
   FormControl,
   Input as ChakraInput,
   InputGroup,
-  InputRightElement,
   InputProps,
   useBoolean,
-  ScaleFade,
   FormErrorMessage,
   FormLabel,
   Flex
@@ -22,6 +20,7 @@ export const Input = ({
   labelTooltip,
   defaultValue,
   control,
+  variant,
   ...props
 }: Props) => {
   const [blur, setBlur] = useBoolean()
@@ -58,26 +57,14 @@ export const Input = ({
             ref,
             value: value || '',
             type,
-            placeholder
+            placeholder,
+            variant
           }}
         />
-        {invalid && blur && (
-          <>
-            <ScaleFade in={blur} initialScale={0.5}>
-              <InputRightElement
-                fontSize="2xl"
-                color="brand.error.2"
-                fontWeight="bold"
-              >
-                !
-              </InputRightElement>
-            </ScaleFade>
-            {showErrorMessage && (
-              <FormErrorMessage mt={0.5} ml={1}>
-                {error.message}
-              </FormErrorMessage>
-            )}
-          </>
+        {invalid && blur && showErrorMessage && (
+          <FormErrorMessage mt={0.5} ml={1}>
+            {error.message}
+          </FormErrorMessage>
         )}
       </InputGroup>
     </FormControl>

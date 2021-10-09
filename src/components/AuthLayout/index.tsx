@@ -1,44 +1,66 @@
 import { ReactNode } from 'react'
-import { Flex, Heading, Text } from '@chakra-ui/react'
+import { Flex, SimpleGrid, Button, Text, Divider, Img } from '@chakra-ui/react'
+import { GoogleIcon } from 'styles/icons'
+import { ChakraNextImage } from 'components'
+import { Form, FormValuesTypes } from './Form'
 
 type Props = {
-  renderForm: ReactNode
   renderFooter: ReactNode
-  title: string
+  bannerSrc: string
+  renderBannerContent: ReactNode
+  submitButtonText: string
+  onSubmit: (values: FormValuesTypes) => Promise<void>
 }
 
-export const AuthLayout = ({ renderForm, title, renderFooter }: Props) => {
+export const AuthLayout = ({
+  renderFooter,
+  bannerSrc,
+  renderBannerContent,
+  onSubmit,
+  submitButtonText
+}: Props) => {
   return (
-    <Flex
-      bgColor="brand.bg"
-      minH="100vh"
-      h="full"
-      w="full"
-      justify="center"
-      align="center"
-    >
+    <SimpleGrid columns={2} minH="100vh">
+      <Flex maxH="100vh" position="relative">
+        <Img src={bannerSrc} objectFit="cover" objectPosition="top" />
+        {renderBannerContent}
+      </Flex>
+
       <Flex
-        bgColor="white"
-        borderRadius="3xl"
-        maxW="552px"
-        h="full"
-        w="full"
-        py={12}
-        px={24}
         direction="column"
+        justifyContent="center"
+        w="full"
+        maxW="360px"
+        mx="auto"
       >
-        <Heading mb={14} textAlign="center">
-          {title}
-        </Heading>
+        <ChakraNextImage
+          src="/img/logo-with-brand.svg"
+          width="118px"
+          height="66px"
+        />
 
-        <Text textAlign="center" fontSize="lg" mb={8}>
-          ou
-        </Text>
+        <Button variant="google" onClick={() => alert('Em breve...')} mt={20}>
+          <GoogleIcon mr={6} h="18px" w="18px" />
+          Entrar com o Google
+        </Button>
+        <Flex my={12} alignItems="center" justify="center">
+          <Divider bg="brand.6" opacity="0.5" w="124px" mr={4} mt={1} />
+          <Text
+            textAlign="center"
+            opacity="0.5"
+            color="black"
+            fontSize="sm"
+            lineHeight="18px"
+          >
+            ou
+          </Text>
+          <Divider bg="brand.6" w="124px" opacity="0.5" ml={4} mt={1} />
+        </Flex>
 
-        {renderForm}
+        <Form onSubmit={onSubmit} submitButtonText={submitButtonText} />
 
         {renderFooter}
       </Flex>
-    </Flex>
+    </SimpleGrid>
   )
 }

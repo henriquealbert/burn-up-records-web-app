@@ -1,37 +1,18 @@
 const colors = {
   brand: {
-    primary: '#FF5930',
-    secondary: {
-      1: '#FC8181',
-      2: '#F56565'
-    },
-    error: {
-      1: '#E53E3E',
-      2: '#EF8B8B'
-    },
-    gray: {
-      1: '#EDF2F7',
-      2: '#A0AEC0',
-      3: '#718096',
-      4: '#4A5568',
-      5: '#171923',
-      6: '#010101'
-    },
-    bg: '#F9F9F9',
-    text: '#8E8E8E',
-    input: {
-      text: {
-        normal: '#B3B3B3',
-        focus: '#171923'
-      },
-      border: {
-        normal: '#E3E6EA',
-        focus: '#B8BFCB'
-      }
-    }
+    1: '#FF5930',
+    2: '#E53E3E',
+    3: '#FC8181',
+    4: '#F56565',
+    5: '#F9F9F9',
+    6: '#A0AEC0',
+    7: '#4A5568',
+    8: '#EDF2F7',
+    9: '#718096',
+    10: '#171923'
   },
-  white: '#FFFFFF',
-  black: '#000000'
+  black: '#040404',
+  white: '#FFFFFF'
 }
 
 export default colors

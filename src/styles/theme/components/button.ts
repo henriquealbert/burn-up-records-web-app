@@ -1,121 +1,52 @@
 const Button = {
   baseStyle: {
-    borderRadius: 'lg',
-    fontWeight: 'medium',
+    borderRadius: '4px',
+    fontWeight: 'normal',
     _focus: {
       boxShadow: 'none'
     }
   },
   variants: {
-    primary: {
-      py: 4,
-      px: 12,
+    outline: {
+      py: 2,
       h: 'auto',
-      maxH: '52px',
-      fontSize: 'lg',
-      bgColor: 'brand.primary',
-      color: 'white',
+      maxH: '37px',
+      borderRadius: '4px',
+      fontSize: 'md',
+      bgColor: 'white',
+      color: 'brand.1',
+      borderColor: 'brand.1',
       _hover: {
-        bgColor: 'brand.secondary.1'
+        bgColor: 'brand.1',
+        color: 'white'
       },
       _disabled: {
-        bg: 'brand.secondary.1',
+        bg: 'white',
+        color: 'brand.3',
+        borderColor: 'brand.3',
         _hover: {
-          bg: 'var(--chakra-colors-brand-secondary-1) !important'
-        }
-      }
-    },
-    secondary: {
-      py: 4,
-      px: 12,
-      h: 'auto',
-      maxH: '52px',
-      fontSize: 'lg',
-      bgColor: 'brand.secondary.2',
-      color: 'white',
-      _hover: {
-        bgColor: 'brand.secondary.1'
-      },
-      _disabled: {
-        bg: 'brand.secondary.1',
-        _hover: {
-          bg: 'var(--chakra-colors-brand-secondary-1) !important'
+          bg: 'white',
+          color: 'brand.3',
+          borderColor: 'brand.3'
         }
       }
     },
     google: {
-      py: 5,
-      px: 6,
-      h: 'auto',
-      maxH: '64px',
-      fontSize: 'lg',
-      bgColor: 'brand.gray.6',
-      color: 'white',
-      justifyContent: 'flex-start',
-      _hover: {
-        bgColor: 'brand.gray.5'
-      }
-    },
-    link: {
-      color: 'brand.primary',
-      textDecoration: 'underline',
-      h: 'auto',
-      w: 'fit-content',
-      _hover: {
-        color: 'brand.secondary.1'
-      },
-      _active: {
-        color: 'brand.secondary.1'
-      },
-      _disabled: {
-        _hover: {
-          textDecoration: 'underline'
-        }
-      }
-    },
-    linkSecondary: {
-      color: 'brand.gray.4',
-      textDecoration: 'underline',
-      h: 'auto',
-      w: 'fit-content',
-      p: 0,
-      _hover: {
-        color: 'brand.gray.3'
-      },
-      _active: {
-        color: 'brand.gray.3'
-      },
-      _disabled: {
-        _hover: {
-          textDecoration: 'underline'
-        }
-      }
-    },
-    menu: {
-      color: 'brand.gray.4',
-      fontWeight: 'medium',
-      fontSize: 'lg',
-      p: 0,
-      justifyContent: 'flex-start',
-      _hover: {
-        color: 'brand.secondary.1'
-      }
-    },
-    black: {
-      py: 4,
-      px: 12,
-      h: 'auto',
-      maxH: '52px',
-      fontSize: 'lg',
+      py: '14px',
       bgColor: 'black',
+      borderRadius: '8px',
+      h: '46px',
       color: 'white',
+      fontWeight: 500,
+      fontSize: '14px',
+      lineHeight: '18px',
       _hover: {
-        bgColor: 'brand.gray.5'
+        bgColor: 'brand.10'
       },
       _disabled: {
-        bg: 'brand.gray.3',
+        bgColor: 'brand.9',
         _hover: {
-          bg: 'var(--chakra-colors-brand-gray-3) !important'
+          bgColor: 'var(--chakra-colors-brand-9) !important'
         }
       }
     }
