@@ -23,10 +23,10 @@ export const myFetcher = <TData, TVariables>(
 ) => {
   return async (): Promise<TData> => {
     try {
-      const res = await api(
+      const res = (await api(
         process.env.NEXT_PUBLIC_GRAPHQL_API_URL as string,
         JSON.stringify({ query, variables })
-      )
+      )) as any
       return res.data?.data
     } catch (error) {
       throw new Error(error.message)
