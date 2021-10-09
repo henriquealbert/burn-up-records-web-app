@@ -1,22 +1,38 @@
-import NextLink from 'next/link'
-import { Flex, Button, Text } from '@chakra-ui/react'
+import { signIn } from 'next-auth/client'
 
-import { LoginForm } from './LoginForm'
+import { parseCallbackUrl } from 'helpers'
+import { useLoginMutation } from 'graphql/generated'
+
 import { AuthLayout } from 'components/AuthLayout'
+import { LoginBanner, LoginFooter } from './components'
 
-export const LoginModule = () => (
-  <AuthLayout
-    title="Bora lançar track 🤘"
-    renderForm={<LoginForm />}
-    renderFooter={
-      <Flex justify="center">
-        <Text mr={1.5}>Não tem uma conta?</Text>
-        <NextLink passHref href="/cadastrar">
-          <Button variant="link" as="a">
-            Crie sua conta
-          </Button>
-        </NextLink>
-      </Flex>
-    }
-  />
-)
+import { FormValuesTypes } from 'components/AuthLayout/Form'
+
+export const LoginModule = () => {
+  const { mutateAsync: login } = useLoginMutation()
+
+  const handleSubmit = async (values: FormValuesTypes) => {
+    await login(
+      { data: { email: values.email, password: values.password } },
+      {
+        onSuccess: async (data) =>
+          await signIn('credentials', {
+            user: data.login.user,
+            jwt: data.login.token,
+            callbackUrl: parseCallbackUrl('/lancamentos')
+          }),
+        onError: () => alert('Erro ao realizar o login.')
+      }
+    )
+  }
+
+  return (
+    <AuthLayout
+      onSubmit={handleSubmit}
+      submitButtonText="Entrar"
+      renderBannerContent={<LoginBanner />}
+      bannerSrc="/img/banner-login.jpeg"
+      renderFooter={<LoginFooter />}
+    />
+  )
+}
