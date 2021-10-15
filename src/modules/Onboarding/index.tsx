@@ -38,7 +38,7 @@ export const Onboarding = () => {
         isCentered
         size="xl"
       >
-        <ModalOverlay bgColor={transparentize(0.2, colors.brand.gray[4])} />
+        <ModalOverlay bgColor={transparentize(0.2, colors.brand[4])} />
         <ModalContent borderRadius="24px">
           <ModalBody p={12} h="full" d="flex" flexDirection="column">
             {!next && <StepName setNext={setNext} />}
