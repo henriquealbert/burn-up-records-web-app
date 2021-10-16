@@ -1,20 +1,43 @@
-import { useMutation, useQuery } from 'react-query'
-import axios from 'axios'
+import { useState } from 'react'
 
-export const useUploadFileMutation = () => {
-  const { data } = useQuery(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/upload-to-s3`
-  )
+export const useUploadFile = () => {
+  const [isLoading, setLoading] = useState(false)
+  const [data, setData] = useState(null)
 
-  console.log(data)
-  return useMutation((file: File) => {
-    const formData = new FormData()
-    formData.append('files', file)
+  const uploadFile = async ({ file, onSuccess }) => {
+    try {
+      setData(null)
+      setLoading(true)
 
-    return axios.put('', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })
-  })
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/upload-to-s3`
+      )
+      const { url } = await res.json()
+
+      await fetch(url, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        body: file
+      })
+      const s3ImageId = url.split('?')[0].split('/').pop()
+      const imageUrl = `${process.env.NEXT_PUBLIC_IMAGE_URL}/${s3ImageId}`
+
+      setLoading(false)
+      setData(imageUrl)
+
+      onSuccess(imageUrl)
+    } catch (err) {
+      setData(null)
+      setLoading(false)
+      alert(err)
+    }
+  }
+
+  return {
+    isLoading,
+    uploadFile,
+    data
+  }
 }

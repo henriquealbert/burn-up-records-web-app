@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react'
+import { ChangeEvent, ReactNode } from 'react'
 import {
   Avatar,
   Button,
@@ -9,9 +9,8 @@ import {
   Flex
 } from '@chakra-ui/react'
 
-import { UserHeadphoneIcon, RadioIcon } from 'styles/icons'
-import { useUploadFileMutation } from 'graphql/mutations/useUploadFile'
-import { ReactNode } from 'react'
+import { UserIcon, RadioIcon } from 'styles/icons'
+import { useUploadFile } from 'graphql/mutations/useUploadFile'
 
 export const UploadImage = ({
   onUpload,
@@ -23,30 +22,27 @@ export const UploadImage = ({
   accept = 'image/*',
   ...props
 }: Props) => {
-  const { isLoading, mutateAsync, data } = useUploadFileMutation()
+  const { data, isLoading, uploadFile } = useUploadFile()
 
   const handleUploadFile = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e?.target?.files?.[0]
     if (!file) return
-
-    await mutateAsync(file, {
-      onSuccess: ({ data }) => onUpload(String(data[0].id))
-    })
+    uploadFile({ file, onSuccess: onUpload })
   }
 
   const renderIcon = isLoading ? (
     <Spinner
       thickness="2px"
-      color="brand.primary"
-      emptyColor="brand.gray.2"
+      color="brand.1"
+      emptyColor="brand.8"
       speed="0.6s"
     />
   ) : (
     <>
       {avatar ? (
-        <UserHeadphoneIcon w="60px" h="80px" color="brand.gray.2" />
+        <UserIcon w="31px" h="33px" color="brand.6" />
       ) : (
-        <RadioIcon w="68px" h="68px" color="brand.gray.2" />
+        <RadioIcon w="68px" h="68px" color="brand.6" />
       )}
     </>
   )
@@ -61,18 +57,24 @@ export const UploadImage = ({
           {labelTooltip}
         </Flex>
       )}
-      <Avatar
-        w={avatar ? '148px' : '285px'}
-        h={avatar ? '148px' : '285px'}
+      <Flex
+        border="1px"
         borderRadius={avatar ? 'full' : '8px'}
-        bgColor="brand.gray.1"
-        src={data?.data[0].formats?.thumbnail.url}
-        icon={renderIcon}
-      />
+        borderColor="brand.5"
+      >
+        <Avatar
+          w={avatar ? '112px' : '285px'}
+          h={avatar ? '112px' : '285px'}
+          borderRadius={avatar ? 'full' : '8px'}
+          src={data || ''}
+          icon={renderIcon}
+          bgColor="white"
+        />
+      </Flex>
       <Button
         as="label"
-        variant="link"
-        mt={6}
+        variant="linkBlack"
+        mt={8}
         cursor="pointer"
         isDisabled={isLoading}
       >
@@ -83,6 +85,7 @@ export const UploadImage = ({
           hidden
           accept={accept}
           onChange={handleUploadFile}
+          onClick={(e) => (e.target = null)}
         />
       </Button>
     </FormControl>

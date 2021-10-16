@@ -17,7 +17,7 @@ const handler = async (req, res) => {
   const params = {
     Bucket: bucketName,
     Key: nanoid(),
-    Expires: 240
+    Expires: 2400
   }
 
   const url = await s3.getSignedUrlPromise('putObject', params)

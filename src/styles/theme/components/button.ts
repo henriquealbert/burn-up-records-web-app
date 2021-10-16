@@ -49,6 +49,57 @@ const Button = {
           bgColor: 'var(--chakra-colors-brand-9) !important'
         }
       }
+    },
+    link: {
+      p: '0',
+      m: '0',
+      height: 'auto',
+      fontSize: 'md',
+      fontWeight: 'normal',
+      color: 'brand.1',
+      _active: {
+        color: 'brand.2'
+      },
+      _disabled: {
+        color: 'brand.1'
+      }
+    },
+    linkSecondary: {
+      p: '0',
+      m: '0',
+      height: 'auto',
+      fontSize: 'md',
+      fontWeight: 'normal',
+      color: 'brand.6',
+      _hover: {
+        textDecoration: 'underline'
+      },
+      _active: {
+        color: 'brand.7',
+        textDecoration: 'underline'
+      },
+      _disabled: {
+        color: 'brand.6'
+      }
+    },
+    linkBlack: {
+      fontSize: 'md',
+      fontWeight: 'normal',
+      color: 'black',
+      textDecoration: 'underline',
+      p: '0',
+      m: '0',
+      height: 'auto',
+      _hover: {
+        textDecoration: 'underline'
+      },
+      _active: {
+        color: 'brand.7',
+        textDecoration: 'underline'
+      },
+      _disabled: {
+        color: 'black'
+      }
     }
   }
 }

@@ -1,13 +1,22 @@
-import { Center, Button } from '@chakra-ui/react'
+import { Center, Button, Flex } from '@chakra-ui/react'
 import NextLink from 'next/link'
 
 export default function HomePage() {
   return (
-    <Center bg="gray.300" h="100vh" display="flex" flexDirection="column">
+    <Center h="100vh" display="flex" flexDirection="column">
       <h1>Burn Up Records</h1>
-      <NextLink passHref href="/login">
-        <Button as="a">Login</Button>
-      </NextLink>
+      <Flex>
+        <NextLink passHref href="/login">
+          <Button variant="outline" as="a" mr={4}>
+            Login
+          </Button>
+        </NextLink>
+        <NextLink passHref href="/cadastrar">
+          <Button variant="outline" as="a">
+            Cadastrar
+          </Button>
+        </NextLink>
+      </Flex>
     </Center>
   )
 }

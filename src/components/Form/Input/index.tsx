@@ -20,7 +20,7 @@ export const Input = ({
   labelTooltip,
   defaultValue,
   control,
-  variant,
+  variant = 'flushed',
   ...props
 }: Props) => {
   const [blur, setBlur] = useBoolean()
@@ -62,7 +62,7 @@ export const Input = ({
           }}
         />
         {invalid && blur && showErrorMessage && (
-          <FormErrorMessage mt={0.5} ml={1}>
+          <FormErrorMessage mt={0.5} ml={1} fontSize="xs">
             {error.message}
           </FormErrorMessage>
         )}

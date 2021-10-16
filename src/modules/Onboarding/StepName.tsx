@@ -3,12 +3,11 @@ import { Button, Heading, Text, Box, Flex } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { RightArrowIcon } from 'styles/icons'
 import { Input } from 'components/Form/Input'
 import { useUpdateUserMutation } from 'graphql/generated'
 import { useAuth } from 'auth'
 
-export const StepName = ({ setNext }: Props) => {
+export const StepName = ({ setStep }: Props) => {
   const { me } = useAuth()
   const { mutateAsync: updateUser } = useUpdateUserMutation()
 
@@ -29,74 +28,53 @@ export const StepName = ({ setNext }: Props) => {
     await updateUser(
       { data: { name: values.name }, id: me.id },
       {
-        onSuccess: () => setNext(true),
+        onSuccess: () => setStep('PHOTO'),
         onError: () => alert('Erro ao conectar com o servidor')
       }
     )
   }
   return (
-    <Box maxW="390px" mx="auto">
-      <Heading mb={8} fontSize="4xl" fontWeight="medium" textAlign="center">
-        Vamos lá!
+    <Flex direction="column" justify="center" h="full">
+      <Heading fontWeight="normal" fontSize="4xl" color="black" mb={4}>
+        Pronto para começar?
       </Heading>
-      <Text
-        mb={6}
-        fontSize="lg"
-        textAlign="center"
-        color="brand.gray.4"
-        fontWeight="medium"
-      >
-        Insira seu nome artístico. Confira seu nome pois ele{' '}
-        <Text as="span" color="brand.secondary.2" fontWeight="normal">
-          não poderá ser alterado
-        </Text>{' '}
-        depois.*
+      <Text color="brand.7" mb={12} maxW="320px">
+        Insira seu nome artístico e confirme-o, este nome <strong>não</strong>{' '}
+        poderá ser alterado depois.
       </Text>
 
-      <Box
-        as="form"
-        w="full"
-        h="full"
-        autoComplete="off"
-        onSubmit={handleSubmit(onSubmit)}
-      >
+      <Box as="form" autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
         <Input
           control={control}
           name="name"
           type="text"
-          placeholder="Nome artístico"
-          mb={4}
+          placeholder="Insira seu nome artístico"
+          mb={12}
         />
         <Input
           control={control}
           name="name_confirmation"
           type="text"
-          placeholder="Repetir nome artístico"
-          mb={8}
+          placeholder="Repita seu nome artístico"
+          mb={12}
         />
-        <Flex justify="center" mb={10}>
+        <Flex justify="flex-end" mb={10}>
           <Button
             type="submit"
-            variant="primary"
+            variant="link"
             isLoading={isSubmitting}
-            rightIcon={<RightArrowIcon mt={1} />}
             isDisabled={!isValid}
           >
-            Continuar
+            Ok, continuar
           </Button>
         </Flex>
       </Box>
-
-      <Text color="brand.gray.3" textAlign="center" fontSize="sm">
-        *Você não poderá alterar seu nome artístico pois ele estará atrelado aos
-        diretos dos seus lançamentos.
-      </Text>
-    </Box>
+    </Flex>
   )
 }
 
 interface Props {
-  setNext: (arg0: boolean) => void
+  setStep: (arg0: 'NAME' | 'PHOTO') => void
 }
 
 interface Values {
@@ -106,8 +84,7 @@ interface Values {
 
 const validationSchema = Yup.object({
   name: Yup.string().required('Obrigatório.'),
-  name_confirmation: Yup.string().oneOf(
-    [Yup.ref('name'), null],
-    'Nomes devem ser iguais.'
-  )
+  name_confirmation: Yup.string()
+    .oneOf([Yup.ref('name'), null], 'Nomes devem ser iguais.')
+    .required('Obrigatório.')
 })

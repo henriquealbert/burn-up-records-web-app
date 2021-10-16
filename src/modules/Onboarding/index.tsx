@@ -1,51 +1,43 @@
-import { useState, useEffect } from 'react'
+import React from 'react'
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalBody,
   useDisclosure,
-  useTheme
+  useTheme,
+  Drawer,
+  DrawerBody,
+  DrawerOverlay,
+  DrawerContent,
+  Text
 } from '@chakra-ui/react'
 import { transparentize } from 'polished'
 
-import { useAuth } from 'auth'
 import { StepName } from './StepName'
 import { StepPhoto } from './StepPhoto'
+import { useOnboardingCompleted } from './useOnboardingCompleted'
 
 export const Onboarding = () => {
   const { colors } = useTheme()
-  const { me, isMeLoading } = useAuth()
-  const [next, setNext] = useState(false)
+  const [step, setStep] = React.useState('NAME')
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  // Verify if there is an artist name, if not, start the onboarding process
-  useEffect(() => {
-    if (!me?.onboardingCompleted && !isMeLoading) {
-      onOpen()
-    } else {
-      onClose()
-    }
-  }, [me, onOpen, onClose, isMeLoading])
+  useOnboardingCompleted({ onClose, onOpen })
 
   return (
-    <>
-      <Modal
-        isOpen={isOpen}
-        onClose={onClose}
-        closeOnEsc={false}
-        closeOnOverlayClick={false}
-        isCentered
-        size="xl"
-      >
-        <ModalOverlay bgColor={transparentize(0.2, colors.brand[4])} />
-        <ModalContent borderRadius="24px">
-          <ModalBody p={12} h="full" d="flex" flexDirection="column">
-            {!next && <StepName setNext={setNext} />}
-            {next && <StepPhoto onClose={onClose} />}
-          </ModalBody>
-        </ModalContent>
-      </Modal>
-    </>
+    <Drawer
+      isOpen={isOpen}
+      placement="right"
+      size="lg"
+      onClose={onClose}
+      closeOnEsc={false}
+      closeOnOverlayClick={false}
+    >
+      <DrawerOverlay bgColor={transparentize(0.1, colors.brand[5])} />
+      <DrawerContent pt="80px" px="104px">
+        <Text color="brand.6">Passo {step === 'NAME' ? '1' : '2'}/2</Text>
+        <DrawerBody p={0}>
+          {step === 'NAME' && <StepName setStep={setStep} />}
+          {step === 'PHOTO' && <StepPhoto onClose={onClose} />}
+        </DrawerBody>
+      </DrawerContent>
+    </Drawer>
   )
 }

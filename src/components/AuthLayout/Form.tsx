@@ -25,7 +25,6 @@ export const Form = ({ onSubmit, submitButtonText }) => {
   return (
     <Box as="form" onSubmit={handleSubmit(_onSubmit)}>
       <Input
-        variant="flushed"
         showErrorMessage={false}
         control={control}
         name="email"
@@ -34,7 +33,6 @@ export const Form = ({ onSubmit, submitButtonText }) => {
         mb={10}
       />
       <Input
-        variant="flushed"
         showErrorMessage={false}
         control={control}
         name="password"
