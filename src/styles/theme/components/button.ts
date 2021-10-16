@@ -49,6 +49,17 @@ const Button = {
           bgColor: 'var(--chakra-colors-brand-9) !important'
         }
       }
+    },
+    link: {
+      fontSize: 'md',
+      fontWeight: 'normal',
+      color: 'brand.1',
+      _active: {
+        color: 'brand.2'
+      },
+      _disabled: {
+        color: 'brand.1'
+      }
     }
   }
 }
