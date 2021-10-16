@@ -1,4 +1,4 @@
-import { ChangeEvent, ReactNode, useState } from 'react'
+import { ChangeEvent, ReactNode } from 'react'
 import {
   Avatar,
   Button,
@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react'
 
 import { UserIcon, RadioIcon } from 'styles/icons'
-import { uploadFile } from 'graphql/mutations/uploadFile'
+import { useUploadFile } from 'graphql/mutations/useUploadFile'
 
 export const UploadImage = ({
   onUpload,
@@ -22,25 +22,12 @@ export const UploadImage = ({
   accept = 'image/*',
   ...props
 }: Props) => {
-  const [isLoading, setLoading] = useState(false)
-  const [avatarUrl, setAvatarUrl] = useState(null)
+  const { data, isLoading, uploadFile } = useUploadFile()
 
   const handleUploadFile = async (e: ChangeEvent<HTMLInputElement>) => {
-    try {
-      setLoading(true)
-      setAvatarUrl(null)
-      const file = e?.target?.files?.[0]
-      if (!file) return
-
-      const imageUrl = await uploadFile({ file })
-      onUpload(imageUrl)
-      setAvatarUrl(imageUrl)
-
-      setLoading(false)
-    } catch (err) {
-      setLoading(false)
-      alert('Erro ao realizar o upload.')
-    }
+    const file = e?.target?.files?.[0]
+    if (!file) return
+    uploadFile({ file, onSuccess: onUpload })
   }
 
   const renderIcon = isLoading ? (
@@ -79,7 +66,7 @@ export const UploadImage = ({
           w={avatar ? '112px' : '285px'}
           h={avatar ? '112px' : '285px'}
           borderRadius={avatar ? 'full' : '8px'}
-          src={avatarUrl || ''}
+          src={data || ''}
           icon={renderIcon}
           bgColor="white"
         />
