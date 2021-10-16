@@ -1,20 +1,26 @@
+import { useState } from 'react'
+import { useQueryClient } from 'react-query'
 import { Button, Heading, Text, Flex } from '@chakra-ui/react'
+
 import { useAuth } from 'auth'
 import { UploadImage } from 'components'
 import { useUpdateUserMutation } from 'graphql/generated'
-import { useState } from 'react'
-import { useQueryClient } from 'react-query'
 
 export const StepPhoto = ({ onClose }: Props) => {
   const { me } = useAuth()
   const queryClient = useQueryClient()
-  const [avatarId, setAvatarId] = useState<string | null>()
+  const [avatarUrl, setAvatarUrl] = useState<string | null>()
   const { mutateAsync, isLoading } = useUpdateUserMutation()
+
+  console.log({ avatarUrl })
 
   const handleSubmit = async () => {
     await mutateAsync(
       {
-        data: { onboardingCompleted: true }, // TODO: change to real url
+        data: {
+          onboardingCompleted: true,
+          avatarUrl: avatarUrl
+        },
         id: me.id
       },
       {
@@ -27,12 +33,12 @@ export const StepPhoto = ({ onClose }: Props) => {
   }
 
   return (
-    <Flex direction="column" maxW="412px" mx="auto" flex={1} h="full">
-      <Heading fontSize="4xl" fontWeight="medium" textAlign="center" mb={6}>
+    <Flex direction="column" justify="center" h="full">
+      <Heading fontSize="4xl" fontWeight="normal" mb={4}>
         Personalize seu perfil
       </Heading>
-      <Text mb={8} fontSize="lg" textAlign="center" color="brand.gray.4">
-        Adicione uma foto de perfil. Você sempre poderá alterar sua foto em
+      <Text mb={14} color="brand.7" maxW="396px">
+        Adicione uma foto ao seu perfil, você sempre poderá alterar sua foto em
         “Minha Conta”.
       </Text>
 
@@ -40,25 +46,21 @@ export const StepPhoto = ({ onClose }: Props) => {
         avatar
         text="Escolher foto"
         name="avatar"
-        onUpload={setAvatarId}
+        onUpload={setAvatarUrl}
       />
 
-      <Flex justify="center" mt="auto">
+      <Flex justifyContent="center" mt={16}>
         <Button
-          variant="link"
-          color="brand.gray.4"
-          _hover={{ color: 'brand.gray.3' }}
-          _active={{ color: 'brand.gray.3' }}
-          fontSize="lg"
-          mr={8}
+          variant="linkSecondary"
+          mr={6}
           onClick={handleSubmit}
           isDisabled={isLoading}
         >
           Pular passo
         </Button>
 
-        <Button variant="primary" onClick={handleSubmit} isLoading={isLoading}>
-          Salvar e continuar
+        <Button variant="link" onClick={handleSubmit} isLoading={isLoading}>
+          Concluir
         </Button>
       </Flex>
     </Flex>

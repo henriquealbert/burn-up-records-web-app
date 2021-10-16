@@ -60,6 +60,37 @@ const Button = {
       _disabled: {
         color: 'brand.1'
       }
+    },
+    linkSecondary: {
+      fontSize: 'md',
+      fontWeight: 'normal',
+      color: 'brand.6',
+      _hover: {
+        textDecoration: 'underline'
+      },
+      _active: {
+        color: 'brand.7',
+        textDecoration: 'underline'
+      },
+      _disabled: {
+        color: 'brand.6'
+      }
+    },
+    linkBlack: {
+      fontSize: 'md',
+      fontWeight: 'normal',
+      color: 'black',
+      textDecoration: 'underline',
+      _hover: {
+        textDecoration: 'underline'
+      },
+      _active: {
+        color: 'brand.7',
+        textDecoration: 'underline'
+      },
+      _disabled: {
+        color: 'black'
+      }
     }
   }
 }
