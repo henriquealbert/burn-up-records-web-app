@@ -12,8 +12,6 @@ export const StepPhoto = ({ onClose }: Props) => {
   const [avatarUrl, setAvatarUrl] = useState<string | null>()
   const { mutateAsync, isLoading } = useUpdateUserMutation()
 
-  console.log({ avatarUrl })
-
   const handleSubmit = async () => {
     await mutateAsync(
       {

@@ -51,6 +51,9 @@ const Button = {
       }
     },
     link: {
+      p: '0',
+      m: '0',
+      height: 'auto',
       fontSize: 'md',
       fontWeight: 'normal',
       color: 'brand.1',
@@ -62,6 +65,9 @@ const Button = {
       }
     },
     linkSecondary: {
+      p: '0',
+      m: '0',
+      height: 'auto',
       fontSize: 'md',
       fontWeight: 'normal',
       color: 'brand.6',
@@ -81,6 +87,9 @@ const Button = {
       fontWeight: 'normal',
       color: 'black',
       textDecoration: 'underline',
+      p: '0',
+      m: '0',
+      height: 'auto',
       _hover: {
         textDecoration: 'underline'
       },

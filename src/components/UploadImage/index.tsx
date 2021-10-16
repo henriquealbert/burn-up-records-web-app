@@ -1,4 +1,4 @@
-import { ChangeEvent, ReactNode } from 'react'
+import { ChangeEvent, ReactNode, useState } from 'react'
 import {
   Avatar,
   Button,
@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react'
 
 import { UserIcon, RadioIcon } from 'styles/icons'
-import { useUploadFileMutation } from 'graphql/mutations/useUploadFile'
+import { uploadFile } from 'graphql/mutations/uploadFile'
 
 export const UploadImage = ({
   onUpload,
@@ -22,15 +22,25 @@ export const UploadImage = ({
   accept = 'image/*',
   ...props
 }: Props) => {
-  const { isLoading, mutateAsync, data } = useUploadFileMutation()
+  const [isLoading, setLoading] = useState(false)
+  const [avatarUrl, setAvatarUrl] = useState(null)
 
   const handleUploadFile = async (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e?.target?.files?.[0]
-    if (!file) return
+    try {
+      setLoading(true)
+      setAvatarUrl(null)
+      const file = e?.target?.files?.[0]
+      if (!file) return
 
-    await mutateAsync(file, {
-      onSuccess: ({ data }) => onUpload(String(data[0].id))
-    })
+      const imageUrl = await uploadFile({ file })
+      onUpload(imageUrl)
+      setAvatarUrl(imageUrl)
+
+      setLoading(false)
+    } catch (err) {
+      setLoading(false)
+      alert('Erro ao realizar o upload.')
+    }
   }
 
   const renderIcon = isLoading ? (
@@ -69,7 +79,7 @@ export const UploadImage = ({
           w={avatar ? '112px' : '285px'}
           h={avatar ? '112px' : '285px'}
           borderRadius={avatar ? 'full' : '8px'}
-          src={data?.data[0].formats?.thumbnail.url}
+          src={avatarUrl || ''}
           icon={renderIcon}
           bgColor="white"
         />
@@ -88,6 +98,7 @@ export const UploadImage = ({
           hidden
           accept={accept}
           onChange={handleUploadFile}
+          onClick={(e) => (e.target = null)}
         />
       </Button>
     </FormControl>
