@@ -1,7 +1,8 @@
-import { PrivateLayout, ErrorMessage } from 'components'
-import { ReleaseListSkeleton, ReleaseList } from 'modules/releases/components'
 import { useAuth } from 'auth'
+import { PrivateLayout, ErrorMessage } from 'components'
 import { useGetReleasesByUserIdQuery } from 'graphql/generated'
+import { ReleaseList } from 'modules/Releases'
+import { ReleaseListSkeleton } from 'modules/Releases/components'
 
 export default function ReleasesPage() {
   const { me, isMeLoading } = useAuth()

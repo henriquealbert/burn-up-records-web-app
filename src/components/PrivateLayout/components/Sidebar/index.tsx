@@ -19,9 +19,9 @@ export const Sidebar = () => {
             pb={4}
             borderBottom="1px"
             borderColor="brand.8"
-            color={router.pathname === link.path ? 'black' : 'brand.3'}
+            color={router.pathname.includes(link.path) ? 'black' : 'brand.3'}
             _hover={{
-              color: router.pathname === link.path ? 'black' : 'brand.4'
+              color: router.pathname.includes(link.path) ? 'black' : 'brand.4'
             }}
           >
             {link.name}

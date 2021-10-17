@@ -1,8 +1,6 @@
-import { Badge, Flex, Text, Heading, Box } from '@chakra-ui/react'
 import NextLink from 'next/link'
+import { Badge, Flex, Text, Heading, Box } from '@chakra-ui/react'
 
-import { TooltipBox } from './TooltipBox'
-import { BlankSlate } from './BlankSlate'
 import { ChakraNextImage } from 'components'
 import {
   getStatusBgColor,
@@ -10,9 +8,12 @@ import {
   getStatusColor
 } from 'helpers/getStatus'
 import { GetReleasesByUserIdQuery } from 'graphql/generated'
+import { BlankSlate, NewRelease, TooltipBox } from './components'
 
 export const ReleaseList = ({ releases }: GridListProps) => (
-  <>
+  <Flex flexGrow={1}>
+    <NewRelease />
+
     {releases?.length === 0 ? (
       <BlankSlate />
     ) : (
@@ -95,7 +96,7 @@ export const ReleaseList = ({ releases }: GridListProps) => (
         ))}
       </Flex>
     )}
-  </>
+  </Flex>
 )
 
 type GridListProps = {
