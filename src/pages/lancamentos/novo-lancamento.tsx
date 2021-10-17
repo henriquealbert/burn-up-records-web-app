@@ -3,7 +3,7 @@ import { NewRelease } from 'modules/NewRelease'
 
 export default function NewReleasePage() {
   return (
-    <PrivateLayout header={false} whitebox={false}>
+    <PrivateLayout>
       <NewRelease />
     </PrivateLayout>
   )
