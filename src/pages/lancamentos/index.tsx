@@ -11,7 +11,7 @@ export default function ReleasesPage() {
   )
 
   return (
-    <PrivateLayout pageTitle="Lançamentos">
+    <PrivateLayout>
       <>
         {isLoading && <ReleaseListSkeleton />}
         {isError && <ErrorMessage />}

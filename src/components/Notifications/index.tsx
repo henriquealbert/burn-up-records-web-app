@@ -10,8 +10,8 @@ export const Notifications = ({ notifications = true }: Props) => (
     borderRadius="full"
     position="relative"
     cursor="pointer"
-    color="brand.gray.4"
-    _hover={{ color: 'brand.primary' }}
+    color="black"
+    _hover={{ color: 'brand.1' }}
   >
     <Icon as={BiBell} w={6} h={6} />
     {notifications && (
@@ -22,7 +22,7 @@ export const Notifications = ({ notifications = true }: Props) => (
         w={3}
         h={3}
         borderRadius="full"
-        bgColor="brand.primary"
+        bgColor="brand.1"
       />
     )}
   </Box>

@@ -100,6 +100,25 @@ const Button = {
       _disabled: {
         color: 'black'
       }
+    },
+    linkSidebar: {
+      fontSize: '18px',
+      fontWeight: 'normal',
+      color: 'brand.3',
+      p: '0',
+      m: '0',
+      height: 'auto',
+      borderRadius: '0',
+      justifyContent: 'flex-start',
+      _hover: {
+        color: 'brand.4'
+      },
+      _active: {
+        color: 'brand.4'
+      },
+      _disabled: {
+        color: 'brand.3'
+      }
     }
   }
 }
